@@ -534,4 +534,3 @@ Este README es una **guía completa y viva** del proyecto. Se espera que:
 2. **En la defensa**, se demuestre adherencia a todos los requisitos aquí mencionados
 3. **Post-entrega**, sirva como documentación para mantener y extender el proyecto
 
-**Excelente trabajo y que disfruten el aprendizaje en POO.** 🎸
