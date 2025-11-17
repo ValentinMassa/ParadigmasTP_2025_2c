@@ -39,10 +39,10 @@ public class MenuPrincipal {
                 scanner.nextLine();
                 switch (opcion) {
                     case 1:
-                        rolesParaCancion();
+                        rolesFaltantesParaCancion();
                         break;
                     case 2:
-                        rolesParaTodo();
+                        rolesFaltantesParaTodo();
                         break;
                     case 3:
                         contratarCancion();
@@ -79,117 +79,54 @@ public class MenuPrincipal {
         scanner.close();
     }
 
-    private void rolesParaCancion() {
-        try {
-            System.out.print("\nIngrese el título de la canción: ");
-            String titulo = scanner.nextLine().trim();
-            
-            if (titulo.isEmpty()) {
-                System.out.println("❌ El título no puede estar vacío.");
-                return;
-            }
-            
-            // Buscar la canción en todas las canciones del recital
-            Cancion cancionEncontrada = null;
-            HashSet<Cancion> todasLasCanciones = new HashSet<>();
-            HashSet<Cancion> completas = recital.getCancionesCompletas();
-            HashSet<Cancion> incompletas = recital.getCancionesIncompletas();
-            
-            if (completas != null) todasLasCanciones.addAll(completas);
-            if (incompletas != null) todasLasCanciones.addAll(incompletas);
-            
-            for (Cancion c : todasLasCanciones) {
-                if (c.getTitulo().equalsIgnoreCase(titulo)) {
-                    cancionEncontrada = c;
-                    break;
-                }
-            }
-            
-            if (cancionEncontrada == null) {
-                System.out.println("❌ La canción \"" + titulo + "\" no fue encontrada.");
-                return;
-            }
-            
-            // Obtener roles faltantes usando el método encapsulado de Recital
-            Map<Rol, Integer> rolesFaltantes = recital.getRolesFaltantesParaCancion(cancionEncontrada);
-            
-            System.out.println("\n========== ROLES FALTANTES PARA: " + titulo + " ==========");
-            System.out.println("\n📋 Roles requeridos totales: " + cancionEncontrada.getRolesRequeridos().size());
-            
-            // Contar roles requeridos por tipo
-            Map<Rol, Integer> rolesRequeridosPorTipo = new HashMap<>();
-            for (Rol rol : cancionEncontrada.getRolesRequeridos()) {
-                rolesRequeridosPorTipo.put(rol, rolesRequeridosPorTipo.getOrDefault(rol, 0) + 1);
-            }
-            
-            if (rolesFaltantes.isEmpty()) {
-                System.out.println("\n✅ ¡Todos los roles están cubiertos!");
-                System.out.println("\nDetalles de cobertura:");
-                for (Map.Entry<Rol, Integer> entry : rolesRequeridosPorTipo.entrySet()) {
-                    System.out.println("  ✓ " + entry.getKey().getNombre() + ": " + entry.getValue() + " (CUBIERTO)");
-                }
-            } else {
-                System.out.println("\n❌ Roles faltantes:\n");
-                System.out.println(String.format("%-30s | %s | %s", "Rol", "Requerido", "Faltante"));
-                System.out.println("═════════════════════════════════════════════════════════");
-                
-                for (Map.Entry<Rol, Integer> entry : rolesRequeridosPorTipo.entrySet()) {
-                    Rol rol = entry.getKey();
-                    int requerido = entry.getValue();
-                    int faltante = rolesFaltantes.getOrDefault(rol, 0);
-                    int cubierto = requerido - faltante;
-                    
-                    System.out.println(String.format("%-30s | %d | %d (cubierto: %d)",
-                        rol.getNombre(),
-                        requerido,
-                        faltante,
-                        cubierto));
-                }
-                
-                System.out.println("═════════════════════════════════════════════════════════");
-                int totalFaltante = rolesFaltantes.values().stream().mapToInt(Integer::intValue).sum();
-                System.out.println("\n📊 RESUMEN: " + totalFaltante + " rol/roles faltante(s)");
-            }
-            
-        } catch (Exception e) {
-            System.out.println("❌ Error al buscar roles: " + e.getMessage());
-            e.printStackTrace();
+    private void rolesFaltantesParaCancion() {
+        System.out.print("\nIngrese el título de la canción: ");
+        String titulo = scanner.nextLine().trim();
+        
+        if (titulo.isEmpty()) {
+            System.out.println("El título no puede estar vacío.");
+            return;
         }
-    }
-    
-    private void rolesParaTodo() {
-        try {
-            System.out.println("\n========== ROLES FALTANTES PARA TODO EL RECITAL ==========");
-            System.out.println("\n📋 Analizando todos los roles requeridos en el recital...");
-            System.out.println("   (Considerando que los artistas base pueden cubrirlos)\n");
-            
-            Map<Rol, Integer> rolesFaltantes = recital.getRolesFaltantes();
-            
-            if (rolesFaltantes == null || rolesFaltantes.isEmpty()) {
-                System.out.println("✅ ¡Todos los roles están cubiertos!");
-                System.out.println("\nLos artistas base del recital pueden tocar todas las canciones.");
-            } else {
-                System.out.println("❌ Roles faltantes que necesitan ser contratados:\n");
-                System.out.println(String.format("%-30s | %s", "Rol", "Cantidad"));
-                System.out.println("═════════════════════════════════════════════════════════");
-                
-                int totalFaltante = 0;
-                for (Map.Entry<Rol, Integer> entry : rolesFaltantes.entrySet()) {
-                    System.out.println(String.format("%-30s | %d",
-                        entry.getKey().getNombre(),
-                        entry.getValue()));
-                    totalFaltante += entry.getValue();
-                }
-                
-                System.out.println("═════════════════════════════════════════════════════════");
-                System.out.println(String.format("\n📊 TOTAL ROLES FALTANTES: %d", totalFaltante));
+
+        // Buscar la canción en el recital
+        Cancion cancionEncontrada = null;
+        for (Cancion c : recital.getCanciones()) {
+            if (c.getTitulo().equalsIgnoreCase(titulo)) {
+                cancionEncontrada = c;
+                break; 
             }
-            
-        } catch (Exception e) {
-            System.out.println("❌ Error: " + e.getMessage());
+        }
+
+        if (cancionEncontrada == null) {
+            System.out.println("No se encontró la canción \"" + titulo + "\".");
+            return;
+        }
+
+        Map<Rol, Integer> rolesFaltantes = recital.getRolesFaltantesParaCancion(cancionEncontrada);
+
+        if (rolesFaltantes.isEmpty()) {
+            System.out.println("Todos los roles están cubiertos para \"" + titulo + "\".");
+        } else {
+            System.out.println("\nRoles faltantes para \"" + titulo + "\":");
+            for (Map.Entry<Rol, Integer> entry : rolesFaltantes.entrySet()) {
+                System.out.println("  - " + entry.getKey().getNombre() + ": " + entry.getValue());
+            }
         }
     }
 
+    private void rolesFaltantesParaTodo() {
+        // Obtener todos los roles faltantes del recital
+        Map<Rol, Integer> rolesFaltantes = recital.getRolesFaltantes();
+
+        if (rolesFaltantes.isEmpty()) {
+            System.out.println("✅ Todos los roles están cubiertos para todo el recital.");
+        } else {
+            System.out.println("\n❌ Roles faltantes para todo el recital:");
+            for (Map.Entry<Rol, Integer> entry : rolesFaltantes.entrySet()) {
+                System.out.println("  - " + entry.getKey().getNombre() + ": " + entry.getValue());
+            }
+        }
+    }
     private void contratarCancion() {
         try {
             System.out.print("\nIngrese el título de la canción: ");

@@ -32,6 +32,29 @@ public class Recital {
         this.contratos = servicioContratacion.contratarParaTodo(this);
     }
 
+        public List<Contrato> getContratos(){
+        return contratos;
+    }
+
+    public Map<Artista, Double> getCostosPorArtista(){
+        //Falta Desarrollar
+        return null;
+    }
+
+    public double getCostoTotalRecital(){
+        //Falta Desarrollar
+        return 0;
+    }
+
+
+    public Map<Cancion, Double> getCostosPorCancion(){
+        //Falta Desarrollar
+        return null;
+    }
+    public HashSet<Cancion> getCanciones() {
+        return canciones;
+    }
+
     public Map<Rol, Integer> getRolesFaltantes(){
         Map<Rol, Integer> rolesRequeridos = new HashMap<>();
         
@@ -100,12 +123,24 @@ public class Recital {
     public Map<Rol, Integer> getRolesFaltantesParaCancion(Cancion cancion) {
         Map<Rol, Integer> rolesRequeridos = new HashMap<>();
         Map<Rol, Integer> rolesCubiertos = new HashMap<>();
-        
-        // Cuenta los roles Requeridos por la cancion
+
+        // Contar roles requeridos por la canción
         for (Rol rol : cancion.getRolesRequeridos()) {
             rolesRequeridos.put(rol, rolesRequeridos.getOrDefault(rol, 0) + 1);
         }
-        // Contar roles cubiertos por contratos existentes
+
+        // Contar roles que pueden ser cubiertos por artistas base
+        for (ArtistaBase artista : artistaBase) {
+            boolean yaCubrio = false;
+            for (Rol rol : artista.getRoles()) {
+                if (!yaCubrio && rolesRequeridos.getOrDefault(rol, 0) > 0) {
+                    rolesCubiertos.put(rol, rolesCubiertos.getOrDefault(rol, 0) + 1);
+                    yaCubrio = true; 
+                }
+            }
+        }
+
+        // Contar roles cubiertos por contratos existentes para esta canción
         if (contratos != null) {
             for (Contrato contrato : contratos) {
                 if (contrato.getCancion().equals(cancion)) {
@@ -114,50 +149,17 @@ public class Recital {
                 }
             }
         }
-        // Calcular faltantes
+
+        // Calcular roles faltantes
         Map<Rol, Integer> rolesFaltantes = new HashMap<>();
         for (Map.Entry<Rol, Integer> entry : rolesRequeridos.entrySet()) {
             Rol rol = entry.getKey();
-            int requerido = entry.getValue();
-            int cubierto = rolesCubiertos.getOrDefault(rol, 0);
-            int faltante = requerido - cubierto;
-            
+            int faltante = entry.getValue() - rolesCubiertos.getOrDefault(rol, 0);
             if (faltante > 0) {
                 rolesFaltantes.put(rol, faltante);
             }
         }
-        
+
         return rolesFaltantes;
-    }
-
-    public List<Contrato> getContratos(){
-        return contratos;
-    }
-
-    public Map<Artista, Double> getCostosPorArtista(){
-        //Falta Desarrollar
-        return null;
-    }
-
-    public double getCostoTotalRecital(){
-        //Falta Desarrollar
-        return 0;
-    }
-
-    public HashSet<Cancion> getCancionesCompletas() {
-        
-        //Falta Desarrollar
-        return null;
-    }
-    public HashSet<Cancion> getCancionesIncompletas() {
-        
-        //Falta Desarrollar
-        return null;
-    }
-
-    public Map<Cancion, Double> getCostosPorCancion(){
-        //Falta Desarrollar
-        return null;
-    }
-
+}
 }
