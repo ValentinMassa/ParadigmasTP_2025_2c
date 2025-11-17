@@ -2,10 +2,12 @@ package Recital;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.ArrayList;
 import java.util.HashMap;
 import Recital.Artista.*;
 import Recital.Contratos.*;
 import Recital.Rol.Rol;
+import Recital.Banda.Banda;
 import java.util.Map;
 
 public class Recital {
@@ -25,31 +27,54 @@ public class Recital {
         this.artistaBase = new HashSet<ArtistaBase>();
         this.artistaExternos = new HashSet<ArtistaExterno>();
         this.canciones = new HashSet<Cancion>();
-        this.servicioContratacion = new ServicioContratacion();
+        this.servicioContratacion = servicioContratacion;
+        this.contratos = new ArrayList<>();
         this.artistaBase.addAll(artistaBase);
         this.artistaExternos.addAll(artistaExternos);
         this.canciones.addAll(canciones);
-        //this.contratos = servicioContratacion.contratarParaTodo(this);
     }
 
-        public List<Contrato> getContratos(){
+    public List<Contrato> getContratos(){
         return contratos;
     }
 
     public Map<Artista, Double> getCostosPorArtista(){
-        //Falta Desarrollar
-        return null;
+        Map<Artista, Double> costos = new HashMap<>();
+        if (contratos != null) {
+            for (Contrato contrato : contratos) {
+                Artista artista = contrato.getArtista();
+                double costo = contrato.obtenerCostoContrato();
+                costos.put(artista, costos.getOrDefault(artista, 0.0) + costo);
+            }
+        }
+        return costos;
     }
 
     public double getCostoTotalRecital(){
-        //Falta Desarrollar
-        return 0;
+        double total = 0;
+        if (contratos != null) {
+            for (Contrato contrato : contratos) {
+                total += contrato.obtenerCostoContrato();
+            }
+        }
+        return total;
     }
 
 
     public Map<Cancion, Double> getCostosPorCancion(){
-        //Falta Desarrollar
-        return null;
+        Map<Cancion, Double> costos = new HashMap<>();
+        for (Cancion cancion : canciones) {
+            double costoCancion = 0;
+            if (contratos != null) {
+                for (Contrato contrato : contratos) {
+                    if (contrato.getCancion().equals(cancion)) {
+                        costoCancion += contrato.obtenerCostoContrato();
+                    }
+                }
+            }
+            costos.put(cancion, costoCancion);
+        }
+        return costos;
     }
     public HashSet<Cancion> getCanciones() {
         return canciones;
@@ -184,7 +209,7 @@ public class Recital {
         }
         return false;
     }
-    private ArtistaBase buscarBaseDisponible(Cancion cancion, Rol rol) {
+    public ArtistaBase buscarBaseDisponible(Cancion cancion, Rol rol) {
 
         for (ArtistaBase artista : artistaBase) {
 
@@ -199,7 +224,7 @@ public class Recital {
 
         return null; 
     }
-    private ArtistaExterno buscarExternoDisponible(Cancion cancion, Rol rol) {
+    public ArtistaExterno buscarExternoDisponible(Cancion cancion, Rol rol) {
         ArtistaExterno mejor = null;
         double mejorCosto = Double.MAX_VALUE;
 
@@ -213,7 +238,7 @@ public class Recital {
                 }
             }
             if (!puedeCubrirRol) {
-            
+                continue;
             } else {
 
                 // 2. Verificar si ya tiene contrato en esta canción
@@ -229,7 +254,7 @@ public class Recital {
                 if (!yaAsignado) {
 
                     // 3. Calcular costo con posible descuento
-                    double costo = externo.getCostoPorCancion();
+                    double costo = externo.getCosto();
 
                     boolean comparteBanda = false;
                     for (ArtistaBase base : artistaBase) {

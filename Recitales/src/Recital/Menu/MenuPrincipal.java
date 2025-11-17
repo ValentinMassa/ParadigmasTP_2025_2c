@@ -139,7 +139,7 @@ public class MenuPrincipal {
             
             // Buscar la canción
             Cancion cancionEncontrada = null;
-            for (Cancion c : recital.getCancionesIncompletas()) {
+            for (Cancion c : recital.getCanciones()) {
                 if (c.getTitulo().equalsIgnoreCase(titulo)) {
                     cancionEncontrada = c;
                     break;
@@ -255,31 +255,28 @@ public class MenuPrincipal {
     private void listarCanciones() {
         try {
             System.out.println("\n========== ESTADO DE CANCIONES ==========");
-            
-            HashSet<Cancion> completas = recital.getCancionesCompletas();
-            HashSet<Cancion> incompletas = recital.getCancionesIncompletas();
-            
-            System.out.println("\n✅ CANCIONES COMPLETAS (" + (completas != null ? completas.size() : 0) + "):");
-            if (completas != null && !completas.isEmpty()) {
-                completas.forEach(c -> System.out.println("  ✓ " + c.getTitulo()));
-            } else {
-                System.out.println("  Ninguna");
-            }
-            
-            System.out.println("\n⏳ CANCIONES INCOMPLETAS (" + (incompletas != null ? incompletas.size() : 0) + "):");
-            if (incompletas != null && !incompletas.isEmpty()) {
-                incompletas.forEach(c -> System.out.println("  ✗ " + c.getTitulo()));
-            } else {
-                System.out.println("  Ninguna");
-            }
+            System.out.println(String.format("%-30s %-25s %s", 
+                "Canción", "Roles Faltantes", "Costo"));
+            System.out.println("===========================================================================");
             
             Map<Cancion, Double> costosPorCancion = recital.getCostosPorCancion();
-            if (costosPorCancion != null && !costosPorCancion.isEmpty()) {
-                System.out.println("\n💰 COSTOS POR CANCIÓN:");
-                costosPorCancion.forEach((cancion, costo) -> 
-                    System.out.println("  " + cancion.getTitulo() + ": $" + String.format("%.2f", costo))
-                );
+            
+            for (Cancion cancion : recital.getCanciones()) {
+                Map<Rol, Integer> rolesFaltantes = recital.getRolesFaltantesParaCancion(cancion);
+                double costo = costosPorCancion.getOrDefault(cancion, 0.0);
+                
+                String rolesStr = rolesFaltantes.isEmpty() ? "✅ Cubiertos" : 
+                    rolesFaltantes.size() + " rol(es)";
+                
+                System.out.println(String.format("%-30s %-25s $%.2f", 
+                    cancion.getTitulo(), 
+                    rolesStr, 
+                    costo));
             }
+            
+            double costoTotal = recital.getCostoTotalRecital();
+            System.out.println("===========================================================================");
+            System.out.println("COSTO TOTAL DEL RECITAL: $" + String.format("%.2f", costoTotal));
             
         } catch (Exception e) {
             System.out.println("❌ Error al listar: " + e.getMessage());

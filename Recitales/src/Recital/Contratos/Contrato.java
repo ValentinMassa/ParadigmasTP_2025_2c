@@ -27,20 +27,13 @@ public class Contrato {
         return artista;
     }
 
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) return true;
-        if (obj == null || getClass() != obj.getClass()) return false;
-        if (!(obj instanceof Contrato)) return false;
-        Contrato contrato = (Contrato) obj;
-        return cancion.equals(contrato.cancion) &&
-               rol.equals(contrato.rol) &&
-               artista.equals(contrato.artista);
+    public double obtenerCostoContrato(){
+        return artista.getCosto();
     }
 
-    public double obtenerCostoContrato(){
-        //Falta Desarrollar
-        return 0;
+    @Override
+    public String toString() {
+        return "  " + artista.getNombre() + " - Rol: " + rol.getNombre() + " - Canción: " + cancion.getTitulo();
     }
 
 }

@@ -58,6 +58,10 @@ public abstract class Artista {
         return new HashSet<>(bandaHistorico);
     }
 
+    public HashSet<Banda> getBandasHistoricas() {
+        return new HashSet<>(bandaHistorico);
+    }
+
     public Boolean puedeAceptarNuevaCancion(){
         return cantCancionesAsignado < maxcanciones;
     }
@@ -70,11 +74,8 @@ public abstract class Artista {
     }
 
     public Boolean puedeTocarRol(String rolBuscado){
-        if(!rolHistorico.isEmpty()){
-            return false;
-        }
         for(Rol r: rolHistorico){
-            if(r.getNombre() == rolBuscado){
+            if(r.getNombre().equals(rolBuscado)){
                 return true;
             }
         }
@@ -82,9 +83,6 @@ public abstract class Artista {
     }
 
     public Boolean puedeTocarRol(Rol rolBuscado){
-        if(!rolHistorico.isEmpty()){
-            return false;
-        }
         for(Rol r: rolHistorico){
             if(r.equals(rolBuscado)){
                 return true;
