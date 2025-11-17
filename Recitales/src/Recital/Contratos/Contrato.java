@@ -5,14 +5,26 @@ import Recital.Rol.Rol;
 
 
 public class Contrato {
-    private Cancion cancion;
-    private Rol rol;
-    private Artista artista;
+    public Cancion cancion;
+    public Rol rol;
+    public Artista artista;
 
     public Contrato(Cancion cancion, Rol rol, Artista artista) {
         this.cancion = cancion;
         this.rol = rol;
         this.artista = artista;
+    }
+    
+    public Cancion getCancion() {
+        return cancion;
+    }
+    
+    public Rol getRol() {
+        return rol;
+    }
+    
+    public Artista getArtista() {
+        return artista;
     }
 
     @Override

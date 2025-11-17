@@ -21,4 +21,14 @@ public class Rol {
         Rol rol = (Rol) obj;
         return nombre.equals(rol.nombre);
     }
+    
+    @Override
+    public int hashCode() {
+        return nombre.hashCode();
+    }
+    
+    @Override
+    public String toString() {
+        return nombre;
+    }
 }
