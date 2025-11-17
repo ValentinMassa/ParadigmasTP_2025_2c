@@ -29,7 +29,7 @@ public class Recital {
         this.artistaBase.addAll(artistaBase);
         this.artistaExternos.addAll(artistaExternos);
         this.canciones.addAll(canciones);
-        this.contratos = servicioContratacion.contratarParaTodo(this);
+        //this.contratos = servicioContratacion.contratarParaTodo(this);
     }
 
         public List<Contrato> getContratos(){
@@ -90,7 +90,7 @@ public class Recital {
         return rolesFaltantes;
     }
     
-    private Map<Rol, Integer> calcularAsignacionOptima() {
+    /*private Map<Rol, Integer> calcularAsignacionOptima() {
         Map<Rol, Integer> rolesCubiertos = new HashMap<>();
         
         // Para cada canción, asignar artistas base que puedan cubrir sus roles
@@ -118,7 +118,7 @@ public class Recital {
         }
         
         return rolesCubiertos;
-    }
+    }*/
 
     public Map<Rol, Integer> getRolesFaltantesParaCancion(Cancion cancion) {
         Map<Rol, Integer> rolesRequeridos = new HashMap<>();
@@ -161,5 +161,98 @@ public class Recital {
         }
 
         return rolesFaltantes;
+    }
+    private int cantidadContratosDe(Artista artista) {
+        int count = 0;
+        if (contratos != null) {
+            for (Contrato c : contratos) {
+                if (c.getArtista().equals(artista)) {
+                    count++;
+                }
+            }
+        }
+        return count;
+    }
+    private boolean tieneContratoEnCancion(Artista artista, Cancion cancion) {
+        if (contratos != null) {
+            for (Contrato c : contratos) {
+                if (c.getCancion().equals(cancion) &&
+                    c.getArtista().equals(artista)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+    private ArtistaBase buscarBaseDisponible(Cancion cancion, Rol rol) {
+
+        for (ArtistaBase artista : artistaBase) {
+
+            boolean puedeTocarRol = artista.getRoles().contains(rol);
+            boolean noSuperaMax = cantidadContratosDe(artista) < artista.getMaxCanciones();
+            boolean noEstaEnCancion = !tieneContratoEnCancion(artista, cancion);
+
+            if (puedeTocarRol && noSuperaMax && noEstaEnCancion) {
+                return artista;  
+            }
+        }
+
+        return null; 
+    }
+    private ArtistaExterno buscarExternoDisponible(Cancion cancion, Rol rol) {
+        ArtistaExterno mejor = null;
+        double mejorCosto = Double.MAX_VALUE;
+
+        for (ArtistaExterno externo : artistaExternos) {
+            
+            // 1. Verificar si puede cubrir el rol
+            boolean puedeCubrirRol = false;
+            for (Rol r : externo.getRoles()) {
+                if (r.equals(rol)) {
+                    puedeCubrirRol = true;
+                }
+            }
+            if (!puedeCubrirRol) {
+            
+            } else {
+
+                // 2. Verificar si ya tiene contrato en esta canción
+                boolean yaAsignado = false;
+                if (contratos != null) {
+                    for (Contrato c : contratos) {
+                        if (c.getCancion().equals(cancion) && c.getArtista().equals(externo)) {
+                            yaAsignado = true;
+                        }
+                    }
+                }
+
+                if (!yaAsignado) {
+
+                    // 3. Calcular costo con posible descuento
+                    double costo = externo.getCostoPorCancion();
+
+                    boolean comparteBanda = false;
+                    for (ArtistaBase base : artistaBase) {
+                        for (Banda b : base.getBandasHistoricas()) {
+                            if (externo.getBandasHistoricas().contains(b)) {
+                                comparteBanda = true;
+                            }
+                        }
+                    }
+
+                    if (comparteBanda) {
+                        costo = costo / 2.0;   // 50% de descuento
+                    }
+
+                    if (costo < mejorCosto) {
+                        mejor = externo;
+                        mejorCosto = costo;
+                    }
+                }
+            }
+        }
+
+    return mejor;
 }
+
 }
