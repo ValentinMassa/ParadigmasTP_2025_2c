@@ -56,13 +56,6 @@
     "maxCanciones": 3
   },
   {
-    "nombre": "Axl Rose",
-    "roles": ["voz principal"],
-    "bandas": ["Guns N' Roses"],
-    "costo": 1200,
-    "maxCanciones": 2
-  },
-  {
     "nombre": "Thom Yorke",
     "roles": ["voz principal", "teclados"],
     "bandas": ["Radiohead"],
@@ -113,10 +106,17 @@
   },
   {
     "nombre": "Britney Spears",
-    "roles": ["voz principal", "sintetizador"],
+    "roles": ["voz principal", "coros"],
     "bandas": [],
     "costo": 2000,
     "maxCanciones": 1
+  },
+  {
+    "nombre": "Jean-Michel Jarre",
+    "roles": ["sintetizador", "teclados"],
+    "bandas": [],
+    "costo": 1400,
+    "maxCanciones": 2
   }
 ]
 
