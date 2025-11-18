@@ -180,6 +180,7 @@ public class MenuPrincipal {
             
             // Ofrecer opción de entrenar
             if (artistasDisponibles > 0) {
+                mostrarArtistasEntrenables();
                 System.out.print("\n¿Desea entrenar artistas para cubrir estos roles? (s/n): ");
                 String respuesta = scanner.nextLine().trim().toLowerCase();
                 if (respuesta.equals("s")) {
@@ -218,6 +219,7 @@ public class MenuPrincipal {
         } catch (ServicioContratacion.ContratacionException e) {
             System.out.println("\n[ERROR] ERROR EN CONTRATACIÓN: " + e.getMessage());
             
+            mostrarArtistasEntrenables();
             System.out.print("\n¿Desea entrenar artistas para intentar nuevamente? (s/n): ");
             String respuesta = scanner.nextLine().trim().toLowerCase();
             if (respuesta.equals("s")) {
@@ -431,5 +433,42 @@ public class MenuPrincipal {
         } catch (Exception e) {
             System.out.println("[ERROR] Error al listar artistas por rol: " + e.getMessage());
         }
+    }
+
+    private void mostrarArtistasEntrenables() {
+        System.out.println("\n========== ARTISTAS DISPONIBLES PARA ENTRENAR ==========");
+        List<Artista> artistasEntrenables = new ArrayList<>();
+        
+        // Buscar artistas externos que NO son base y NO están contratados
+        for (Artista a : recital.getArtistasExternos()) {
+            if (a.puedeSerEntrenado() && !estaContratado(a)) {
+                artistasEntrenables.add(a);
+            }
+        }
+        
+        if (artistasEntrenables.isEmpty()) {
+            System.out.println("No hay artistas disponibles para entrenar.");
+            System.out.println("(Los artistas base no pueden ser entrenados, y los artistas");
+            System.out.println("contratados tampoco pueden ser entrenados)");
+            return;
+        }
+        
+        System.out.println(String.format("%-25s %-10s %s", 
+            "Artista", "Costo", "Roles Actuales"));
+        System.out.println("=========================================================");
+        
+        for (Artista artista : artistasEntrenables) {
+            StringBuilder roles = new StringBuilder();
+            for (Rol r : artista.getRoles()) {
+                if (roles.length() > 0) roles.append(", ");
+                roles.append(r.getNombre());
+            }
+            System.out.println(String.format("%-25s $%-9.2f %s", 
+                artista.getNombre(), 
+                artista.getCosto(),
+                roles.toString()));
+        }
+        System.out.println("=========================================================");
+        System.out.println("Total disponibles: " + artistasEntrenables.size());
     }
 }
