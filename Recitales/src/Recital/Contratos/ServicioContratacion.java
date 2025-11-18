@@ -11,15 +11,8 @@ import Recital.Artista.ArtistaBase;
 import Recital.Artista.ArtistaExterno;
 import Recital.Banda.Banda;
 
-/**
- * Servicio de contratación de artistas para recitales.
- * Maneja la búsqueda, asignación y validación de artistas disponibles.
- */
 public class ServicioContratacion {
     
-    /**
-     * Excepción personalizada para errores de contratación
-     */
     public static class ContratacionException extends Exception {
         private List<String> rolesNoDisponibles;
         private int artistasDisponiblesRestantes;
@@ -124,9 +117,6 @@ public class ServicioContratacion {
         return contratos;
     }
     
-    /**
-     * Cuenta cuántos artistas adicionales están disponibles para entrenar
-     */
     private int contarArtistasDisponibles(Recital recital, Cancion cancion) {
         int disponibles = 0;
         

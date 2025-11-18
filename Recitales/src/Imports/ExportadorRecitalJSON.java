@@ -9,29 +9,16 @@ import Recital.Artista.*;
 import Recital.Contratos.*;
 import Recital.Rol.Rol;
 
-/**
- * Exportador para generar un archivo JSON con el estado final del recital
- * incluyendo información de contratación y totalizadores.
- */
 public class ExportadorRecitalJSON {
     
     private Recital recital;
     private String rutaSalida;
     
-    /**
-     * Constructor del exportador.
-     * @param recital El recital a exportar
-     * @param rutaSalida La ruta donde guardar el archivo (ej: "data/ArchivosOutput/recital-out.json")
-     */
     public ExportadorRecitalJSON(Recital recital, String rutaSalida) {
         this.recital = recital;
         this.rutaSalida = rutaSalida;
     }
     
-    /**
-     * Exporta el estado del recital a un archivo JSON.
-     * @throws IOException si hay error al escribir el archivo
-     */
     public void exportar() throws IOException {
         try {
             // Crear directorio si no existe
@@ -57,9 +44,6 @@ public class ExportadorRecitalJSON {
         }
     }
     
-    /**
-     * Genera el JSON con la estructura del recital.
-     */
     private String generarJSON() {
         StringBuilder json = new StringBuilder();
         json.append("{\n");

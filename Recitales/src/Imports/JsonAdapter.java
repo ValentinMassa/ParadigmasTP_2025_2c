@@ -14,12 +14,6 @@ import Recital.Cancion;
 import Recital.Rol.Rol;
 import Recital.Banda.Banda;
 
-//Chequear lógica
-/**
- * Adaptador para cargar información de recitales desde archivos JSON.
- * Utiliza solo bibliotecas estándar de Java para parsear JSON.
- * Implementa el patrón Strategy para la carga de datos.
- */
 public class JsonAdapter implements ICargarRecital {
     
     private String rutaArtistas;
@@ -28,13 +22,6 @@ public class JsonAdapter implements ICargarRecital {
     private HashSet<ArtistaExterno> artistasCache;
     private HashSet<Cancion> cancionesCache;
 
-    /**
-     * Constructor que especifica las rutas de los archivos JSON.
-     * @param rutaArtistas ruta del archivo con artistas externos
-     * @param rutaCanciones ruta del archivo con canciones
-     * @param rutaArtistasBase ruta del archivo con artistas base
-     * @throws IllegalArgumentException si alguna ruta está vacía o nula
-     */
     public JsonAdapter(String rutaArtistas, String rutaCanciones, String rutaArtistasBase) 
             throws IllegalArgumentException {
         if (rutaArtistas == null || rutaArtistas.isBlank()) {
@@ -54,10 +41,6 @@ public class JsonAdapter implements ICargarRecital {
         this.cancionesCache = null;
     }
 
-    /**
-     * Método helper para cargar solo los nombres de los artistas base
-     * (para evitar duplicados en artistas externos)
-     */
     private HashSet<String> cargarNombresArtistasBase() throws IOException {
         HashSet<String> nombres = new HashSet<>();
         File file = new File(rutaArtistasBase);
@@ -163,10 +146,6 @@ public class JsonAdapter implements ICargarRecital {
         return artistas;
     }
 
-    /**
-     * Carga TODOS los artistas del archivo JSON sin filtrar por artistas base.
-     * Usado específicamente para crear artistas base que necesitan los datos completos.
-     */
     private HashSet<ArtistaExterno> cargarTodosLosArtistas() throws IOException {
         HashSet<ArtistaExterno> artistas = new HashSet<>();
         File file = new File(rutaArtistas);
@@ -226,11 +205,6 @@ public class JsonAdapter implements ICargarRecital {
         return canciones;
     }
 
-    /**
-     * Construye un objeto ArtistaExterno a partir de un Map con datos JSON.
-     * @param data Map con los datos del artista
-     * @return ArtistaExterno construido o null si hay error
-     */
     private ArtistaExterno construirArtistaExterno(Map<String, Object> data) {
         try {
             String nombre = (String) data.get("nombre");
