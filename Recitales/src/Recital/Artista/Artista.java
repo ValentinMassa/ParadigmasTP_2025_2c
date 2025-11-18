@@ -42,20 +42,12 @@ public abstract class Artista {
         return nombre;
     }
 
-    public int getMaxCanciones() {
-        return maxcanciones;
-    }
-
     public double getCosto() {
         return costo;
     }
 
     public HashSet<Rol> getRoles() {
         return new HashSet<>(rolHistorico);
-    }
-
-    public HashSet<Banda> getBandas() {
-        return new HashSet<>(bandaHistorico);
     }
 
     public HashSet<Banda> getBandasHistoricas() {
@@ -73,15 +65,6 @@ public abstract class Artista {
         return true;
     }
 
-    public Boolean puedeTocarRol(String rolBuscado){
-        for(Rol r: rolHistorico){
-            if(r.getNombre().equals(rolBuscado)){
-                return true;
-            }
-        }
-        return false;
-    }
-
     public Boolean puedeTocarRol(Rol rolBuscado){
         for(Rol r: rolHistorico){
             if(r.equals(rolBuscado)){
@@ -90,6 +73,21 @@ public abstract class Artista {
         }
         return false;
     }
+
+    public void agregarRol(Rol rolNuevo) throws IllegalArgumentException {
+        if (rolNuevo == null) {
+            throw new IllegalArgumentException("El rol no puede ser nulo");
+        }
+        if (rolHistorico.contains(rolNuevo)) {
+            throw new IllegalArgumentException("El artista ya tiene este rol");
+        }
+        rolHistorico.add(rolNuevo);
+    }
+
+    public void incrementarCosto(double porcentaje) {
+        costo = costo * porcentaje;
+    }
+
     public abstract Boolean puedeSerEntrenado();
 
 }

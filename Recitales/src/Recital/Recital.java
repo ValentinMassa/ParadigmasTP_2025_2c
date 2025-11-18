@@ -80,8 +80,17 @@ public class Recital {
         return canciones;
     }
 
+    public HashSet<ArtistaBase> getArtistasBase() {
+        return new HashSet<>(artistaBase);
+    }
+
+    public HashSet<ArtistaExterno> getArtistasExternos() {
+        return new HashSet<>(artistaExternos);
+    }
+
     public Map<Rol, Integer> getRolesFaltantes(){
         Map<Rol, Integer> rolesRequeridos = new HashMap<>();
+        Map<Rol, Integer> rolesCubiertos = new HashMap<>();
         
         // Contar todos los roles requeridos para todas las canciones
         for (Cancion cancion : canciones) {
@@ -89,23 +98,21 @@ public class Recital {
                 rolesRequeridos.put(rol, rolesRequeridos.getOrDefault(rol, 0) + 1);
             }
         }
-        // Calcular roles que pueden cubrir los artistas base DINÁMICAMENTE
-        // Asignando cada artista base a UNA CANCIÓN donde pueda cubrir VARIOS roles
-        Map<Rol, Integer> rolesCubiertosOptimos = calcularAsignacionOptima();
         
-        // Contar roles cubiertos por contratos existentes (si los hay)
+        // Contar roles cubiertos por contratos existentes
         if (contratos != null) {
             for (Contrato contrato : contratos) {
                 Rol rol = contrato.getRol();
-                rolesCubiertosOptimos.put(rol, rolesCubiertosOptimos.getOrDefault(rol, 0) + 1);
+                rolesCubiertos.put(rol, rolesCubiertos.getOrDefault(rol, 0) + 1);
             }
         }
+        
         // Calcular faltantes
         Map<Rol, Integer> rolesFaltantes = new HashMap<>();
         for (Map.Entry<Rol, Integer> entry : rolesRequeridos.entrySet()) {
             Rol rol = entry.getKey();
             int requerido = entry.getValue();
-            int cubierto = rolesCubiertosOptimos.getOrDefault(rol, 0);
+            int cubierto = rolesCubiertos.getOrDefault(rol, 0);
             int faltante = requerido - cubierto;
             
             if (faltante > 0) {
@@ -115,35 +122,7 @@ public class Recital {
         return rolesFaltantes;
     }
     
-    /*private Map<Rol, Integer> calcularAsignacionOptima() {
-        Map<Rol, Integer> rolesCubiertos = new HashMap<>();
-        
-        // Para cada canción, asignar artistas base que puedan cubrir sus roles
-        for (Cancion cancion : canciones) {
-            Map<Rol, Integer> rolesNecesarios = new HashMap<>();
-            
-            // Contar roles necesarios para esta canción
-            for (Rol rol : cancion.getRolesRequeridos()) {
-                rolesNecesarios.put(rol, rolesNecesarios.getOrDefault(rol, 0) + 1);
-            }
-            
-            // Para cada artista base, ver si puede contribuir a esta canción
-            for (ArtistaBase artista : artistaBase) {
-                // Un artista base toca UN rol por canción
-                // Elegimos el primer rol que pueda tocar que sea necesario
-                for (Rol rolDelArtista : artista.getRoles()) {
-                    if (rolesNecesarios.getOrDefault(rolDelArtista, 0) > 0) {
-                        // Este artista puede cubrir este rol en esta canción
-                        rolesCubiertos.put(rolDelArtista, rolesCubiertos.getOrDefault(rolDelArtista, 0) + 1);
-                        rolesNecesarios.put(rolDelArtista, rolesNecesarios.get(rolDelArtista) - 1);
-                        break; // Este artista ya cubrió un rol en esta canción
-                    }
-                }
-            }
-        }
-        
-        return rolesCubiertos;
-    }*/
+    
 
     public Map<Rol, Integer> getRolesFaltantesParaCancion(Cancion cancion) {
         Map<Rol, Integer> rolesRequeridos = new HashMap<>();
@@ -187,97 +166,4 @@ public class Recital {
 
         return rolesFaltantes;
     }
-    private int cantidadContratosDe(Artista artista) {
-        int count = 0;
-        if (contratos != null) {
-            for (Contrato c : contratos) {
-                if (c.getArtista().equals(artista)) {
-                    count++;
-                }
-            }
-        }
-        return count;
-    }
-    private boolean tieneContratoEnCancion(Artista artista, Cancion cancion) {
-        if (contratos != null) {
-            for (Contrato c : contratos) {
-                if (c.getCancion().equals(cancion) &&
-                    c.getArtista().equals(artista)) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-    public ArtistaBase buscarBaseDisponible(Cancion cancion, Rol rol) {
-
-        for (ArtistaBase artista : artistaBase) {
-
-            boolean puedeTocarRol = artista.getRoles().contains(rol);
-            boolean noSuperaMax = cantidadContratosDe(artista) < artista.getMaxCanciones();
-            boolean noEstaEnCancion = !tieneContratoEnCancion(artista, cancion);
-
-            if (puedeTocarRol && noSuperaMax && noEstaEnCancion) {
-                return artista;  
-            }
-        }
-
-        return null; 
-    }
-    public ArtistaExterno buscarExternoDisponible(Cancion cancion, Rol rol) {
-        ArtistaExterno mejor = null;
-        double mejorCosto = Double.MAX_VALUE;
-
-        for (ArtistaExterno externo : artistaExternos) {
-            
-            // 1. Verificar si puede cubrir el rol
-            boolean puedeCubrirRol = false;
-            for (Rol r : externo.getRoles()) {
-                if (r.equals(rol)) {
-                    puedeCubrirRol = true;
-                }
-            }
-            if (!puedeCubrirRol) {
-                continue;
-            } else {
-
-                // 2. Verificar si ya tiene contrato en esta canción
-                boolean yaAsignado = false;
-                if (contratos != null) {
-                    for (Contrato c : contratos) {
-                        if (c.getCancion().equals(cancion) && c.getArtista().equals(externo)) {
-                            yaAsignado = true;
-                        }
-                    }
-                }
-
-                if (!yaAsignado) {
-
-                    // 3. Calcular costo con posible descuento
-                    double costo = externo.getCosto();
-
-                    boolean comparteBanda = false;
-                    for (ArtistaBase base : artistaBase) {
-                        for (Banda b : base.getBandasHistoricas()) {
-                            if (externo.getBandasHistoricas().contains(b)) {
-                                comparteBanda = true;
-                            }
-                        }
-                    }
-
-                    if (comparteBanda) {
-                        costo = costo / 2.0;   // 50% de descuento
-                    }
-
-                    if (costo < mejorCosto) {
-                        mejor = externo;
-                        mejorCosto = costo;
-                    }
-                }
-            }
-        }
-
-    return mejor;
-}
-
 }

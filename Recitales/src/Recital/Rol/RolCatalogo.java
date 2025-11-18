@@ -21,7 +21,7 @@ public class RolCatalogo {
         return nombreRol;
     }
 
-    private Boolean existeRol(String nombreRol) {
+    public Boolean existeRol(String nombreRol) {
         for (Rol r : roles) {
             if (r.getNombre().equals(nombreRol)) {
                 return true;

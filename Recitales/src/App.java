@@ -15,6 +15,12 @@ public class App {
             // Crear roles
             HashSet<Rol> rolesBase = crearRoles();
             
+            // Crear catálogo de roles
+            RolCatalogo rolCatalogo = new RolCatalogo();
+            for (Rol rol : rolesBase) {
+                rolCatalogo.obtenerRol(rol);
+            }
+            
             // Crear bandas
             HashSet<Banda> bandasQueen = new HashSet<>();
             bandasQueen.add(new Banda("Queen"));
@@ -41,11 +47,11 @@ public class App {
             System.out.println("\n========== INICIANDO MENÚ ==========\n");
             
             // Mostrar menú principal
-            MenuPrincipal menu = new MenuPrincipal(recital, servicioContratacion);
+            MenuPrincipal menu = new MenuPrincipal(recital, servicioContratacion, rolCatalogo);
             menu.mostrarMenu();
             
         } catch (Exception e) {
-            System.err.println("❌ Error fatal al iniciar el sistema: " + e.getMessage());
+            System.err.println("Error fatal al iniciar el sistema: " + e.getMessage());
             e.printStackTrace();
         }
     }
