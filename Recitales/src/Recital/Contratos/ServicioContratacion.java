@@ -11,12 +11,46 @@ import Recital.Artista.ArtistaBase;
 import Recital.Artista.ArtistaExterno;
 import Recital.Banda.Banda;
 
+/**
+ * Servicio de contratación de artistas para recitales.
+ * Maneja la búsqueda, asignación y validación de artistas disponibles.
+ */
 public class ServicioContratacion {
+    
+    /**
+     * Excepción personalizada para errores de contratación
+     */
+    public static class ContratacionException extends Exception {
+        private List<String> rolesNoDisponibles;
+        private int artistasDisponiblesRestantes;
+        
+        public ContratacionException(String mensaje, List<String> rolesNoDisponibles, 
+                                    int artistasDisponiblesRestantes) {
+            super(mensaje);
+            this.rolesNoDisponibles = rolesNoDisponibles;
+            this.artistasDisponiblesRestantes = artistasDisponiblesRestantes;
+        }
+        
+        public List<String> getRolesNoDisponibles() {
+            return rolesNoDisponibles;
+        }
+        
+        public int getArtistasDisponiblesRestantes() {
+            return artistasDisponiblesRestantes;
+        }
+        
+        public boolean esEntrenableEl(int rolesRequeridos) {
+            return artistasDisponiblesRestantes >= rolesRequeridos;
+        }
+    }
+    
     public ServicioContratacion() {
     }
 
-    public List<Contrato> contratarParaCancion(Recital recital, Cancion cancion) {
+    public List<Contrato> contratarParaCancion(Recital recital, Cancion cancion) 
+            throws ContratacionException {
         List<Contrato> nuevosContratos = new ArrayList<>();
+        List<String> rolesNoDisponibles = new ArrayList<>();
         
         // Obtener solo los roles faltantes para esta canción
         Map<Rol, Integer> rolesFaltantes = recital.getRolesFaltantesParaCancion(cancion);
@@ -38,16 +72,28 @@ public class ServicioContratacion {
                     recital.getContratos().add(contrato);
                     artistaSeleccionado.asignarCancion();
                 } else {
-                    throw new IllegalArgumentException("No hay artistas disponibles para el rol: " + rol.getNombre());
+                    rolesNoDisponibles.add(rol.getNombre());
                 }
             }
+        }
+        
+        // Si hay roles que no pudieron ser cubiertos, lanzar excepción
+        if (!rolesNoDisponibles.isEmpty()) {
+            int artistasDisponibles = contarArtistasDisponibles(recital, cancion);
+            throw new ContratacionException(
+                "No hay artistas disponibles para algunos roles: " + String.join(", ", rolesNoDisponibles),
+                rolesNoDisponibles,
+                artistasDisponibles
+            );
         }
 
         return nuevosContratos;
     }
 
-    public List<Contrato> contratarParaTodo(Recital recital) {
+    public List<Contrato> contratarParaTodo(Recital recital) 
+            throws ContratacionException {
         List<Contrato> contratos = new ArrayList<>();
+        List<String> cancionesConError = new ArrayList<>();
         
         // Iterar por cada canción del recital
         for (Cancion cancion : recital.getCanciones()) {
@@ -64,12 +110,47 @@ public class ServicioContratacion {
                 List<Contrato> contratosCancion = contratarParaCancion(recital, cancion);
                 contratos.addAll(contratosCancion);
                 
-            } catch (IllegalArgumentException e) {
-                System.out.println("Advertencia en canción: " + e.getMessage());
+            } catch (ContratacionException e) {
+                cancionesConError.add(cancion.getTitulo() + ": " + e.getMessage());
             }
         }
         
+        // Si hubo errores en alguna canción, lanzar excepción con el resumen
+        if (!cancionesConError.isEmpty()) {
+            throw new ContratacionException(
+                "Errores de contratación en " + cancionesConError.size() + " canción(es):\n" + 
+                String.join("\n", cancionesConError),
+                new ArrayList<>(),
+                0
+            );
+        }
+        
         return contratos;
+    }
+    
+    /**
+     * Cuenta cuántos artistas adicionales están disponibles para entrenar
+     */
+    private int contarArtistasDisponibles(Recital recital, Cancion cancion) {
+        int disponibles = 0;
+        
+        // Contar artistas base disponibles
+        for (ArtistaBase artista : recital.getArtistasBase()) {
+            if (artista.puedeAceptarNuevaCancion() && 
+                !tieneContratoEnCancion(recital, artista, cancion)) {
+                disponibles++;
+            }
+        }
+        
+        // Contar artistas externos disponibles
+        for (ArtistaExterno artista : recital.getArtistasExternos()) {
+            if (artista.puedeAceptarNuevaCancion() && 
+                !tieneContratoEnCancion(recital, artista, cancion)) {
+                disponibles++;
+            }
+        }
+        
+        return disponibles;
     }
 
     private boolean tieneContratoEnCancion(Recital recital, Artista artista, Cancion cancion) {

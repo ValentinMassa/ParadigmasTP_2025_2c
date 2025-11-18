@@ -158,14 +158,38 @@ public class MenuPrincipal {
             List<Contrato> contratos = servicioContratacion.contratarParaCancion(recital, cancionEncontrada);
             
             if (contratos != null && !contratos.isEmpty()) {
-                System.out.println("Contratación realizada:");
+                System.out.println("✅ Contratación realizada:");
                 contratos.forEach(c -> System.out.println("  - " + c));
             } else {
                 System.out.println("No se pudieron contratar artistas.");
             }
             
+        } catch (ServicioContratacion.ContratacionException e) {
+            System.out.println("\n❌ ERROR: " + e.getMessage());
+            
+            List<String> rolesNoDisponibles = e.getRolesNoDisponibles();
+            int artistasDisponibles = e.getArtistasDisponiblesRestantes();
+            
+            System.out.println("\n📋 Detalles del error:");
+            System.out.println("  • Roles no disponibles: " + String.join(", ", rolesNoDisponibles));
+            System.out.println("  • Artistas disponibles para entrenar: " + artistasDisponibles);
+            
+            // Ofrecer opción de entrenar
+            if (artistasDisponibles > 0) {
+                System.out.print("\n¿Desea entrenar artistas para cubrir estos roles? (s/n): ");
+                String respuesta = scanner.nextLine().trim().toLowerCase();
+                if (respuesta.equals("s")) {
+                    entrenarArtista();
+                    // Reintentar contratación
+                    System.out.println("\n🔄 Reintentando contratación...");
+                    contratarCancion();
+                }
+            } else {
+                System.out.println("\n⚠️ No hay artistas disponibles para entrenar.");
+            }
+            
         } catch (Exception e) {
-            System.out.println("Error al contratar: " + e.getMessage());
+            System.out.println("❌ Error inesperado: " + e.getMessage());
         }
     }
 
@@ -176,7 +200,7 @@ public class MenuPrincipal {
             List<Contrato> contratos = servicioContratacion.contratarParaTodo(recital);
             
             if (contratos != null && !contratos.isEmpty()) {
-                System.out.println("\n Contratación total realizada:");
+                System.out.println("\n✅ Contratación total realizada:");
                 System.out.println("Total de contratos: " + contratos.size());
                 
                 double costoTotal = recital.getCostoTotalRecital();
@@ -187,8 +211,20 @@ public class MenuPrincipal {
                 System.out.println("No se pudieron realizar contrataciones.");
             }
             
+        } catch (ServicioContratacion.ContratacionException e) {
+            System.out.println("\n❌ ERROR EN CONTRATACIÓN: " + e.getMessage());
+            
+            System.out.print("\n¿Desea entrenar artistas para intentar nuevamente? (s/n): ");
+            String respuesta = scanner.nextLine().trim().toLowerCase();
+            if (respuesta.equals("s")) {
+                entrenarArtista();
+                // Reintentar contratación
+                System.out.println("\n🔄 Reintentando contratación...");
+                contratarTodo();
+            }
+            
         } catch (Exception e) {
-            System.out.println("Error al contratar: " + e.getMessage());
+            System.out.println("❌ Error inesperado: " + e.getMessage());
         }
     }
 

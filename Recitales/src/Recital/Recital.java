@@ -14,7 +14,7 @@ public class Recital {
     private HashSet<ArtistaExterno> artistaExternos;
     private HashSet<Cancion> canciones;
     private List<Contrato> contratos;
-
+   
 
     public Recital(HashSet<ArtistaBase> artistaBase, HashSet<ArtistaExterno> artistaExternos,
                    HashSet<Cancion> canciones, ServicioContratacion servicioContratacion)
@@ -29,6 +29,7 @@ public class Recital {
         this.artistaBase.addAll(artistaBase);
         this.artistaExternos.addAll(artistaExternos);
         this.canciones.addAll(canciones);
+
     }
 
     public List<Contrato> getContratos(){

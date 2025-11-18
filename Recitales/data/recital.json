@@ -1,0 +1,94 @@
+[
+  {
+    "titulo": "Midnight Dreams",
+    "rolesRequeridos": {
+      "voz principal": 1,
+      "guitarra eléctrica": 1,
+      "bajo": 1,
+      "batería": 1
+    }
+  },
+  {
+    "titulo": "Electric Nights",
+    "rolesRequeridos": {
+      "voz principal": 2,
+      "teclados": 1,
+      "bajo": 1,
+      "batería": 1
+    }
+  },
+  {
+    "titulo": "Acoustic Sunset",
+    "rolesRequeridos": {
+      "voz principal": 1,
+      "guitarra acústica": 1,
+      "voz secundaria": 1
+    }
+  },
+  {
+    "titulo": "Synthesizer Dreams",
+    "rolesRequeridos": {
+      "voz principal": 1,
+      "sintetizador": 1,
+      "bajo": 1,
+      "batería": 1,
+      "percusión": 1
+    }
+  },
+  {
+    "titulo": "Classical Harmony",
+    "rolesRequeridos": {
+      "voz principal": 1,
+      "violín": 1,
+      "teclados": 1,
+      "voz secundaria": 2
+    }
+  },
+  {
+    "titulo": "Urban Pulse",
+    "rolesRequeridos": {
+      "voz principal": 1,
+      "guitarra eléctrica": 1,
+      "bajo": 1,
+      "percusión": 1
+    }
+  },
+  {
+    "titulo": "Rhythm Collective",
+    "rolesRequeridos": {
+      "batería": 2,
+      "percusión": 2,
+      "bajo": 1,
+      "voz principal": 1
+    }
+  },
+  {
+    "titulo": "Soul Connection",
+    "rolesRequeridos": {
+      "voz principal": 1,
+      "guitarra acústica": 1,
+      "bajo": 1,
+      "voz secundaria": 2
+    }
+  },
+  {
+    "titulo": "Digital Revolution",
+    "rolesRequeridos": {
+      "voz principal": 1,
+      "sintetizador": 1,
+      "teclados": 1,
+      "bajo": 1,
+      "batería": 1
+    }
+  },
+  {
+    "titulo": "Sunset Boulevard",
+    "rolesRequeridos": {
+      "voz principal": 2,
+      "guitarra acústica": 1,
+      "bajo": 1,
+      "teclados": 1
+    }
+  }
+]
+

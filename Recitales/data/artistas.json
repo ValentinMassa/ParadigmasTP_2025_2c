@@ -1,0 +1,88 @@
+[
+  {
+    "nombre": "Freddie Mercury",
+    "roles": ["voz principal", "teclados"],
+    "bandas": ["Queen"],
+    "costo": 0,
+    "maxCanciones": 100
+  },
+  {
+    "nombre": "Brian May",
+    "roles": ["guitarra eléctrica", "voz secundaria"],
+    "bandas": ["Queen"],
+    "costo": 0,
+    "maxCanciones": 100
+  },
+  {
+    "nombre": "Roger Taylor",
+    "roles": ["batería", "voz secundaria"],
+    "bandas": ["Queen"],
+    "costo": 0,
+    "maxCanciones": 100
+  },
+  {
+    "nombre": "John Deacon",
+    "roles": ["bajo"],
+    "bandas": ["Queen"],
+    "costo": 0,
+    "maxCanciones": 100
+  },
+  {
+    "nombre": "David Bowie",
+    "roles": ["voz principal", "guitarra eléctrica"],
+    "bandas": ["The Spiders from Mars"],
+    "costo": 1500,
+    "maxCanciones": 2
+  },
+  {
+    "nombre": "Prince",
+    "roles": ["voz principal", "guitarra eléctrica", "teclados"],
+    "bandas": ["The Revolution"],
+    "costo": 1600,
+    "maxCanciones": 2
+  },
+  {
+    "nombre": "Michael Jackson",
+    "roles": ["voz principal"],
+    "bandas": ["The Jackson 5"],
+    "costo": 1800,
+    "maxCanciones": 1
+  },
+  {
+    "nombre": "Kurt Cobain",
+    "roles": ["voz principal", "guitarra eléctrica"],
+    "bandas": ["Nirvana"],
+    "costo": 800,
+    "maxCanciones": 3
+  },
+  {
+    "nombre": "Axl Rose",
+    "roles": ["voz principal"],
+    "bandas": ["Guns N' Roses"],
+    "costo": 1200,
+    "maxCanciones": 2
+  },
+  {
+    "nombre": "Thom Yorke",
+    "roles": ["voz principal", "teclados"],
+    "bandas": ["Radiohead"],
+    "costo": 1150,
+    "maxCanciones": 2
+  },
+  {
+    "nombre": "Liam Gallagher",
+    "roles": ["voz principal"],
+    "bandas": ["Oasis"],
+    "costo": 950,
+    "maxCanciones": 3
+  },
+  {
+    "nombre": "Eddie Van Halen",
+    "roles": ["guitarra eléctrica"],
+    "bandas": ["Van Halen"],
+    "costo": 1250,
+    "maxCanciones": 2
+  }
+]
+
+

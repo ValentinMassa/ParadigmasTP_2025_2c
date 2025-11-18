@@ -224,10 +224,22 @@ public class JsonAdapter implements ICargarRecital {
         try {
             String titulo = (String) data.get("titulo");
             
-            @SuppressWarnings("unchecked")
-            List<String> rolesRequeridos = (List<String>) data.get("rolesRequeridos");
             Map<Rol, Integer> roles = new HashMap<>();
-            if (rolesRequeridos != null) {
+            
+            // Intentar obtener rolesRequeridos como Map (nuevo formato JSON)
+            Object rolesObj = data.get("rolesRequeridos");
+            
+            if (rolesObj instanceof Map) {
+                @SuppressWarnings("unchecked")
+                Map<String, Number> rolesMap = (Map<String, Number>) rolesObj;
+                for (Map.Entry<String, Number> entry : rolesMap.entrySet()) {
+                    int cantidad = entry.getValue().intValue();
+                    roles.put(new Rol(entry.getKey()), cantidad);
+                }
+            } else if (rolesObj instanceof List) {
+                // Formato antiguo: lista de strings
+                @SuppressWarnings("unchecked")
+                List<String> rolesRequeridos = (List<String>) rolesObj;
                 for (String rolStr : rolesRequeridos) {
                     roles.put(new Rol(rolStr), 1);
                 }
@@ -400,6 +412,8 @@ public class JsonAdapter implements ICargarRecital {
             return valor.substring(1, valor.length() - 1);
         } else if (valor.startsWith("[") && valor.endsWith("]")) {
             return parsearLista(valor);
+        } else if (valor.startsWith("{") && valor.endsWith("}")) {
+            return parsearJsonObjeto(valor);
         } else if (valor.equals("true")) {
             return true;
         } else if (valor.equals("false")) {
