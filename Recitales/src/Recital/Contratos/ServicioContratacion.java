@@ -38,10 +38,6 @@ public class ServicioContratacion {
         public int getArtistasDisponiblesRestantes() {
             return artistasDisponiblesRestantes;
         }
-        
-        public boolean esEntrenableEl(int rolesRequeridos) {
-            return artistasDisponiblesRestantes >= rolesRequeridos;
-        }
     }
     
     public ServicioContratacion() {
