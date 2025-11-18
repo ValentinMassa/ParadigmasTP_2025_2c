@@ -128,8 +128,18 @@ public class Recital {
         Map<Rol, Integer> rolesRequeridos = new HashMap<>(cancion.getRolesRequeridos());
         Map<Rol, Integer> rolesCubiertos = new HashMap<>();
 
-        // Solo contar roles cubiertos por contratos existentes para esta canción
-        // NO contar artistas base como cubiertos - solo contratos reales
+        // Contar roles que pueden ser cubiertos por artistas base
+        for (ArtistaBase artista : artistaBase) {
+            boolean yaCubrio = false;
+            for (Rol rol : artista.getRoles()) {
+                if (!yaCubrio && rolesRequeridos.getOrDefault(rol, 0) > 0) {
+                    rolesCubiertos.put(rol, rolesCubiertos.getOrDefault(rol, 0) + 1);
+                    yaCubrio = true; 
+                }
+            }
+        }
+
+        // Contar roles cubiertos por contratos existentes para esta canción
         if (contratos != null) {
             for (Contrato contrato : contratos) {
                 if (contrato.getCancion().equals(cancion)) {
