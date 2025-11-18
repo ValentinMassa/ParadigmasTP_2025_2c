@@ -32,8 +32,9 @@ public class MenuPrincipal {
             System.out.println("5. Entrenar artista");
             System.out.println("6. Listar artistas contratados");
             System.out.println("7. Listar estado de canciones");
-            System.out.println("8. Consulta Prolog - Entrenamientos mínimos");
-            System.out.println("9. Salir");
+            System.out.println("8. Listar artistas por rol en cada canción");
+            System.out.println("9. Consulta Prolog - Entrenamientos mínimos");
+            System.out.println("10. Salir");
             System.out.println("=====================================================");
             System.out.print("Seleccione una opción: ");
             
@@ -63,9 +64,12 @@ public class MenuPrincipal {
                         listarCanciones();
                         break;
                     case 8:
-                        consultaProlog();
+                        listarArtistassPorRol();
                         break;
                     case 9:
+                        consultaProlog();
+                        break;
+                    case 10:
                         salir = true;
                         System.out.println("\n¡Hasta luego!");
                         break;
@@ -375,7 +379,7 @@ public class MenuPrincipal {
 
     private void consultaProlog() {
         try {
-            System.out.println("\n⏳ Consultando Prolog...");
+            System.out.println("\n[PROCESSING] Consultando Prolog...");
             System.out.println("¿Cuántos entrenamientos mínimos se necesitan?");
             
             // TODO: Implementar integración con Prolog
@@ -386,6 +390,46 @@ public class MenuPrincipal {
             
         } catch (Exception e) {
             System.out.println("Error en consulta Prolog: " + e.getMessage());
+        }
+    }
+
+    private void listarArtistassPorRol() {
+        try {
+            System.out.println("\n========== ARTISTAS POR ROL EN CADA CANCIÓN ==========\n");
+            
+            for (Cancion cancion : recital.getCanciones()) {
+                System.out.println("Cancion: " + cancion.getTitulo());
+                System.out.println("Roles requeridos:");
+                
+                // Obtener contratos de esta canción
+                Map<Rol, List<String>> rolesArtistas = new HashMap<>();
+                
+                for (Contrato contrato : recital.getContratos()) {
+                    if (contrato.getCancion().equals(cancion)) {
+                        Rol rol = contrato.getRol();
+                        String artista = contrato.getArtista().getNombre();
+                        rolesArtistas.computeIfAbsent(rol, k -> new ArrayList<>()).add(artista);
+                    }
+                }
+                
+                // Mostrar roles requeridos con artistas asignados
+                for (Map.Entry<Rol, Integer> entry : cancion.getRolesRequeridos().entrySet()) {
+                    Rol rol = entry.getKey();
+                    int cantidad = entry.getValue();
+                    List<String> artistas = rolesArtistas.getOrDefault(rol, new ArrayList<>());
+                    
+                    System.out.print("  - " + rol.getNombre() + " (x" + cantidad + "): ");
+                    if (artistas.isEmpty()) {
+                        System.out.println("[NO ASIGNADO]");
+                    } else {
+                        System.out.println(String.join(", ", artistas));
+                    }
+                }
+                System.out.println();
+            }
+            
+        } catch (Exception e) {
+            System.out.println("[ERROR] Error al listar artistas por rol: " + e.getMessage());
         }
     }
 }
