@@ -3,6 +3,9 @@
 $JAVA_HOME = "C:\Program Files\Java\jdk-21"
 $env:PATH = "$JAVA_HOME\bin;$env:PATH"
 
+# Configurar encoding UTF-8
+[Console]::OutputEncoding = [System.Text.Encoding]::UTF8
+
 # Cambiar al directorio del script
 Set-Location $PSScriptRoot
 
@@ -25,7 +28,7 @@ Write-Host "Ejecutando programa..." -ForegroundColor Green
 Write-Host "===========================================" -ForegroundColor Green
 Write-Host ""
 
-java -cp bin App
+java -Dfile.encoding=UTF-8 -cp bin App
 
 Write-Host ""
 Read-Host "Presiona Enter para salir"

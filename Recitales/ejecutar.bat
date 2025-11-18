@@ -1,5 +1,6 @@
 @echo off
 chcp 65001 > nul
+setlocal enabledelayedexpansion
 set JAVA_HOME=C:\Program Files\Java\jdk-21
 set PATH=%JAVA_HOME%\bin;%PATH%
 cd /d "%~dp0"
@@ -21,6 +22,6 @@ echo ==========================================
 echo Ejecutando programa...
 echo ==========================================
 echo.
-java -cp bin App
+java -Dfile.encoding=UTF-8 -cp bin App
 
 pause
