@@ -116,7 +116,7 @@
     "roles": ["sintetizador", "teclados"],
     "bandas": [],
     "costo": 1400,
-    "maxCanciones": 2
+    "maxCanciones": 3
   }
 ]
 

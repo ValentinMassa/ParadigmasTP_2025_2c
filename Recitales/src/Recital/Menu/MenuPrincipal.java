@@ -236,7 +236,7 @@ public class MenuPrincipal {
 
     private void entrenarArtista() {
         try {
-            // 1. Obtener entrada del usuario
+            // Obtener entrada del usuario
             System.out.print("\nIngrese el nombre del artista a entrenar: ");
             String nombre = scanner.nextLine().trim();
             if (nombre.isEmpty()) {
@@ -251,39 +251,18 @@ public class MenuPrincipal {
                 return;
             }
             
-            // 2. Validar rol 
-            if (!rolCatalogo.existeRol(nombreRol)) {
-                System.out.println("El rol ingresado no existe en el catálogo.");
-                return;
-            }
+            // Validación de rol y artista.
+            ArtistaExterno artista = validarArtistaEntrenable(nombre, nombreRol);
+            if (artista == null) return;
             
-            // 3. Buscar y validar artista
-            Artista artista = buscarArtistaExterno(nombre);
-            if (artista == null) {
-                System.out.println("Artista no encontrado.");
-                return;
-            }
-            
-            // 4. Validar que sea entrenable
-            if (!artista.puedeSerEntrenado()) {
-                System.out.println("No se puede entrenar a un artista base.");
-                return;
-            }
-            
-            // 5. Validar que no esté contratado
-            if (estaContratado(artista)) {
-                System.out.println("No se puede entrenar a un artista ya contratado.");
-                return;
-            }
-            
-            // 6. Entrenar artista
+            // Entrenar artista
             Rol rol = rolCatalogo.obtenerRol(nombreRol);
             double costoAnterior = artista.getCosto();
             artista.agregarRol(rol);
             artista.incrementarCosto(1.5);  // Incrementar 50% (multiplicar por 1.5)
             double costoNuevo = artista.getCosto();
             
-            // 7. Mostrar resultado
+            //  Mostrar resultado
             System.out.println("\nArtista entrenado exitosamente!");
             System.out.println("Artista: " + artista.getNombre());
             System.out.println("Nuevo rol: " + rol.getNombre());
@@ -295,9 +274,24 @@ public class MenuPrincipal {
             System.out.println("Error al entrenar: " + e.getMessage());
         }
     }
-    
-    private Artista buscarArtistaExterno(String nombre) {
-        for (Artista a : recital.getArtistasExternos()) {
+    private ArtistaExterno validarArtistaEntrenable(String nombre, String nombreRol) {
+        if (!rolCatalogo.existeRol(nombreRol)) {
+            System.out.println("El rol ingresado no existe en el catálogo.");
+            return null;
+        }
+        ArtistaExterno artista = buscarArtistaExterno(nombre);
+        if (artista == null) {
+            System.out.println("Artista no encontrado o base.");
+            return null;
+        }
+        if (estaContratado(artista)) {
+            System.out.println("El artista ya está contratado.");
+            return null;
+        }
+        return artista;
+    }
+    private ArtistaExterno buscarArtistaExterno(String nombre) {
+        for (ArtistaExterno a : recital.getArtistasExternos()) {
             if (a.getNombre().equalsIgnoreCase(nombre)) {
                 return a;
             }
