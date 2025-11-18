@@ -158,21 +158,21 @@ public class MenuPrincipal {
             List<Contrato> contratos = servicioContratacion.contratarParaCancion(recital, cancionEncontrada);
             
             if (contratos != null && !contratos.isEmpty()) {
-                System.out.println("✅ Contratación realizada:");
+                System.out.println("[OK] Contratación realizada:");
                 contratos.forEach(c -> System.out.println("  - " + c));
             } else {
                 System.out.println("No se pudieron contratar artistas.");
             }
             
         } catch (ServicioContratacion.ContratacionException e) {
-            System.out.println("\n❌ ERROR: " + e.getMessage());
+            System.out.println("\n[ERROR] " + e.getMessage());
             
             List<String> rolesNoDisponibles = e.getRolesNoDisponibles();
             int artistasDisponibles = e.getArtistasDisponiblesRestantes();
             
-            System.out.println("\n📋 Detalles del error:");
-            System.out.println("  • Roles no disponibles: " + String.join(", ", rolesNoDisponibles));
-            System.out.println("  • Artistas disponibles para entrenar: " + artistasDisponibles);
+            System.out.println("\nDetalles del error:");
+            System.out.println("  - Roles no disponibles: " + String.join(", ", rolesNoDisponibles));
+            System.out.println("  - Artistas disponibles para entrenar: " + artistasDisponibles);
             
             // Ofrecer opción de entrenar
             if (artistasDisponibles > 0) {
@@ -181,15 +181,15 @@ public class MenuPrincipal {
                 if (respuesta.equals("s")) {
                     entrenarArtista();
                     // Reintentar contratación
-                    System.out.println("\n🔄 Reintentando contratación...");
+                    System.out.println("\nReintentando contratación...");
                     contratarCancion();
                 }
             } else {
-                System.out.println("\n⚠️ No hay artistas disponibles para entrenar.");
+                System.out.println("\nNo hay artistas disponibles para entrenar.");
             }
             
         } catch (Exception e) {
-            System.out.println("❌ Error inesperado: " + e.getMessage());
+            System.out.println("[ERROR] Error inesperado: " + e.getMessage());
         }
     }
 
@@ -200,7 +200,7 @@ public class MenuPrincipal {
             List<Contrato> contratos = servicioContratacion.contratarParaTodo(recital);
             
             if (contratos != null && !contratos.isEmpty()) {
-                System.out.println("\n✅ Contratación total realizada:");
+                System.out.println("\n[OK] Contratación total realizada:");
                 System.out.println("Total de contratos: " + contratos.size());
                 
                 double costoTotal = recital.getCostoTotalRecital();
@@ -212,19 +212,19 @@ public class MenuPrincipal {
             }
             
         } catch (ServicioContratacion.ContratacionException e) {
-            System.out.println("\n❌ ERROR EN CONTRATACIÓN: " + e.getMessage());
+            System.out.println("\n[ERROR] ERROR EN CONTRATACIÓN: " + e.getMessage());
             
             System.out.print("\n¿Desea entrenar artistas para intentar nuevamente? (s/n): ");
             String respuesta = scanner.nextLine().trim().toLowerCase();
             if (respuesta.equals("s")) {
                 entrenarArtista();
                 // Reintentar contratación
-                System.out.println("\n🔄 Reintentando contratación...");
+                System.out.println("\nReintentando contratación...");
                 contratarTodo();
             }
             
         } catch (Exception e) {
-            System.out.println("❌ Error inesperado: " + e.getMessage());
+            System.out.println("[ERROR] Error inesperado: " + e.getMessage());
         }
     }
 
@@ -382,7 +382,7 @@ public class MenuPrincipal {
             // Consultar: entrenamientos mínimos para cubrir todos los roles
             // usando solo miembros base y artistas contratados
             
-            System.out.println("⚠️ Funcionalidad de Prolog no implementada aún.");
+            System.out.println("Funcionalidad de Prolog no implementada aún.");
             
         } catch (Exception e) {
             System.out.println("Error en consulta Prolog: " + e.getMessage());

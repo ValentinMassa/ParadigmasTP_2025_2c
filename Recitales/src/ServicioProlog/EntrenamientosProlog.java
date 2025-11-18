@@ -290,17 +290,17 @@ public class EntrenamientosProlog {
             reporte.append("─────────────────────────────────────────────────────────\n");
             reporte.append("Entrenamientos mínimos requeridos: ").append(entrenamientos).append("\n");
             reporte.append("Total de roles requeridos: ").append(rolesRequeridos.size()).append("\n");
-            reporte.append("Estado de Prolog: ").append(prologInicializado ? "✓ Activo" : "⚠ Inactivo (usando heurística)").append("\n\n");
+            reporte.append("Estado de Prolog: ").append(prologInicializado ? "[ACTIVE] Activo" : "[INACTIVE] Inactivo (usando heuristica)").append("\n\n");
             
-            reporte.append("🎭 DETALLE DE ROLES:\n");
+            reporte.append("DETALLE DE ROLES:\n");
             reporte.append("─────────────────────────────────────────────────────────\n");
             
             for (Rol rol : rolesRequeridos) {
                 int disponibles = contarArtistaBaseConRol(rol);
-                reporte.append("  • ").append(rol.getNombre())
+                reporte.append("  - ").append(rol.getNombre())
                        .append(": ").append(disponibles).append(" disponibles en base");
                 if (disponibles == 0) {
-                    reporte.append(" [⚠ REQUIERE ENTRENAMIENTO]");
+                    reporte.append(" [REQUIRES TRAINING]");
                 }
                 reporte.append("\n");
             }
