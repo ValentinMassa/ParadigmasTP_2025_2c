@@ -65,9 +65,9 @@ public class EntrenamientosProlog {
             // Intentar usar JPL para ejecutar consultas Prolog
             cargarArchivoProlog();
             prologInicializado = true;
-            System.out.println("✓ Prolog inicializado correctamente desde: " + rutaArchivoPrologActual);
+            System.out.println("Prolog inicializado correctamente desde: " + rutaArchivoPrologActual);
         } catch (Exception e) {
-            System.err.println("⚠ Error inicializando Prolog: " + e.getMessage());
+            System.err.println("Error inicializando Prolog: " + e.getMessage());
             System.err.println("Usando modo heurístico como fallback");
             prologInicializado = false;
         }

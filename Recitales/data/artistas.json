@@ -1,21 +1,21 @@
 [
   {
     "nombre": "Freddie Mercury",
-    "roles": ["voz principal", "teclados"],
+    "roles": ["voz principal"],
     "bandas": ["Queen"],
     "costo": 0,
     "maxCanciones": 100
   },
   {
     "nombre": "Brian May",
-    "roles": ["guitarra eléctrica", "voz secundaria"],
+    "roles": ["guitarra eléctrica"],
     "bandas": ["Queen"],
     "costo": 0,
     "maxCanciones": 100
   },
   {
     "nombre": "Roger Taylor",
-    "roles": ["batería", "voz secundaria"],
+    "roles": ["batería"],
     "bandas": ["Queen"],
     "costo": 0,
     "maxCanciones": 100
@@ -43,7 +43,7 @@
   },
   {
     "nombre": "Michael Jackson",
-    "roles": ["voz principal"],
+    "roles": ["voz principal", "percusión"],
     "bandas": ["The Jackson 5"],
     "costo": 1800,
     "maxCanciones": 1

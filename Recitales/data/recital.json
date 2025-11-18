@@ -1,6 +1,33 @@
 [
   {
-    "titulo": "Midnight Dreams",
+    "titulo": "Under Pressure",
+    "rolesRequeridos": {
+      "voz principal": 1,
+      "bajo": 1,
+      "batería": 1,
+      "teclados": 1
+    }
+  },
+  {
+    "titulo": "When Doves Cry",
+    "rolesRequeridos": {
+      "voz principal": 1,
+      "guitarra eléctrica": 1,
+      "teclados": 1,
+      "percusión": 1
+    }
+  },
+  {
+    "titulo": "Billie Jean",
+    "rolesRequeridos": {
+      "voz principal": 1,
+      "batería": 1,
+      "bajo": 1,
+      "teclados": 1
+    }
+  },
+  {
+    "titulo": "Smells Like Teen Spirit",
     "rolesRequeridos": {
       "voz principal": 1,
       "guitarra eléctrica": 1,
@@ -9,85 +36,52 @@
     }
   },
   {
-    "titulo": "Electric Nights",
+    "titulo": "Welcome to the Jungle",
     "rolesRequeridos": {
-      "voz principal": 2,
-      "teclados": 1,
+      "voz principal": 1,
+      "guitarra eléctrica": 2,
+      "bajo": 1,
+      "batería": 1,
+      "teclados": 1
+    }
+  },
+  {
+    "titulo": "Creep",
+    "rolesRequeridos": {
+      "voz principal": 1,
+      "guitarra eléctrica": 1,
       "bajo": 1,
       "batería": 1
     }
   },
   {
-    "titulo": "Acoustic Sunset",
+    "titulo": "Wonderwall",
     "rolesRequeridos": {
       "voz principal": 1,
-      "guitarra acústica": 1,
-      "voz secundaria": 1
-    }
-  },
-  {
-    "titulo": "Synthesizer Dreams",
-    "rolesRequeridos": {
-      "voz principal": 1,
-      "sintetizador": 1,
+      "guitarra eléctrica": 1,
       "bajo": 1,
       "batería": 1,
       "percusión": 1
     }
   },
   {
-    "titulo": "Classical Harmony",
-    "rolesRequeridos": {
-      "voz principal": 1,
-      "violín": 1,
-      "teclados": 1,
-      "voz secundaria": 2
-    }
-  },
-  {
-    "titulo": "Urban Pulse",
+    "titulo": "Let's Dance",
     "rolesRequeridos": {
       "voz principal": 1,
       "guitarra eléctrica": 1,
-      "bajo": 1,
-      "percusión": 1
-    }
-  },
-  {
-    "titulo": "Rhythm Collective",
-    "rolesRequeridos": {
-      "batería": 2,
-      "percusión": 2,
-      "bajo": 1,
-      "voz principal": 1
-    }
-  },
-  {
-    "titulo": "Soul Connection",
-    "rolesRequeridos": {
-      "voz principal": 1,
-      "guitarra acústica": 1,
-      "bajo": 1,
-      "voz secundaria": 2
-    }
-  },
-  {
-    "titulo": "Digital Revolution",
-    "rolesRequeridos": {
-      "voz principal": 1,
-      "sintetizador": 1,
       "teclados": 1,
       "bajo": 1,
       "batería": 1
     }
   },
   {
-    "titulo": "Sunset Boulevard",
+    "titulo": "Jump",
     "rolesRequeridos": {
-      "voz principal": 2,
-      "guitarra acústica": 1,
+      "voz principal": 1,
+      "guitarra eléctrica": 1,
+      "teclados": 1,
       "bajo": 1,
-      "teclados": 1
+      "batería": 1
     }
   }
 ]
