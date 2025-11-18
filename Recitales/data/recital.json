@@ -93,6 +93,27 @@
       "batería": 1,
       "teclados": 1
     }
+  },
+  {
+    "titulo": "Hella Good",
+    "rolesRequeridos": {
+        "voz principal": 1,
+        "guitarra eléctrica": 1,
+        "bajo": 1,
+        "batería": 1,
+        "teclados": 1
+    }
+  },
+  {
+    "titulo": "...Baby One More Time",
+    "rolesRequeridos": {
+      "voz principal": 1,
+      "guitarra eléctrica": 1,
+      "bajo": 1,
+      "batería": 1,
+      "teclados": 2,
+      "sintetizador": 1
+    }
   }
 ]
 

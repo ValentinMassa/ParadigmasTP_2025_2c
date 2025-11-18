@@ -110,6 +110,13 @@
     "bandas": ["No Doubt"],
     "costo": 880,
     "maxCanciones": 3
+  },
+  {
+    "nombre": "Britney Spears",
+    "roles": ["voz principal", "sintetizador"],
+    "bandas": [],
+    "costo": 2000,
+    "maxCanciones": 1
   }
 ]
 
