@@ -118,7 +118,7 @@ public class JsonAdapter implements ICargarRecital {
                         artistaOriginal.getMaxCanciones(),
                         artistaOriginal.getCosto(),
                         artistaOriginal.getRoles(),
-                        artistaOriginal.getBandas()
+                        artistaOriginal.getBandasHistoricas()
                     );
                     artistas.add(base);
                 }
@@ -226,10 +226,10 @@ public class JsonAdapter implements ICargarRecital {
             
             @SuppressWarnings("unchecked")
             List<String> rolesRequeridos = (List<String>) data.get("rolesRequeridos");
-            HashSet<Rol> roles = new HashSet<>();
+            Map<Rol, Integer> roles = new HashMap<>();
             if (rolesRequeridos != null) {
                 for (String rolStr : rolesRequeridos) {
-                    roles.add(new Rol(rolStr));
+                    roles.put(new Rol(rolStr), 1);
                 }
             }
             

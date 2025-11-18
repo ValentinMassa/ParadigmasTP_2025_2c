@@ -54,6 +54,14 @@ public abstract class Artista {
         return new HashSet<>(bandaHistorico);
     }
 
+    public int getCantCancionesAsignado() {
+        return cantCancionesAsignado;
+    }
+
+    public int getMaxCanciones() {
+        return maxcanciones;
+    }
+
     public Boolean puedeAceptarNuevaCancion(){
         return cantCancionesAsignado < maxcanciones;
     }

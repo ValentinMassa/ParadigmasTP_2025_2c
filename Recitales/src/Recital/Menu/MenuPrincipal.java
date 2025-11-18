@@ -293,7 +293,7 @@ public class MenuPrincipal {
                 System.out.println(String.format("%-25s %-20s %-15d $%.2f",
                     artista.getNombre(),
                     artista.getClass().getSimpleName(),
-                    artista.cantCancionesAsignado,
+                    artista.getCantCancionesAsignado(),
                     costo))
             );
             
