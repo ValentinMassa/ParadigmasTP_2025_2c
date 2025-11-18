@@ -215,7 +215,7 @@ public class EntrenamientosProlog {
             
             if (canciones != null) {
                 for (Cancion cancion : canciones) {
-                    rolesRequeridos.addAll(cancion.getRolesRequeridos());
+                    rolesRequeridos.addAll(cancion.getRolesRequeridos().keySet());
                 }
             }
         } catch (Exception e) {

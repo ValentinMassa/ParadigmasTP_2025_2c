@@ -4,18 +4,16 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 import Recital.Artista.*;
 import Recital.Contratos.*;
 import Recital.Rol.Rol;
-import Recital.Banda.Banda;
-import java.util.Map;
 
 public class Recital {
     private HashSet<ArtistaBase> artistaBase;
     private HashSet<ArtistaExterno> artistaExternos;
     private HashSet<Cancion> canciones;
     private List<Contrato> contratos;
-    private ServicioContratacion servicioContratacion;
 
 
     public Recital(HashSet<ArtistaBase> artistaBase, HashSet<ArtistaExterno> artistaExternos,
@@ -27,7 +25,6 @@ public class Recital {
         this.artistaBase = new HashSet<ArtistaBase>();
         this.artistaExternos = new HashSet<ArtistaExterno>();
         this.canciones = new HashSet<Cancion>();
-        this.servicioContratacion = servicioContratacion;
         this.contratos = new ArrayList<>();
         this.artistaBase.addAll(artistaBase);
         this.artistaExternos.addAll(artistaExternos);
