@@ -17,7 +17,7 @@ public class Recital {
    
 
     public Recital(HashSet<ArtistaBase> artistaBase, HashSet<ArtistaExterno> artistaExternos,
-                   HashSet<Cancion> canciones, ServicioContratacion servicioContratacion)
+                   HashSet<Cancion> canciones)
                    throws IllegalArgumentException {
         if (artistaExternos == null || artistaBase == null || canciones == null || servicioContratacion == null) {
             throw new IllegalArgumentException("Ningun parametro puede ser nulo");
