@@ -14,10 +14,11 @@ import Recital.Cancion;
 import Recital.Rol.Rol;
 import Recital.Banda.Banda;
 
-//Chequear logica
+//Chequear lógica
 /**
  * Adaptador para cargar información de recitales desde archivos JSON.
  * Utiliza solo bibliotecas estándar de Java para parsear JSON.
+ * Implementa el patrón Strategy para la carga de datos.
  */
 public class JsonAdapter implements ICargarRecital {
     
@@ -162,18 +163,6 @@ public class JsonAdapter implements ICargarRecital {
         return artistas;
     }
 
-    /**
-     * Obtiene artistas desde caché, cargándolos si es necesario.
-     * Evita cargar múltiples veces el archivo.
-     * Complejidad: O(n) primera vez, O(1) posteriores
-     */
-    private HashSet<ArtistaExterno> getArtistasEnCache() throws IOException {
-        if (artistasCache == null) {
-            artistasCache = cargarArtistasExternos();
-        }
-        return new HashSet<>(artistasCache);
-    }
-    
     /**
      * Carga TODOS los artistas del archivo JSON sin filtrar por artistas base.
      * Usado específicamente para crear artistas base que necesitan los datos completos.

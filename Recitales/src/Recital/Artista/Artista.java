@@ -73,6 +73,14 @@ public abstract class Artista {
         return true;
     }
 
+    public Boolean liberarCancion() {
+        if (cantCancionesAsignado > 0) {
+            cantCancionesAsignado--;
+            return true;
+        }
+        return false;
+    }
+
     public Boolean puedeTocarRol(Rol rolBuscado){
         for(Rol r: rolHistorico){
             if(r.equals(rolBuscado)){

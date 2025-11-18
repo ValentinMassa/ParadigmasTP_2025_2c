@@ -6,17 +6,19 @@ import Recital.Contratos.*;
 import Recital.Rol.*;
 import Recital.Menu.MenuPrincipal;
 import Imports.JsonAdapter;
+import Imports.ExportadorRecitalJSON;
 
 public class App {
     public static void main(String[] args) throws Exception {
+        Recital recital = null;
         try {
             System.out.println("========== INICIALIZANDO SISTEMA DE RECITALES ==========\n");
             
             // Cargar datos desde JSON
             JsonAdapter cargador = new JsonAdapter(
-                "data/artistas.json",
-                "data/recital.json",
-                "data/artistas-discografica.json"
+                "data/ArchivosInput/artistas.json",
+                "data/ArchivosInput/recital.json",
+                "data/ArchivosInput/artistas-discografica.json"
             );
             
             System.out.println("Cargando datos desde JSON...\n");
@@ -51,7 +53,7 @@ public class App {
             ServicioContratacion servicioContratacion = new ServicioContratacion();
             
             // Crear el recital
-            Recital recital = new Recital(artistasBase, artistasExternos, canciones, servicioContratacion);
+            recital = new Recital(artistasBase, artistasExternos, canciones);
             
             System.out.println("[SUCCESS] Sistema inicializado correctamente\n");
             System.out.println("Resumen:");
@@ -66,14 +68,29 @@ public class App {
             
         } catch (IOException e) {
             System.err.println("[ERROR] Error al cargar archivos JSON: " + e.getMessage());
-            System.err.println("\nAsegúrese de que los archivos existan en la carpeta 'data/':");
-            System.err.println("  • data/artistas.json");
-            System.err.println("  • data/recital.json");
-            System.err.println("  • data/artistas-discografica.json");
+            System.err.println("\nAsegúrese de que los archivos existan en la carpeta 'data/ArchivosInput/':");
+            System.err.println("  • data/ArchivosInput/artistas.json");
+            System.err.println("  • data/ArchivosInput/recital.json");
+            System.err.println("  • data/ArchivosInput/artistas-discografica.json");
             e.printStackTrace();
         } catch (Exception e) {
             System.err.println("[ERROR] Error fatal al iniciar el sistema: " + e.getMessage());
             e.printStackTrace();
+        } finally {
+            // Exportar estado del recital al salir
+            if (recital != null) {
+                try {
+                    System.out.println("\n========== EXPORTANDO ESTADO DEL RECITAL ==========");
+                    ExportadorRecitalJSON exportador = new ExportadorRecitalJSON(
+                        recital, 
+                        "data/ArchivosOutput/recital-out.json"
+                    );
+                    exportador.exportar();
+                    System.out.println("========== SESIÓN FINALIZADA ==========\n");
+                } catch (IOException e) {
+                    System.err.println("[ERROR] No se pudo exportar el estado del recital: " + e.getMessage());
+                }
+            }
         }
     }
 }

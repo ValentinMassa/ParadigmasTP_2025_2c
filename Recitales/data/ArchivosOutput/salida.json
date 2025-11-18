@@ -1,0 +1,119 @@
+[
+  {
+    "titulo": "Under Pressure",
+    "rolesRequeridos": {
+      "voz principal": 1,
+      "bajo": 1,
+      "batería": 1,
+      "teclados": 1
+    }
+  },
+  {
+    "titulo": "When Doves Cry",
+    "rolesRequeridos": {
+      "voz principal": 1,
+      "guitarra eléctrica": 1,
+      "teclados": 1,
+      "percusión": 1
+    }
+  },
+  {
+    "titulo": "Billie Jean",
+    "rolesRequeridos": {
+      "voz principal": 2,
+      "batería": 1,
+      "bajo": 1,
+      "teclados": 1
+    }
+  },
+  {
+    "titulo": "Smells Like Teen Spirit",
+    "rolesRequeridos": {
+      "voz principal": 1,
+      "guitarra eléctrica": 2,
+      "bajo": 1,
+      "batería": 1
+    }
+  },
+  {
+    "titulo": "Welcome to the Jungle",
+    "rolesRequeridos": {
+      "voz principal": 1,
+      "guitarra eléctrica": 2,
+      "bajo": 1,
+      "batería": 2,
+      "teclados": 1
+    }
+  },
+  {
+    "titulo": "Creep",
+    "rolesRequeridos": {
+      "voz principal": 1,
+      "guitarra eléctrica": 1,
+      "bajo": 1,
+      "batería": 1
+    }
+  },
+  {
+    "titulo": "Wonderwall",
+    "rolesRequeridos": {
+      "voz principal": 2,
+      "guitarra eléctrica": 1,
+      "bajo": 1,
+      "batería": 1,
+      "percusión": 1
+    }
+  },
+  {
+    "titulo": "Let's Dance",
+    "rolesRequeridos": {
+      "voz principal": 1,
+      "guitarra eléctrica": 2,
+      "teclados": 1,
+      "bajo": 1,
+      "batería": 1
+    }
+  },
+  {
+    "titulo": "Don't Speak",
+    "rolesRequeridos": {
+      "voz principal": 1,
+      "guitarra eléctrica": 1,
+      "bajo": 1,
+      "batería": 1,
+      "teclados": 1
+    }
+  },
+  {
+    "titulo": "Hella Good",
+    "rolesRequeridos": {
+        "voz principal": 1,
+        "guitarra eléctrica": 1,
+        "bajo": 1,
+        "batería": 1,
+        "teclados": 1
+    }
+  },
+  {
+    "titulo": "...Baby One More Time",
+    "rolesRequeridos": {
+      "voz principal": 1,
+      "coros": 2,
+      "guitarra eléctrica": 1,
+      "bajo": 1,
+      "batería": 1,
+      "teclados": 1
+    }
+  },
+  {
+    "titulo": "Criminal",
+    "rolesRequeridos": {
+        "voz principal": 1,
+        "guitarra acústica": 1,
+        "bajo": 1,
+        "batería": 1,
+        "teclados": 1
+  }
+ }
+]
+

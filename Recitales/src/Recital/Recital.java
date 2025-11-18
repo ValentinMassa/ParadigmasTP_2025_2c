@@ -19,7 +19,7 @@ public class Recital {
     public Recital(HashSet<ArtistaBase> artistaBase, HashSet<ArtistaExterno> artistaExternos,
                    HashSet<Cancion> canciones)
                    throws IllegalArgumentException {
-        if (artistaExternos == null || artistaBase == null || canciones == null || servicioContratacion == null) {
+        if (artistaExternos == null || artistaBase == null || canciones == null) {
             throw new IllegalArgumentException("Ningun parametro puede ser nulo");
         } 
         this.artistaBase = new HashSet<ArtistaBase>();
@@ -34,6 +34,23 @@ public class Recital {
 
     public List<Contrato> getContratos(){
         return contratos;
+    }
+
+    public boolean quitarArtista(Artista artista) {
+        List<Contrato> contratosARemover = new ArrayList<>();
+        for (Contrato contrato : contratos) {
+            if (contrato.getArtista().equals(artista)) {
+                contratosARemover.add(contrato);
+            }
+        }
+        if (contratosARemover.isEmpty()) {
+            return false;
+        }
+        contratos.removeAll(contratosARemover);
+        for (int i = 0; i < contratosARemover.size(); i++) {
+            artista.liberarCancion();
+        }
+        return true;
     }
 
     public Map<Artista, Double> getCostosPorArtista(){

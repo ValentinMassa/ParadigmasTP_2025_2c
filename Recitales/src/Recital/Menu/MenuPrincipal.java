@@ -6,6 +6,8 @@ import Recital.Contratos.*;
 import Recital.Artista.*;
 import Recital.Rol.Rol;
 import Recital.Rol.RolCatalogo;
+import Recital.Colaboraciones.GrafoColaboraciones;
+import Recital.ServicioProlog.ServicioPrologIntegracion;
 
 public class MenuPrincipal {
     private Recital recital;
@@ -34,7 +36,9 @@ public class MenuPrincipal {
             System.out.println("7. Listar estado de canciones");
             System.out.println("8. Listar artistas por rol en cada canción");
             System.out.println("9. Consulta Prolog - Entrenamientos mínimos");
-            System.out.println("10. Salir");
+            System.out.println("10. Quitar artista (Arrepentimiento)");
+            System.out.println("11. Ver grafo de colaboraciones");
+            System.out.println("12. Salir");
             System.out.println("=====================================================");
             System.out.print("Seleccione una opción: ");
             
@@ -70,6 +74,12 @@ public class MenuPrincipal {
                         consultaProlog();
                         break;
                     case 10:
+                        quitarArtista();
+                        break;
+                    case 11:
+                        mostrarColaboraciones();
+                        break;
+                    case 12:
                         salir = true;
                         System.out.println("\n¡Hasta luego!");
                         break;
@@ -375,17 +385,150 @@ public class MenuPrincipal {
 
     private void consultaProlog() {
         try {
-            System.out.println("\n[PROCESSING] Consultando Prolog...");
-            System.out.println("¿Cuántos entrenamientos mínimos se necesitan?");
+            System.out.println("\n========== CONSULTA PROLOG ==========");
+            System.out.println("Calculando entrenamientos mínimos necesarios...\n");
             
-            // TODO: Implementar integración con Prolog
-            // Consultar: entrenamientos mínimos para cubrir todos los roles
-            // usando solo miembros base y artistas contratados
+            ServicioPrologIntegracion servicio = new ServicioPrologIntegracion(recital);
+            int entrenamientos = servicio.consultarEntrenamientosMínimos();
             
-            System.out.println("Funcionalidad de Prolog no implementada aún.");
+            if (entrenamientos == 0) {
+                System.out.println("✓ No se necesitan entrenamientos adicionales.");
+                System.out.println("Todos los roles pueden cubrirse con artistas base y contratados.");
+            } else if (entrenamientos > 0) {
+                System.out.println("✓ Entrenamientos mínimos necesarios: " + entrenamientos);
+                System.out.println("Se necesita entrenar a " + entrenamientos + " artista(s) externo(s)");
+                System.out.println("para cubrir todos los roles del recital.");
+            } else {
+                System.out.println("✗ Imposible cubrir todos los roles.");
+                System.out.println("No hay suficientes artistas disponibles para entrenar.");
+            }
             
         } catch (Exception e) {
             System.out.println("Error en consulta Prolog: " + e.getMessage());
+        }
+    }
+
+    private void quitarArtista() {
+        try {
+            System.out.println("\n========== QUITAR ARTISTA (ARREPENTIMIENTO) ==========");
+            
+            List<Contrato> contratos = recital.getContratos();
+            
+            if (contratos == null || contratos.isEmpty()) {
+                System.out.println("No hay artistas contratados para quitar.");
+                return;
+            }
+            
+            // Mostrar artistas contratados
+            System.out.println("\nArtistas contratados disponibles para quitar:\n");
+            Map<String, Artista> artistasUnicos = new HashMap<>();
+            
+            for (Contrato contrato : contratos) {
+                Artista artista = contrato.getArtista();
+                artistasUnicos.put(artista.getNombre(), artista);
+            }
+            
+            System.out.println(String.format("%-25s %-10s %-15s %s", 
+                "Artista", "Costo", "Canciones", "Roles"));
+            System.out.println("================================================================");
+            
+            int index = 1;
+            for (Artista artista : artistasUnicos.values()) {
+                // Contar contratos de este artista
+                int contratosDelArtista = 0;
+                for (Contrato c : contratos) {
+                    if (c.getArtista().equals(artista)) {
+                        contratosDelArtista++;
+                    }
+                }
+                
+                StringBuilder roles = new StringBuilder();
+                for (Rol r : artista.getRoles()) {
+                    if (roles.length() > 0) roles.append(", ");
+                    roles.append(r.getNombre());
+                }
+                
+                System.out.println(String.format("%d. %-21s $%-9.2f %-15d %s", 
+                    index,
+                    artista.getNombre(), 
+                    artista.getCosto(),
+                    contratosDelArtista,
+                    roles.toString()));
+                index++;
+            }
+            
+            System.out.print("\nIngrese el número del artista a quitar (0 para cancelar): ");
+            int seleccion = scanner.nextInt();
+            scanner.nextLine();
+            
+            if (seleccion == 0) {
+                System.out.println("Operación cancelada.");
+                return;
+            }
+            
+            if (seleccion < 1 || seleccion > artistasUnicos.size()) {
+                System.out.println("Selección inválida.");
+                return;
+            }
+            
+            // Obtener el artista seleccionado
+            Artista artistaAQuitar = (Artista) artistasUnicos.values().toArray()[seleccion - 1];
+            
+            // Calcular costo total a recuperar
+            double costoARecuperar = 0;
+            int contratosAQuitar = 0;
+            List<String> cancionesALiberar = new ArrayList<>();
+            
+            for (Contrato c : contratos) {
+                if (c.getArtista().equals(artistaAQuitar)) {
+                    costoARecuperar += c.obtenerCostoContrato();
+                    contratosAQuitar++;
+                    if (!cancionesALiberar.contains(c.getCancion().getTitulo())) {
+                        cancionesALiberar.add(c.getCancion().getTitulo());
+                    }
+                }
+            }
+            
+            // Confirmación
+            System.out.println("\n========== RESUMEN DE CAMBIOS ==========");
+            System.out.println("Artista a quitar: " + artistaAQuitar.getNombre());
+            System.out.println("Contratos a eliminar: " + contratosAQuitar);
+            System.out.println("Canciones a liberar: " + String.join(", ", cancionesALiberar));
+            System.out.println("Costo a recuperar: $" + String.format("%.2f", costoARecuperar));
+            System.out.println("Nuevo costo total: $" + String.format("%.2f", recital.getCostoTotalRecital() - costoARecuperar));
+            
+            System.out.print("\n¿Está seguro de quitar al artista? (s/n): ");
+            String confirmacion = scanner.nextLine().trim().toLowerCase();
+            
+            if (!confirmacion.equals("s")) {
+                System.out.println("Operación cancelada.");
+                return;
+            }
+            
+            // Ejecutar la eliminación
+            if (recital.quitarArtista(artistaAQuitar)) {
+                System.out.println("\n[OK] Artista eliminado exitosamente!");
+                System.out.println("Se han liberado " + contratosAQuitar + " contrato(s).");
+                System.out.println("Se ha recuperado: $" + String.format("%.2f", costoARecuperar));
+                System.out.println("Nuevo costo total del recital: $" + String.format("%.2f", recital.getCostoTotalRecital()));
+                
+                // Mostrar roles que ahora están faltantes
+                Map<Rol, Integer> rolesFaltantes = recital.getRolesFaltantes();
+                if (!rolesFaltantes.isEmpty()) {
+                    System.out.println("\nRoles que ahora están faltantes:");
+                    for (Map.Entry<Rol, Integer> entry : rolesFaltantes.entrySet()) {
+                        System.out.println("  - " + entry.getKey().getNombre() + ": " + entry.getValue());
+                    }
+                }
+            } else {
+                System.out.println("[ERROR] No se pudo quitar al artista.");
+            }
+            
+        } catch (InputMismatchException e) {
+            System.out.println("\nError: Ingrese un número válido");
+            scanner.nextLine(); // Limpiar buffer
+        } catch (Exception e) {
+            System.out.println("[ERROR] Error al quitar artista: " + e.getMessage());
         }
     }
 
@@ -426,6 +569,28 @@ public class MenuPrincipal {
             
         } catch (Exception e) {
             System.out.println("[ERROR] Error al listar artistas por rol: " + e.getMessage());
+        }
+    }
+
+    private void mostrarColaboraciones() {
+        try {
+            System.out.println("\n========== HISTORIAL DE COLABORACIONES ==========");
+            
+            // Recopilar todos los artistas (base y externos)
+            Set<Artista> todosLosArtistas = new HashSet<>();
+            todosLosArtistas.addAll(recital.getArtistasBase());
+            todosLosArtistas.addAll(recital.getArtistasExternos());
+
+            if (todosLosArtistas.isEmpty()) {
+                System.out.println("No hay artistas registrados.");
+                return;
+            }
+
+            GrafoColaboraciones grafo = new GrafoColaboraciones(todosLosArtistas);
+            grafo.mostrarGrafo();
+
+        } catch (Exception e) {
+            System.out.println("[ERROR] Error al mostrar colaboraciones: " + e.getMessage());
         }
     }
 
