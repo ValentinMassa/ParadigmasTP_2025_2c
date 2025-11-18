@@ -439,9 +439,16 @@ public class MenuPrincipal {
         System.out.println("\n========== ARTISTAS DISPONIBLES PARA ENTRENAR ==========");
         List<Artista> artistasEntrenables = new ArrayList<>();
         
+        // Crear lista de nombres de artistas base para excluir
+        Set<String> nombresArtistasBase = new HashSet<>();
+        for (ArtistaBase base : recital.getArtistasBase()) {
+            nombresArtistasBase.add(base.getNombre());
+        }
+        
         // Buscar artistas externos que NO son base y NO están contratados
         for (Artista a : recital.getArtistasExternos()) {
-            if (a.puedeSerEntrenado() && !estaContratado(a)) {
+            boolean esArtistaBase = nombresArtistasBase.contains(a.getNombre());
+            if (a.puedeSerEntrenado() && !estaContratado(a) && !esArtistaBase) {
                 artistasEntrenables.add(a);
             }
         }

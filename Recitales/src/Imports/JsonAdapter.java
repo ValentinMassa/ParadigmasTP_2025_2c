@@ -53,6 +53,31 @@ public class JsonAdapter implements ICargarRecital {
         this.cancionesCache = null;
     }
 
+    /**
+     * Método helper para cargar solo los nombres de los artistas base
+     * (para evitar duplicados en artistas externos)
+     */
+    private HashSet<String> cargarNombresArtistasBase() throws IOException {
+        HashSet<String> nombres = new HashSet<>();
+        File file = new File(rutaArtistasBase);
+        
+        if (!file.exists()) {
+            return nombres; // Si no existe el archivo, no hay artistas base
+        }
+        
+        try {
+            String contenido = new String(Files.readAllBytes(file.toPath()));
+            // Reutilizar el método existente para arrays de strings
+            List<String> nombresBase = parsearJsonArrayStrings(contenido);
+            nombres.addAll(nombresBase);
+        } catch (Exception e) {
+            // Si hay error leyendo artistas base, mejor no filtrar nada
+            System.err.println("Warning: Error leyendo artistas base: " + e.getMessage());
+        }
+        
+        return nombres;
+    }
+
     @Override
     public HashSet<ArtistaExterno> cargarArtistasExternos() throws IOException {
         // Usar caché si ya está cargado
@@ -68,13 +93,19 @@ public class JsonAdapter implements ICargarRecital {
         }
         
         try {
+            // Primero cargar la lista de artistas base para excluirlos
+            HashSet<String> nombresArtistasBase = cargarNombresArtistasBase();
+            
             String contenido = new String(Files.readAllBytes(file.toPath()));
             List<Map<String, Object>> datos = parsearJsonArray(contenido);
             
             for (Map<String, Object> artistaData : datos) {
                 ArtistaExterno artista = construirArtistaExterno(artistaData);
                 if (artista != null) {
-                    artistas.add(artista);
+                    // SOLO agregar si NO está en la lista de artistas base
+                    if (!nombresArtistasBase.contains(artista.getNombre())) {
+                        artistas.add(artista);
+                    }
                 }
             }
             
@@ -100,8 +131,9 @@ public class JsonAdapter implements ICargarRecital {
             String contenido = new String(Files.readAllBytes(file.toPath()));
             List<String> nombresArtistas = parsearJsonArrayStrings(contenido);
             
-            // Cargar artistas en caché si no están cargados (O(n) una sola vez)
-            HashSet<ArtistaExterno> todosLosArtistas = getArtistasEnCache();
+            // Cargar TODOS los artistas del archivo principal (sin filtrar)
+            // para poder crear los artistas base correctamente
+            HashSet<ArtistaExterno> todosLosArtistas = cargarTodosLosArtistas();
             
             // Crear mapa para búsqueda O(1) en lugar de O(n)
             Map<String, ArtistaExterno> artistasMap = new HashMap<>();
@@ -140,6 +172,35 @@ public class JsonAdapter implements ICargarRecital {
             artistasCache = cargarArtistasExternos();
         }
         return new HashSet<>(artistasCache);
+    }
+    
+    /**
+     * Carga TODOS los artistas del archivo JSON sin filtrar por artistas base.
+     * Usado específicamente para crear artistas base que necesitan los datos completos.
+     */
+    private HashSet<ArtistaExterno> cargarTodosLosArtistas() throws IOException {
+        HashSet<ArtistaExterno> artistas = new HashSet<>();
+        File file = new File(rutaArtistas);
+        
+        if (!file.exists()) {
+            throw new IOException("Archivo no encontrado: " + rutaArtistas);
+        }
+        
+        try {
+            String contenido = new String(Files.readAllBytes(file.toPath()));
+            List<Map<String, Object>> datos = parsearJsonArray(contenido);
+            
+            for (Map<String, Object> artistaData : datos) {
+                ArtistaExterno artista = construirArtistaExterno(artistaData);
+                if (artista != null) {
+                    artistas.add(artista);
+                }
+            }
+        } catch (Exception e) {
+            throw new IOException("Error al parsear archivo de artistas: " + e.getMessage(), e);
+        }
+        
+        return artistas;
     }
 
     @Override
