@@ -20,7 +20,7 @@
   {
     "titulo": "Billie Jean",
     "rolesRequeridos": {
-      "voz principal": 1,
+      "voz principal": 2,
       "batería": 1,
       "bajo": 1,
       "teclados": 1
@@ -30,7 +30,7 @@
     "titulo": "Smells Like Teen Spirit",
     "rolesRequeridos": {
       "voz principal": 1,
-      "guitarra eléctrica": 1,
+      "guitarra eléctrica": 2,
       "bajo": 1,
       "batería": 1
     }
@@ -41,7 +41,7 @@
       "voz principal": 1,
       "guitarra eléctrica": 2,
       "bajo": 1,
-      "batería": 1,
+      "batería": 2,
       "teclados": 1
     }
   },
@@ -57,7 +57,7 @@
   {
     "titulo": "Wonderwall",
     "rolesRequeridos": {
-      "voz principal": 1,
+      "voz principal": 2,
       "guitarra eléctrica": 1,
       "bajo": 1,
       "batería": 1,
@@ -68,7 +68,7 @@
     "titulo": "Let's Dance",
     "rolesRequeridos": {
       "voz principal": 1,
-      "guitarra eléctrica": 1,
+      "guitarra eléctrica": 2,
       "teclados": 1,
       "bajo": 1,
       "batería": 1
@@ -79,7 +79,7 @@
     "rolesRequeridos": {
       "voz principal": 1,
       "guitarra eléctrica": 1,
-      "teclados": 1,
+      "teclados": 2,
       "bajo": 1,
       "batería": 1
     }
