@@ -69,8 +69,8 @@ public class ServicioPrologIntegracion {
         List<Contrato> contratos = recital.getContratos();
         
         Set<ArtistaExterno> artistasContratados = new HashSet<>();
-        for (Contrato c : contratos) {
-            Artista artista = c.getArtista();
+        for (Contrato contrato : contratos) {
+            Artista artista = contrato.getArtista();
             if (artista instanceof ArtistaExterno) {
                 artistasContratados.add((ArtistaExterno) artista);
             }

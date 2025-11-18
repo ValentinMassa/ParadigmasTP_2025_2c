@@ -22,16 +22,16 @@ public class RolCatalogo {
     }
 
     public Boolean existeRol(String nombreRol) {
-        for (Rol r : roles) {
-            if (r.getNombre().equals(nombreRol)) {
+        for (Rol rol : roles) {
+            if (rol.getNombre().equals(nombreRol)) {
                 return true;
             }
         }
         return false;
     }
     private Rol agregarRol(String rolNuevo) {
-        Rol r = new Rol(rolNuevo);
-        roles.add(r);
-        return r;
+        Rol nuevoRol = new Rol(rolNuevo);
+        roles.add(nuevoRol);
+        return nuevoRol;
     }
 }

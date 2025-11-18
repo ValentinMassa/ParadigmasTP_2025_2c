@@ -108,9 +108,9 @@ public class MenuPrincipal {
 
         // Buscar la cancion en el recital
         Cancion cancionEncontrada = null;
-        for (Cancion c : recital.getCanciones()) {
-            if (c.getTitulo().equalsIgnoreCase(titulo)) {
-                cancionEncontrada = c;
+        for (Cancion cancion : recital.getCanciones()) {
+            if (cancion.getTitulo().equalsIgnoreCase(titulo)) {
+                cancionEncontrada = cancion;
                 break; 
             }
         }
@@ -157,9 +157,9 @@ public class MenuPrincipal {
             
             // Buscar la cancion
             Cancion cancionEncontrada = null;
-            for (Cancion c : recital.getCanciones()) {
-                if (c.getTitulo().equalsIgnoreCase(titulo)) {
-                    cancionEncontrada = c;
+            for (Cancion cancion : recital.getCanciones()) {
+                if (cancion.getTitulo().equalsIgnoreCase(titulo)) {
+                    cancionEncontrada = cancion;
                     break;
                 }
             }
@@ -302,17 +302,17 @@ public class MenuPrincipal {
         return artista;
     }
     private ArtistaExterno buscarArtistaExterno(String nombre) {
-        for (ArtistaExterno a : recital.getArtistasExternos()) {
-            if (a.getNombre().equalsIgnoreCase(nombre)) {
-                return a;
+        for (ArtistaExterno artistaExterno : recital.getArtistasExternos()) {
+            if (artistaExterno.getNombre().equalsIgnoreCase(nombre)) {
+                return artistaExterno;
             }
         }
         return null;
     }
     
     private boolean estaContratado(Artista artista) {
-        for (Contrato c : recital.getContratos()) {
-            if (c.getArtista().equals(artista)) {
+        for (Contrato contrato : recital.getContratos()) {
+            if (contrato.getArtista().equals(artista)) {
                 return true;
             }
         }
@@ -437,16 +437,16 @@ public class MenuPrincipal {
             for (Artista artista : artistasUnicos.values()) {
                 // Contar contratos de este artista
                 int contratosDelArtista = 0;
-                for (Contrato c : contratos) {
-                    if (c.getArtista().equals(artista)) {
+                for (Contrato contrato : contratos) {
+                    if (contrato.getArtista().equals(artista)) {
                         contratosDelArtista++;
                     }
                 }
                 
                 StringBuilder roles = new StringBuilder();
-                for (Rol r : artista.getRoles()) {
+                for (Rol rol : artista.getRoles()) {
                     if (roles.length() > 0) roles.append(", ");
-                    roles.append(r.getNombre());
+                    roles.append(rol.getNombre());
                 }
                 
                 System.out.println(String.format("%d. %-21s $%-9.2f %-15d %s", 
@@ -480,12 +480,12 @@ public class MenuPrincipal {
             int contratosAQuitar = 0;
             List<String> cancionesALiberar = new ArrayList<>();
             
-            for (Contrato c : contratos) {
-                if (c.getArtista().equals(artistaAQuitar)) {
-                    costoARecuperar += c.obtenerCostoContrato();
+            for (Contrato contrato : contratos) {
+                if (contrato.getArtista().equals(artistaAQuitar)) {
+                    costoARecuperar += contrato.obtenerCostoContrato();
                     contratosAQuitar++;
-                    if (!cancionesALiberar.contains(c.getCancion().getTitulo())) {
-                        cancionesALiberar.add(c.getCancion().getTitulo());
+                    if (!cancionesALiberar.contains(contrato.getCancion().getTitulo())) {
+                        cancionesALiberar.add(contrato.getCancion().getTitulo());
                     }
                 }
             }
@@ -606,10 +606,10 @@ public class MenuPrincipal {
         }
         
         // Buscar artistas externos que NO son base y NO estan contratados
-        for (Artista a : recital.getArtistasExternos()) {
-            boolean esArtistaBase = nombresArtistasBase.contains(a.getNombre());
-            if (a.puedeSerEntrenado() && !estaContratado(a) && !esArtistaBase) {
-                artistasEntrenables.add(a);
+        for (Artista artista : recital.getArtistasExternos()) {
+            boolean esArtistaBase = nombresArtistasBase.contains(artista.getNombre());
+            if (artista.puedeSerEntrenado() && !estaContratado(artista) && !esArtistaBase) {
+                artistasEntrenables.add(artista);
             }
         }
         
@@ -626,9 +626,9 @@ public class MenuPrincipal {
         
         for (Artista artista : artistasEntrenables) {
             StringBuilder roles = new StringBuilder();
-            for (Rol r : artista.getRoles()) {
+            for (Rol rol : artista.getRoles()) {
                 if (roles.length() > 0) roles.append(", ");
-                roles.append(r.getNombre());
+                roles.append(rol.getNombre());
             }
             double costoEfectivo = (artista instanceof ArtistaExterno) ? 
                 calcularCostoEfectivo((ArtistaExterno) artista) : artista.getCosto();
@@ -645,6 +645,6 @@ public class MenuPrincipal {
      * Calcula el costo efectivo de un artista aplicando descuentos por banda compartida
      */
     private double calcularCostoEfectivo(ArtistaExterno artista) {
-        return artista.getCostoConDescuento(recital.getArtistasBase());
+        return Recital.calcularCostoConDescuento(artista, recital.getArtistasBase());
     }
 }

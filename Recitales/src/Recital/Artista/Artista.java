@@ -82,8 +82,8 @@ public abstract class Artista {
     }
 
     public Boolean puedeTocarRol(Rol rolBuscado){
-        for(Rol r: rolHistorico){
-            if(r.equals(rolBuscado)){
+        for(Rol rol: rolHistorico){
+            if(rol.equals(rolBuscado)){
                 return true;
             }
         }

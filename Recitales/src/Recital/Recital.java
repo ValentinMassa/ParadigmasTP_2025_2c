@@ -8,6 +8,7 @@ import java.util.Map;
 import Recital.Artista.*;
 import Recital.Contratos.*;
 import Recital.Rol.Rol;
+import Recital.Banda.Banda;
 
 public class Recital {
     private HashSet<ArtistaBase> artistaBase;
@@ -195,5 +196,21 @@ public class Recital {
         }
 
         return rolesFaltantes;
+    }
+    
+    
+    public static double calcularCostoConDescuento(ArtistaExterno artista, HashSet<ArtistaBase> artistasBase) {
+        double costoBase = artista.getCosto();
+        
+        // Verificar si comparte banda con algún artista base
+        for (ArtistaBase base : artistasBase) {
+            for (Banda bandaBase : base.getBandasHistoricas()) {
+                if (artista.getBandasHistoricas().contains(bandaBase)) {
+                    return costoBase * 0.5; // 50% de descuento
+                }
+            }
+        }
+        
+        return costoBase;
     }
 }

@@ -22,16 +22,16 @@ public class BandaCatalogo {
     }
 
     private Boolean existeBanda(String nombreBanda) {
-        for (Banda b : bandas) {
-            if (b.getNombre().equals(nombreBanda)) {
+        for (Banda banda : bandas) {
+            if (banda.getNombre().equals(nombreBanda)) {
                 return true;
             }
         }
         return false;
     }
     private Banda agregarBanda(String nombreBanda) {
-        Banda b = new Banda(nombreBanda);
-        bandas.add(b);
-        return b;
+        Banda nuevaBanda = new Banda(nombreBanda);
+        bandas.add(nuevaBanda);
+        return nuevaBanda;
     }
 }

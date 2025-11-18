@@ -121,8 +121,8 @@ public class JsonAdapter implements ICargarRecital {
             
             // Crear mapa para busqueda O(1) en lugar de O(n)
             Map<String, ArtistaExterno> artistasMap = new HashMap<>();
-            for (ArtistaExterno a : todosLosArtistas) {
-                artistasMap.put(a.getNombre(), a);
+            for (ArtistaExterno artistaExterno : todosLosArtistas) {
+                artistasMap.put(artistaExterno.getNombre(), artistaExterno);
             }
             
             // Buscar artistas base (O(1) por lookup)

@@ -140,8 +140,8 @@ public class ServicioContratacion {
     }
 
     private boolean tieneContratoEnCancion(Recital recital, Artista artista, Cancion cancion) {
-        for (Contrato c : recital.getContratos()) {
-            if (c.getCancion().equals(cancion) && c.getArtista().equals(artista)) {
+        for (Contrato contrato : recital.getContratos()) {
+            if (contrato.getCancion().equals(cancion) && contrato.getArtista().equals(artista)) {
                 return true;
             }
         }
@@ -177,8 +177,8 @@ public class ServicioContratacion {
                 boolean comparteBanda = false;
                 
                 for (ArtistaBase base : recital.getArtistasBase()) {
-                    for (Banda b : base.getBandasHistoricas()) {
-                        if (externo.getBandasHistoricas().contains(b)) {
+                    for (Banda bandaHistorica : base.getBandasHistoricas()) {
+                        if (externo.getBandasHistoricas().contains(bandaHistorica)) {
                             comparteBanda = true;
                             break;
                         }

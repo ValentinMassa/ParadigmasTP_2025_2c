@@ -55,7 +55,7 @@ public class Contrato {
         // Solo aplicar descuento a artistas externos
         if (artista instanceof ArtistaExterno) {
             ArtistaExterno externo = (ArtistaExterno) artista;
-            return externo.getCostoConDescuento(recital.getArtistasBase());
+            return Recital.calcularCostoConDescuento(externo, recital.getArtistasBase());
         }
         
         return artista.getCosto();

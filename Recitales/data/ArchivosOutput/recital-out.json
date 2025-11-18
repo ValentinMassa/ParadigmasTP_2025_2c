@@ -427,6 +427,14 @@
         "roles": ["bateria"]
       },
       {
+        "nombre": "Brian May",
+        "tipo": "ArtistaBase",
+        "costo": 0,00,
+        "maxCanciones": 100,
+        "cancionesAsignadas": 0,
+        "roles": ["guitarra electrica"]
+      },
+      {
         "nombre": "Freddie Mercury",
         "tipo": "ArtistaBase",
         "costo": 0,00,
@@ -441,26 +449,68 @@
         "maxCanciones": 100,
         "cancionesAsignadas": 0,
         "roles": ["bajo"]
-      },
-      {
-        "nombre": "Brian May",
-        "tipo": "ArtistaBase",
-        "costo": 0,00,
-        "maxCanciones": 100,
-        "cancionesAsignadas": 0,
-        "roles": ["guitarra electrica"]
       }
     ],
     "externos": [
       {
-        "nombre": "Adam Lambert",
+        "nombre": "Liam Gallagher",
         "tipo": "ArtistaExterno",
-        "costo": 1200,00,
-        "maxCanciones": 2,
+        "costo": 950,00,
+        "maxCanciones": 3,
         "cancionesAsignadas": 0,
         "contratado": false,
         "contratosAsignados": 0,
         "roles": ["voz principal"]
+      },
+      {
+        "nombre": "David Bowie",
+        "tipo": "ArtistaExterno",
+        "costo": 1500,00,
+        "maxCanciones": 2,
+        "cancionesAsignadas": 0,
+        "contratado": false,
+        "contratosAsignados": 0,
+        "roles": ["guitarra electrica", "voz principal"]
+      },
+      {
+        "nombre": "Britney Spears",
+        "tipo": "ArtistaExterno",
+        "costo": 2000,00,
+        "maxCanciones": 1,
+        "cancionesAsignadas": 0,
+        "contratado": false,
+        "contratosAsignados": 0,
+        "roles": ["voz principal", "coros"]
+      },
+      {
+        "nombre": "Tom Dumont",
+        "tipo": "ArtistaExterno",
+        "costo": 900,00,
+        "maxCanciones": 3,
+        "cancionesAsignadas": 0,
+        "contratado": false,
+        "contratosAsignados": 0,
+        "roles": ["guitarra electrica"]
+      },
+      {
+        "nombre": "Michael Jackson",
+        "tipo": "ArtistaExterno",
+        "costo": 1800,00,
+        "maxCanciones": 1,
+        "cancionesAsignadas": 0,
+        "contratado": false,
+        "contratosAsignados": 0,
+        "roles": ["percusion", "voz principal"]
+      },
+      {
+        "nombre": "Tony Kanal",
+        "tipo": "ArtistaExterno",
+        "costo": 950,00,
+        "maxCanciones": 3,
+        "cancionesAsignadas": 0,
+        "contratado": false,
+        "contratosAsignados": 0,
+        "roles": ["bajo"]
       },
       {
         "nombre": "Prince",
@@ -473,6 +523,16 @@
         "roles": ["guitarra electrica", "voz principal", "teclados"]
       },
       {
+        "nombre": "Jean-Michel Jarre",
+        "tipo": "ArtistaExterno",
+        "costo": 1400,00,
+        "maxCanciones": 3,
+        "cancionesAsignadas": 0,
+        "contratado": false,
+        "contratosAsignados": 0,
+        "roles": ["sintetizador", "teclados"]
+      },
+      {
         "nombre": "Adrian Young",
         "tipo": "ArtistaExterno",
         "costo": 880,00,
@@ -483,9 +543,9 @@
         "roles": ["bateria"]
       },
       {
-        "nombre": "Fiona Apple",
+        "nombre": "Thom Yorke",
         "tipo": "ArtistaExterno",
-        "costo": 1800,00,
+        "costo": 1150,00,
         "maxCanciones": 2,
         "cancionesAsignadas": 0,
         "contratado": false,
@@ -503,34 +563,14 @@
         "roles": ["voz principal"]
       },
       {
-        "nombre": "Jean-Michel Jarre",
+        "nombre": "Kurt Cobain",
         "tipo": "ArtistaExterno",
-        "costo": 1400,00,
+        "costo": 800,00,
         "maxCanciones": 3,
         "cancionesAsignadas": 0,
         "contratado": false,
         "contratosAsignados": 0,
-        "roles": ["sintetizador", "teclados"]
-      },
-      {
-        "nombre": "Britney Spears",
-        "tipo": "ArtistaExterno",
-        "costo": 2000,00,
-        "maxCanciones": 1,
-        "cancionesAsignadas": 0,
-        "contratado": false,
-        "contratosAsignados": 0,
-        "roles": ["voz principal", "coros"]
-      },
-      {
-        "nombre": "Liam Gallagher",
-        "tipo": "ArtistaExterno",
-        "costo": 950,00,
-        "maxCanciones": 3,
-        "cancionesAsignadas": 0,
-        "contratado": false,
-        "contratosAsignados": 0,
-        "roles": ["voz principal"]
+        "roles": ["guitarra electrica", "voz principal"]
       },
       {
         "nombre": "Paul Rodgers",
@@ -543,49 +583,9 @@
         "roles": ["voz principal"]
       },
       {
-        "nombre": "Kurt Cobain",
+        "nombre": "Fiona Apple",
         "tipo": "ArtistaExterno",
-        "costo": 800,00,
-        "maxCanciones": 3,
-        "cancionesAsignadas": 0,
-        "contratado": false,
-        "contratosAsignados": 0,
-        "roles": ["guitarra electrica", "voz principal"]
-      },
-      {
-        "nombre": "David Bowie",
-        "tipo": "ArtistaExterno",
-        "costo": 1500,00,
-        "maxCanciones": 2,
-        "cancionesAsignadas": 0,
-        "contratado": false,
-        "contratosAsignados": 0,
-        "roles": ["guitarra electrica", "voz principal"]
-      },
-      {
-        "nombre": "Tom Dumont",
-        "tipo": "ArtistaExterno",
-        "costo": 900,00,
-        "maxCanciones": 3,
-        "cancionesAsignadas": 0,
-        "contratado": false,
-        "contratosAsignados": 0,
-        "roles": ["guitarra electrica"]
-      },
-      {
-        "nombre": "Tony Kanal",
-        "tipo": "ArtistaExterno",
-        "costo": 950,00,
-        "maxCanciones": 3,
-        "cancionesAsignadas": 0,
-        "contratado": false,
-        "contratosAsignados": 0,
-        "roles": ["bajo"]
-      },
-      {
-        "nombre": "Thom Yorke",
-        "tipo": "ArtistaExterno",
-        "costo": 1150,00,
+        "costo": 1800,00,
         "maxCanciones": 2,
         "cancionesAsignadas": 0,
         "contratado": false,
@@ -593,14 +593,14 @@
         "roles": ["voz principal", "teclados"]
       },
       {
-        "nombre": "Michael Jackson",
+        "nombre": "Adam Lambert",
         "tipo": "ArtistaExterno",
         "costo": 1800,00,
-        "maxCanciones": 1,
+        "maxCanciones": 2,
         "cancionesAsignadas": 0,
         "contratado": false,
         "contratosAsignados": 0,
-        "roles": ["percusion", "voz principal"]
+        "roles": ["voz principal", "guitarra acustica"]
       }
     ]
   },

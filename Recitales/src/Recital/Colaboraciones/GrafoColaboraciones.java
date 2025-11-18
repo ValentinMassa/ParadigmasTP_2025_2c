@@ -34,13 +34,13 @@ public class GrafoColaboraciones {
 
             for (int i = 0; i < miembros.size(); i++) {
                 for (int j = i + 1; j < miembros.size(); j++) {
-                    String a1 = miembros.get(i);
-                    String a2 = miembros.get(j);
+                    String artistaPrimero = miembros.get(i);
+                    String artistaSegundo = miembros.get(j);
                     
-                    adyacencias.get(a1).add(a2);
-                    adyacencias.get(a2).add(a1);
+                    adyacencias.get(artistaPrimero).add(artistaSegundo);
+                    adyacencias.get(artistaSegundo).add(artistaPrimero);
                     
-                    String clave = a1.compareTo(a2) < 0 ? a1 + "|" + a2 : a2 + "|" + a1;
+                    String clave = artistaPrimero.compareTo(artistaSegundo) < 0 ? artistaPrimero + "|" + artistaSegundo : artistaSegundo + "|" + artistaPrimero;
                     colaboracionesPorBanda.putIfAbsent(clave, new HashSet<>());
                     colaboracionesPorBanda.get(clave).add(banda);
                 }

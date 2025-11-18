@@ -143,16 +143,20 @@ public class ExportadorRecitalJSON {
             
             // Contar cuantas veces esta contratado
             int contratosDelArtista = 0;
-            for (Contrato c : recital.getContratos()) {
-                if (c.getArtista().equals(artista)) {
+            for (Contrato contrato : recital.getContratos()) {
+                if (contrato.getArtista().equals(artista)) {
                     contratosDelArtista++;
                 }
             }
             
+            double costoBase = artista.getCosto();
+            double costoContratacion = Recital.calcularCostoConDescuento(artista, recital.getArtistasBase());
+
             json.append("      {\n");
             json.append("        \"nombre\": \"").append(escaparJson(artista.getNombre())).append("\",\n");
             json.append("        \"tipo\": \"ArtistaExterno\",\n");
-            json.append("        \"costo\": ").append(String.format("%.2f", artista.getCosto())).append(",\n");
+            json.append("        \"costo\": ").append(String.format("%.2f", costoContratacion)).append(",\n");
+            json.append("        \"costoBase\": ").append(String.format("%.2f", costoBase)).append(",\n");
             json.append("        \"maxCanciones\": ").append(artista.getMaxCanciones()).append(",\n");
             json.append("        \"cancionesAsignadas\": ").append(artista.getCantCancionesAsignado()).append(",\n");
             json.append("        \"contratado\": ").append(contratosDelArtista > 0 ? "true" : "false").append(",\n");

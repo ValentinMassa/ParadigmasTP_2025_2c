@@ -21,4 +21,9 @@ public class Banda {
         Banda banda = (Banda) obj;
         return nombre != null ? nombre.equals(banda.nombre) : banda.nombre == null;
     }
+
+    @Override
+    public int hashCode() {
+        return nombre != null ? nombre.hashCode() : 0;
+    }
 }
