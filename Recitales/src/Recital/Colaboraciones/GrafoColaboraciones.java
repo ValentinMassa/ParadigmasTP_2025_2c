@@ -77,7 +77,7 @@ public class GrafoColaboraciones {
                     Set<String> bandas = colaboracionesPorBanda.getOrDefault(clave, new HashSet<>());
                     String bandaStr = String.join(", ", bandas);
                     
-                    System.out.println("  ↔ " + colaborador + " (banda: " + bandaStr + ")");
+                    System.out.println("  ? " + colaborador + " (banda: " + bandaStr + ")");
                 }
             }
             System.out.println();

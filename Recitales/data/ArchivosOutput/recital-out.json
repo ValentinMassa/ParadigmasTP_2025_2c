@@ -1,0 +1,634 @@
+{
+  "resumen": {
+    "totalCanciones": 12,
+    "totalArtistasBase": 4,
+    "totalArtistasExternos": 15,
+    "totalContratos": 0,
+    "costoTotal": 0,00
+  },
+  "canciones": [
+    {
+      "titulo": "Criminal",
+      "rolesRequeridos": {
+        "bateria": {
+          "requeridos": 1,
+          "asignados": 0,
+          "cubierto": false,
+          "artistas": []
+        },
+        "voz principal": {
+          "requeridos": 1,
+          "asignados": 0,
+          "cubierto": false,
+          "artistas": []
+        },
+        "bajo": {
+          "requeridos": 1,
+          "asignados": 0,
+          "cubierto": false,
+          "artistas": []
+        },
+        "teclados": {
+          "requeridos": 1,
+          "asignados": 0,
+          "cubierto": false,
+          "artistas": []
+        },
+        "guitarra acustica": {
+          "requeridos": 1,
+          "asignados": 0,
+          "cubierto": false,
+          "artistas": []
+        }
+      },
+      "costo": 0,00
+    },
+    {
+      "titulo": "Don't Speak",
+      "rolesRequeridos": {
+        "bateria": {
+          "requeridos": 1,
+          "asignados": 0,
+          "cubierto": false,
+          "artistas": []
+        },
+        "guitarra electrica": {
+          "requeridos": 1,
+          "asignados": 0,
+          "cubierto": false,
+          "artistas": []
+        },
+        "voz principal": {
+          "requeridos": 1,
+          "asignados": 0,
+          "cubierto": false,
+          "artistas": []
+        },
+        "bajo": {
+          "requeridos": 1,
+          "asignados": 0,
+          "cubierto": false,
+          "artistas": []
+        },
+        "teclados": {
+          "requeridos": 1,
+          "asignados": 0,
+          "cubierto": false,
+          "artistas": []
+        }
+      },
+      "costo": 0,00
+    },
+    {
+      "titulo": "Billie Jean",
+      "rolesRequeridos": {
+        "bateria": {
+          "requeridos": 1,
+          "asignados": 0,
+          "cubierto": false,
+          "artistas": []
+        },
+        "voz principal": {
+          "requeridos": 2,
+          "asignados": 0,
+          "cubierto": false,
+          "artistas": []
+        },
+        "bajo": {
+          "requeridos": 1,
+          "asignados": 0,
+          "cubierto": false,
+          "artistas": []
+        },
+        "teclados": {
+          "requeridos": 1,
+          "asignados": 0,
+          "cubierto": false,
+          "artistas": []
+        }
+      },
+      "costo": 0,00
+    },
+    {
+      "titulo": "Creep",
+      "rolesRequeridos": {
+        "bateria": {
+          "requeridos": 1,
+          "asignados": 0,
+          "cubierto": false,
+          "artistas": []
+        },
+        "guitarra electrica": {
+          "requeridos": 1,
+          "asignados": 0,
+          "cubierto": false,
+          "artistas": []
+        },
+        "voz principal": {
+          "requeridos": 1,
+          "asignados": 0,
+          "cubierto": false,
+          "artistas": []
+        },
+        "bajo": {
+          "requeridos": 1,
+          "asignados": 0,
+          "cubierto": false,
+          "artistas": []
+        }
+      },
+      "costo": 0,00
+    },
+    {
+      "titulo": "Welcome to the Jungle",
+      "rolesRequeridos": {
+        "bateria": {
+          "requeridos": 2,
+          "asignados": 0,
+          "cubierto": false,
+          "artistas": []
+        },
+        "guitarra electrica": {
+          "requeridos": 2,
+          "asignados": 0,
+          "cubierto": false,
+          "artistas": []
+        },
+        "voz principal": {
+          "requeridos": 1,
+          "asignados": 0,
+          "cubierto": false,
+          "artistas": []
+        },
+        "bajo": {
+          "requeridos": 1,
+          "asignados": 0,
+          "cubierto": false,
+          "artistas": []
+        },
+        "teclados": {
+          "requeridos": 1,
+          "asignados": 0,
+          "cubierto": false,
+          "artistas": []
+        }
+      },
+      "costo": 0,00
+    },
+    {
+      "titulo": "Under Pressure",
+      "rolesRequeridos": {
+        "bateria": {
+          "requeridos": 1,
+          "asignados": 0,
+          "cubierto": false,
+          "artistas": []
+        },
+        "voz principal": {
+          "requeridos": 1,
+          "asignados": 0,
+          "cubierto": false,
+          "artistas": []
+        },
+        "bajo": {
+          "requeridos": 1,
+          "asignados": 0,
+          "cubierto": false,
+          "artistas": []
+        },
+        "teclados": {
+          "requeridos": 1,
+          "asignados": 0,
+          "cubierto": false,
+          "artistas": []
+        }
+      },
+      "costo": 0,00
+    },
+    {
+      "titulo": "Let's Dance",
+      "rolesRequeridos": {
+        "bateria": {
+          "requeridos": 1,
+          "asignados": 0,
+          "cubierto": false,
+          "artistas": []
+        },
+        "guitarra electrica": {
+          "requeridos": 2,
+          "asignados": 0,
+          "cubierto": false,
+          "artistas": []
+        },
+        "voz principal": {
+          "requeridos": 1,
+          "asignados": 0,
+          "cubierto": false,
+          "artistas": []
+        },
+        "bajo": {
+          "requeridos": 1,
+          "asignados": 0,
+          "cubierto": false,
+          "artistas": []
+        },
+        "teclados": {
+          "requeridos": 1,
+          "asignados": 0,
+          "cubierto": false,
+          "artistas": []
+        }
+      },
+      "costo": 0,00
+    },
+    {
+      "titulo": "Hella Good",
+      "rolesRequeridos": {
+        "bateria": {
+          "requeridos": 1,
+          "asignados": 0,
+          "cubierto": false,
+          "artistas": []
+        },
+        "guitarra electrica": {
+          "requeridos": 1,
+          "asignados": 0,
+          "cubierto": false,
+          "artistas": []
+        },
+        "voz principal": {
+          "requeridos": 1,
+          "asignados": 0,
+          "cubierto": false,
+          "artistas": []
+        },
+        "bajo": {
+          "requeridos": 1,
+          "asignados": 0,
+          "cubierto": false,
+          "artistas": []
+        },
+        "teclados": {
+          "requeridos": 1,
+          "asignados": 0,
+          "cubierto": false,
+          "artistas": []
+        }
+      },
+      "costo": 0,00
+    },
+    {
+      "titulo": "Smells Like Teen Spirit",
+      "rolesRequeridos": {
+        "bateria": {
+          "requeridos": 1,
+          "asignados": 0,
+          "cubierto": false,
+          "artistas": []
+        },
+        "guitarra electrica": {
+          "requeridos": 2,
+          "asignados": 0,
+          "cubierto": false,
+          "artistas": []
+        },
+        "voz principal": {
+          "requeridos": 1,
+          "asignados": 0,
+          "cubierto": false,
+          "artistas": []
+        },
+        "bajo": {
+          "requeridos": 1,
+          "asignados": 0,
+          "cubierto": false,
+          "artistas": []
+        }
+      },
+      "costo": 0,00
+    },
+    {
+      "titulo": "Wonderwall",
+      "rolesRequeridos": {
+        "percusion": {
+          "requeridos": 1,
+          "asignados": 0,
+          "cubierto": false,
+          "artistas": []
+        },
+        "bateria": {
+          "requeridos": 1,
+          "asignados": 0,
+          "cubierto": false,
+          "artistas": []
+        },
+        "guitarra electrica": {
+          "requeridos": 1,
+          "asignados": 0,
+          "cubierto": false,
+          "artistas": []
+        },
+        "voz principal": {
+          "requeridos": 2,
+          "asignados": 0,
+          "cubierto": false,
+          "artistas": []
+        },
+        "bajo": {
+          "requeridos": 1,
+          "asignados": 0,
+          "cubierto": false,
+          "artistas": []
+        }
+      },
+      "costo": 0,00
+    },
+    {
+      "titulo": "When Doves Cry",
+      "rolesRequeridos": {
+        "percusion": {
+          "requeridos": 1,
+          "asignados": 0,
+          "cubierto": false,
+          "artistas": []
+        },
+        "guitarra electrica": {
+          "requeridos": 1,
+          "asignados": 0,
+          "cubierto": false,
+          "artistas": []
+        },
+        "voz principal": {
+          "requeridos": 1,
+          "asignados": 0,
+          "cubierto": false,
+          "artistas": []
+        },
+        "teclados": {
+          "requeridos": 1,
+          "asignados": 0,
+          "cubierto": false,
+          "artistas": []
+        }
+      },
+      "costo": 0,00
+    },
+    {
+      "titulo": "...Baby One More Time",
+      "rolesRequeridos": {
+        "bateria": {
+          "requeridos": 1,
+          "asignados": 0,
+          "cubierto": false,
+          "artistas": []
+        },
+        "guitarra electrica": {
+          "requeridos": 1,
+          "asignados": 0,
+          "cubierto": false,
+          "artistas": []
+        },
+        "voz principal": {
+          "requeridos": 1,
+          "asignados": 0,
+          "cubierto": false,
+          "artistas": []
+        },
+        "bajo": {
+          "requeridos": 1,
+          "asignados": 0,
+          "cubierto": false,
+          "artistas": []
+        },
+        "teclados": {
+          "requeridos": 1,
+          "asignados": 0,
+          "cubierto": false,
+          "artistas": []
+        },
+        "coros": {
+          "requeridos": 2,
+          "asignados": 0,
+          "cubierto": false,
+          "artistas": []
+        }
+      },
+      "costo": 0,00
+    }
+  ],
+  "artistas": {
+    "base": [
+      {
+        "nombre": "Roger Taylor",
+        "tipo": "ArtistaBase",
+        "costo": 0,00,
+        "maxCanciones": 100,
+        "cancionesAsignadas": 0,
+        "roles": ["bateria"]
+      },
+      {
+        "nombre": "Freddie Mercury",
+        "tipo": "ArtistaBase",
+        "costo": 0,00,
+        "maxCanciones": 100,
+        "cancionesAsignadas": 0,
+        "roles": ["voz principal"]
+      },
+      {
+        "nombre": "John Deacon",
+        "tipo": "ArtistaBase",
+        "costo": 0,00,
+        "maxCanciones": 100,
+        "cancionesAsignadas": 0,
+        "roles": ["bajo"]
+      },
+      {
+        "nombre": "Brian May",
+        "tipo": "ArtistaBase",
+        "costo": 0,00,
+        "maxCanciones": 100,
+        "cancionesAsignadas": 0,
+        "roles": ["guitarra electrica"]
+      }
+    ],
+    "externos": [
+      {
+        "nombre": "Adam Lambert",
+        "tipo": "ArtistaExterno",
+        "costo": 1200,00,
+        "maxCanciones": 2,
+        "cancionesAsignadas": 0,
+        "contratado": false,
+        "contratosAsignados": 0,
+        "roles": ["voz principal"]
+      },
+      {
+        "nombre": "Prince",
+        "tipo": "ArtistaExterno",
+        "costo": 1600,00,
+        "maxCanciones": 2,
+        "cancionesAsignadas": 0,
+        "contratado": false,
+        "contratosAsignados": 0,
+        "roles": ["guitarra electrica", "voz principal", "teclados"]
+      },
+      {
+        "nombre": "Adrian Young",
+        "tipo": "ArtistaExterno",
+        "costo": 880,00,
+        "maxCanciones": 3,
+        "cancionesAsignadas": 0,
+        "contratado": false,
+        "contratosAsignados": 0,
+        "roles": ["bateria"]
+      },
+      {
+        "nombre": "Fiona Apple",
+        "tipo": "ArtistaExterno",
+        "costo": 1800,00,
+        "maxCanciones": 2,
+        "cancionesAsignadas": 0,
+        "contratado": false,
+        "contratosAsignados": 0,
+        "roles": ["voz principal", "teclados"]
+      },
+      {
+        "nombre": "Gwen Stefani",
+        "tipo": "ArtistaExterno",
+        "costo": 1100,00,
+        "maxCanciones": 3,
+        "cancionesAsignadas": 0,
+        "contratado": false,
+        "contratosAsignados": 0,
+        "roles": ["voz principal"]
+      },
+      {
+        "nombre": "Jean-Michel Jarre",
+        "tipo": "ArtistaExterno",
+        "costo": 1400,00,
+        "maxCanciones": 3,
+        "cancionesAsignadas": 0,
+        "contratado": false,
+        "contratosAsignados": 0,
+        "roles": ["sintetizador", "teclados"]
+      },
+      {
+        "nombre": "Britney Spears",
+        "tipo": "ArtistaExterno",
+        "costo": 2000,00,
+        "maxCanciones": 1,
+        "cancionesAsignadas": 0,
+        "contratado": false,
+        "contratosAsignados": 0,
+        "roles": ["voz principal", "coros"]
+      },
+      {
+        "nombre": "Liam Gallagher",
+        "tipo": "ArtistaExterno",
+        "costo": 950,00,
+        "maxCanciones": 3,
+        "cancionesAsignadas": 0,
+        "contratado": false,
+        "contratosAsignados": 0,
+        "roles": ["voz principal"]
+      },
+      {
+        "nombre": "Paul Rodgers",
+        "tipo": "ArtistaExterno",
+        "costo": 1500,00,
+        "maxCanciones": 2,
+        "cancionesAsignadas": 0,
+        "contratado": false,
+        "contratosAsignados": 0,
+        "roles": ["voz principal"]
+      },
+      {
+        "nombre": "Kurt Cobain",
+        "tipo": "ArtistaExterno",
+        "costo": 800,00,
+        "maxCanciones": 3,
+        "cancionesAsignadas": 0,
+        "contratado": false,
+        "contratosAsignados": 0,
+        "roles": ["guitarra electrica", "voz principal"]
+      },
+      {
+        "nombre": "David Bowie",
+        "tipo": "ArtistaExterno",
+        "costo": 1500,00,
+        "maxCanciones": 2,
+        "cancionesAsignadas": 0,
+        "contratado": false,
+        "contratosAsignados": 0,
+        "roles": ["guitarra electrica", "voz principal"]
+      },
+      {
+        "nombre": "Tom Dumont",
+        "tipo": "ArtistaExterno",
+        "costo": 900,00,
+        "maxCanciones": 3,
+        "cancionesAsignadas": 0,
+        "contratado": false,
+        "contratosAsignados": 0,
+        "roles": ["guitarra electrica"]
+      },
+      {
+        "nombre": "Tony Kanal",
+        "tipo": "ArtistaExterno",
+        "costo": 950,00,
+        "maxCanciones": 3,
+        "cancionesAsignadas": 0,
+        "contratado": false,
+        "contratosAsignados": 0,
+        "roles": ["bajo"]
+      },
+      {
+        "nombre": "Thom Yorke",
+        "tipo": "ArtistaExterno",
+        "costo": 1150,00,
+        "maxCanciones": 2,
+        "cancionesAsignadas": 0,
+        "contratado": false,
+        "contratosAsignados": 0,
+        "roles": ["voz principal", "teclados"]
+      },
+      {
+        "nombre": "Michael Jackson",
+        "tipo": "ArtistaExterno",
+        "costo": 1800,00,
+        "maxCanciones": 1,
+        "cancionesAsignadas": 0,
+        "contratado": false,
+        "contratosAsignados": 0,
+        "roles": ["percusion", "voz principal"]
+      }
+    ]
+  },
+  "contratos": [
+  ],
+  "totalizadores": {
+    "costoTotalRecital": 0,00,
+    "costosPorArtista": {
+    },
+    "costosPorCancion": {
+      "Criminal": 0,00,
+      "Don't Speak": 0,00,
+      "Billie Jean": 0,00,
+      "Creep": 0,00,
+      "Welcome to the Jungle": 0,00,
+      "Under Pressure": 0,00,
+      "Let's Dance": 0,00,
+      "Hella Good": 0,00,
+      "Smells Like Teen Spirit": 0,00,
+      "Wonderwall": 0,00,
+      "When Doves Cry": 0,00,
+      "...Baby One More Time": 0,00
+    },
+    "rolesFaltantes": {
+      "percusion": 2,
+      "teclados": 9,
+      "guitarra acustica": 1,
+      "coros": 2
+    }
+  }
+}

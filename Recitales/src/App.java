@@ -35,7 +35,7 @@ public class App {
             HashSet<Cancion> canciones = cargador.cargarCanciones();
             System.out.println("[OK] Canciones cargadas: " + canciones.size());
             
-            // Crear catálogo de roles
+            // Crear catalogo de roles
             RolCatalogo rolCatalogo = new RolCatalogo();
             for (Cancion cancion : canciones) {
                 for (Rol rol : cancion.getRolesRequeridos().keySet()) {
@@ -47,9 +47,9 @@ public class App {
                     rolCatalogo.obtenerRol(rol);
                 }
             }
-            System.out.println("[OK] Catálogo de roles creado con roles únicos\n");
+            System.out.println("[OK] Catalogo de roles creado con roles unicos\n");
             
-            // Crear servicio de contratación
+            // Crear servicio de contratacion
             ServicioContratacion servicioContratacion = new ServicioContratacion();
             
             // Crear el recital
@@ -57,21 +57,21 @@ public class App {
             
             System.out.println("[SUCCESS] Sistema inicializado correctamente\n");
             System.out.println("Resumen:");
-            System.out.println("  • Artistas base: " + artistasBase.size());
-            System.out.println("  • Artistas externos disponibles: " + artistasExternos.size());
-            System.out.println("  • Canciones del recital: " + canciones.size());
-            System.out.println("\n========== INICIANDO MENÚ ==========\n");
+            System.out.println("  ? Artistas base: " + artistasBase.size());
+            System.out.println("  ? Artistas externos disponibles: " + artistasExternos.size());
+            System.out.println("  ? Canciones del recital: " + canciones.size());
+            System.out.println("\n========== INICIANDO MENu ==========\n");
             
-            // Mostrar menú principal
+            // Mostrar menu principal
             MenuPrincipal menu = new MenuPrincipal(recital, servicioContratacion, rolCatalogo);
             menu.mostrarMenu();
             
         } catch (IOException e) {
             System.err.println("[ERROR] Error al cargar archivos JSON: " + e.getMessage());
-            System.err.println("\nAsegúrese de que los archivos existan en la carpeta 'data/ArchivosInput/':");
-            System.err.println("  • data/ArchivosInput/artistas.json");
-            System.err.println("  • data/ArchivosInput/recital.json");
-            System.err.println("  • data/ArchivosInput/artistas-discografica.json");
+            System.err.println("\nAsegurese de que los archivos existan en la carpeta 'data/ArchivosInput/':");
+            System.err.println("  ? data/ArchivosInput/artistas.json");
+            System.err.println("  ? data/ArchivosInput/recital.json");
+            System.err.println("  ? data/ArchivosInput/artistas-discografica.json");
             e.printStackTrace();
         } catch (Exception e) {
             System.err.println("[ERROR] Error fatal al iniciar el sistema: " + e.getMessage());
@@ -86,7 +86,7 @@ public class App {
                         "data/ArchivosOutput/recital-out.json"
                     );
                     exportador.exportar();
-                    System.out.println("========== SESIÓN FINALIZADA ==========\n");
+                    System.out.println("========== SESIoN FINALIZADA ==========\n");
                 } catch (IOException e) {
                     System.err.println("[ERROR] No se pudo exportar el estado del recital: " + e.getMessage());
                 }

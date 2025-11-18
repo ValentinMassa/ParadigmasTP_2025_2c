@@ -151,7 +151,7 @@ public class Recital {
             }
         }
         
-        // Calcular roles REALMENTE faltantes despues de optimizacion
+        // Calcular roles REALMENTE faltantes después de optimización
         Map<Rol, Integer> rolesFaltantes = new HashMap<>();
         for (Map.Entry<Rol, Integer> entry : rolesPendientes.entrySet()) {
             Rol rol = entry.getKey();
@@ -173,7 +173,7 @@ public class Recital {
         Map<Rol, Integer> rolesRequeridos = new HashMap<>(cancion.getRolesRequeridos());
         Map<Rol, Integer> rolesCubiertos = new HashMap<>();
 
-        // SOLO contar roles cubiertos por contratos REALES para esta cancion
+        // SOLO contar roles cubiertos por contratos REALES para esta canción
         // NO contar artistas base como "disponibles" - solo contratos firmados
         if (contratos != null) {
             for (Contrato contrato : contratos) {

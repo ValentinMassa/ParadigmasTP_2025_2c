@@ -15,7 +15,7 @@ public class ServicioPrologIntegracion {
         this.recital = recital;
     }
 
-    public int consultarEntrenamientosMínimos() {
+    public int consultarEntrenamientosMinimos() {
         int totalRolesFaltantes = obtenerRolesFaltantes();
         int capacidadBase = obtenerCapacidadBase();
         int artistasDisponibles = obtenerArtistasDisponibles();

@@ -48,7 +48,7 @@ public class ExportadorRecitalJSON {
         StringBuilder json = new StringBuilder();
         json.append("{\n");
         
-        // Información general del recital
+        // Informacion general del recital
         json.append("  \"resumen\": {\n");
         json.append("    \"totalCanciones\": ").append(recital.getCanciones().size()).append(",\n");
         json.append("    \"totalArtistasBase\": ").append(recital.getArtistasBase().size()).append(",\n");
@@ -101,7 +101,7 @@ public class ExportadorRecitalJSON {
             }
             json.append("      },\n");
             
-            // Costo de la canción
+            // Costo de la cancion
             double costoCancion = recital.getCostosPorCancion().getOrDefault(cancion, 0.0);
             json.append("      \"costo\": ").append(String.format("%.2f", costoCancion)).append("\n");
             json.append("    }");
@@ -141,7 +141,7 @@ public class ExportadorRecitalJSON {
         for (int i = 0; i < artistasExternos.size(); i++) {
             ArtistaExterno artista = artistasExternos.get(i);
             
-            // Contar cuántas veces está contratado
+            // Contar cuantas veces esta contratado
             int contratosDelArtista = 0;
             for (Contrato c : recital.getContratos()) {
                 if (c.getArtista().equals(artista)) {

@@ -8,14 +8,14 @@
   },
   {
     "nombre": "Brian May",
-    "roles": ["guitarra eléctrica"],
+    "roles": ["guitarra electrica"],
     "bandas": ["Queen"],
     "costo": 0,
     "maxCanciones": 100
   },
   {
     "nombre": "Roger Taylor",
-    "roles": ["batería"],
+    "roles": ["bateria"],
     "bandas": ["Queen"],
     "costo": 0,
     "maxCanciones": 100
@@ -29,28 +29,28 @@
   },
   {
     "nombre": "David Bowie",
-    "roles": ["voz principal", "guitarra eléctrica"],
+    "roles": ["voz principal", "guitarra electrica"],
     "bandas": ["The Spiders from Mars"],
     "costo": 1500,
     "maxCanciones": 2
   },
   {
     "nombre": "Prince",
-    "roles": ["voz principal", "guitarra eléctrica", "teclados"],
+    "roles": ["voz principal", "guitarra electrica", "teclados"],
     "bandas": ["The Revolution"],
     "costo": 1600,
     "maxCanciones": 2
   },
   {
     "nombre": "Michael Jackson",
-    "roles": ["voz principal", "percusión"],
+    "roles": ["voz principal", "percusion"],
     "bandas": ["The Jackson 5"],
     "costo": 1800,
     "maxCanciones": 1
   },
   {
     "nombre": "Kurt Cobain",
-    "roles": ["voz principal", "guitarra eléctrica"],
+    "roles": ["voz principal", "guitarra electrica"],
     "bandas": ["Nirvana"],
     "costo": 800,
     "maxCanciones": 3
@@ -78,7 +78,7 @@
   },
   {
     "nombre": "Tom Dumont",
-    "roles": ["guitarra eléctrica"],
+    "roles": ["guitarra electrica"],
     "bandas": ["No Doubt"],
     "costo": 900,
     "maxCanciones": 3
@@ -92,7 +92,7 @@
   },
   {
     "nombre": "Adrian Young",
-    "roles": ["batería"],
+    "roles": ["bateria"],
     "bandas": ["No Doubt"],
     "costo": 880,
     "maxCanciones": 3
@@ -117,6 +117,20 @@
     "bandas": [],
     "costo": 1400,
     "maxCanciones": 3
+  },
+  {
+    "nombre": "Paul Rodgers",
+    "roles": ["voz principal"],
+    "bandas": ["Queen"],
+    "costo": 1500,
+    "maxCanciones": 2
+  },
+  {
+    "nombre": "Adam Lambert",
+    "roles": ["voz principal"],
+    "bandas": ["Queen"],
+    "costo": 1200,
+    "maxCanciones": 2
   }
 ]
 

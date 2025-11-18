@@ -41,7 +41,7 @@ public class ServicioContratacion {
         List<Contrato> nuevosContratos = new ArrayList<>();
         List<String> rolesNoDisponibles = new ArrayList<>();
         
-        // Obtener solo los roles faltantes para esta canción
+        // Obtener solo los roles faltantes para esta cancion
         Map<Rol, Integer> rolesFaltantes = recital.getRolesFaltantesParaCancion(cancion);
 
         for (Map.Entry<Rol, Integer> entry : rolesFaltantes.entrySet()) {
@@ -56,7 +56,7 @@ public class ServicioContratacion {
                 }
 
                 if (artistaSeleccionado != null) {
-                    Contrato contrato = new Contrato(cancion, rol, artistaSeleccionado);
+                    Contrato contrato = new Contrato(cancion, rol, artistaSeleccionado, recital);
                     nuevosContratos.add(contrato);
                     recital.getContratos().add(contrato);
                     artistaSeleccionado.asignarCancion();
@@ -66,7 +66,7 @@ public class ServicioContratacion {
             }
         }
         
-        // Si hay roles que no pudieron ser cubiertos, lanzar excepción
+        // Si hay roles que no pudieron ser cubiertos, lanzar excepcion
         if (!rolesNoDisponibles.isEmpty()) {
             int artistasDisponibles = contarArtistasDisponibles(recital, cancion);
             throw new ContratacionException(
@@ -84,13 +84,13 @@ public class ServicioContratacion {
         List<Contrato> contratos = new ArrayList<>();
         List<String> cancionesConError = new ArrayList<>();
         
-        // Iterar por cada canción del recital
+        // Iterar por cada cancion del recital
         for (Cancion cancion : recital.getCanciones()) {
             try {
-                // Obtener roles faltantes para esta canción
+                // Obtener roles faltantes para esta cancion
                 Map<Rol, Integer> rolesFaltantes = recital.getRolesFaltantesParaCancion(cancion);
                 
-                // Si la canción ya tiene todos sus roles cubiertos, saltarla
+                // Si la cancion ya tiene todos sus roles cubiertos, saltarla
                 if (rolesFaltantes.isEmpty()) {
                     continue;
                 }
@@ -104,10 +104,10 @@ public class ServicioContratacion {
             }
         }
         
-        // Si hubo errores en alguna canción, lanzar excepción con el resumen
+        // Si hubo errores en alguna cancion, lanzar excepcion con el resumen
         if (!cancionesConError.isEmpty()) {
             throw new ContratacionException(
-                "Errores de contratación en " + cancionesConError.size() + " canción(es):\n" + 
+                "Errores de contratacion en " + cancionesConError.size() + " cancion(es):\n" + 
                 String.join("\n", cancionesConError),
                 new ArrayList<>(),
                 0
@@ -190,7 +190,7 @@ public class ServicioContratacion {
                     costo = costo * 0.5;   // 50% de descuento
                 }
 
-                // Seleccionar el más barato disponible
+                // Seleccionar el mas barato disponible
                 if (costo < mejorCosto) {
                     mejor = externo;
                     mejorCosto = costo;

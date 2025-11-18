@@ -39,7 +39,7 @@ public class FabricaRecital {
     }
 
     public void setCargador(ICargarRecital nuevoCargador) throws IllegalArgumentException {
-        // Esto sería por si queremos cambiar la estrategia de carga en tiempo de ejecución (pasar de JSON a XML o viceversa por ej)
+        // Esto seria por si queremos cambiar la estrategia de carga en tiempo de ejecucion (pasar de JSON a XML o viceversa por ej)
         if (nuevoCargador == null) {
             throw new IllegalArgumentException("El cargador no puede ser nulo");
         }

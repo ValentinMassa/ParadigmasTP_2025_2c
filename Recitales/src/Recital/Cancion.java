@@ -10,10 +10,10 @@ public class Cancion {
 
     public Cancion(String titulo, Map<Rol, Integer> rolesRequeridos) throws IllegalArgumentException {
         if (titulo == null || titulo.isBlank()) {
-            throw new IllegalArgumentException("El título de la canción no puede ser nulo o vacío");
+            throw new IllegalArgumentException("El titulo de la cancion no puede ser nulo o vacio");
         }
         if (rolesRequeridos == null || rolesRequeridos.isEmpty()) {
-            throw new IllegalArgumentException("Los roles requeridos no pueden ser nulos o vacíos");
+            throw new IllegalArgumentException("Los roles requeridos no pueden ser nulos o vacios");
         }
         this.titulo = titulo;
         this.rolesRequeridos = new HashMap<>(rolesRequeridos);

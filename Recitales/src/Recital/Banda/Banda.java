@@ -5,7 +5,7 @@ public class Banda {
 
     public Banda(String nombre) throws IllegalArgumentException {
         if (nombre == null || nombre.trim().isEmpty()) {
-            throw new IllegalArgumentException("El nombre de la banda no puede ser nulo o vacío.");
+            throw new IllegalArgumentException("El nombre de la banda no puede ser nulo o vacio.");
         }
         this.nombre = nombre;
     }

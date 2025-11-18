@@ -25,13 +25,13 @@ public class JsonAdapter implements ICargarRecital {
     public JsonAdapter(String rutaArtistas, String rutaCanciones, String rutaArtistasBase) 
             throws IllegalArgumentException {
         if (rutaArtistas == null || rutaArtistas.isBlank()) {
-            throw new IllegalArgumentException("Ruta de artistas no puede ser nula o vacía");
+            throw new IllegalArgumentException("Ruta de artistas no puede ser nula o vacia");
         }
         if (rutaCanciones == null || rutaCanciones.isBlank()) {
-            throw new IllegalArgumentException("Ruta de canciones no puede ser nula o vacía");
+            throw new IllegalArgumentException("Ruta de canciones no puede ser nula o vacia");
         }
         if (rutaArtistasBase == null || rutaArtistasBase.isBlank()) {
-            throw new IllegalArgumentException("Ruta de artistas base no puede ser nula o vacía");
+            throw new IllegalArgumentException("Ruta de artistas base no puede ser nula o vacia");
         }
         
         this.rutaArtistas = rutaArtistas;
@@ -51,7 +51,7 @@ public class JsonAdapter implements ICargarRecital {
         
         try {
             String contenido = new String(Files.readAllBytes(file.toPath()));
-            // Reutilizar el método existente para arrays de strings
+            // Reutilizar el metodo existente para arrays de strings
             List<String> nombresBase = parsearJsonArrayStrings(contenido);
             nombres.addAll(nombresBase);
         } catch (Exception e) {
@@ -64,7 +64,7 @@ public class JsonAdapter implements ICargarRecital {
 
     @Override
     public HashSet<ArtistaExterno> cargarArtistasExternos() throws IOException {
-        // Usar caché si ya está cargado
+        // Usar cache si ya esta cargado
         if (artistasCache != null) {
             return new HashSet<>(artistasCache);
         }
@@ -86,14 +86,14 @@ public class JsonAdapter implements ICargarRecital {
             for (Map<String, Object> artistaData : datos) {
                 ArtistaExterno artista = construirArtistaExterno(artistaData);
                 if (artista != null) {
-                    // SOLO agregar si NO está en la lista de artistas base
+                    // SOLO agregar si NO esta en la lista de artistas base
                     if (!nombresArtistasBase.contains(artista.getNombre())) {
                         artistas.add(artista);
                     }
                 }
             }
             
-            // Guardar en caché
+            // Guardar en cache
             artistasCache = new HashSet<>(artistas);
         } catch (Exception e) {
             throw new IOException("Error al parsear archivo de artistas: " + e.getMessage(), e);
@@ -119,7 +119,7 @@ public class JsonAdapter implements ICargarRecital {
             // para poder crear los artistas base correctamente
             HashSet<ArtistaExterno> todosLosArtistas = cargarTodosLosArtistas();
             
-            // Crear mapa para búsqueda O(1) en lugar de O(n)
+            // Crear mapa para busqueda O(1) en lugar de O(n)
             Map<String, ArtistaExterno> artistasMap = new HashMap<>();
             for (ArtistaExterno a : todosLosArtistas) {
                 artistasMap.put(a.getNombre(), a);
@@ -173,7 +173,7 @@ public class JsonAdapter implements ICargarRecital {
 
     @Override
     public HashSet<Cancion> cargarCanciones() throws IOException {
-        // Usar caché si ya está cargado
+        // Usar cache si ya esta cargado
         if (cancionesCache != null) {
             return new HashSet<>(cancionesCache);
         }
@@ -196,7 +196,7 @@ public class JsonAdapter implements ICargarRecital {
                 }
             }
             
-            // Guardar en caché
+            // Guardar en cache
             cancionesCache = new HashSet<>(canciones);
         } catch (Exception e) {
             throw new IOException("Error al parsear archivo de canciones: " + e.getMessage(), e);
@@ -241,7 +241,7 @@ public class JsonAdapter implements ICargarRecital {
 
     /**
      * Construye un objeto Cancion a partir de un Map con datos JSON.
-     * @param data Map con los datos de la canción
+     * @param data Map con los datos de la cancion
      * @return Cancion construida o null si hay error
      */
     private Cancion construirCancion(Map<String, Object> data) {
@@ -278,7 +278,7 @@ public class JsonAdapter implements ICargarRecital {
 
     /**
      * Parsea un JSON simple en formato de array de objetos.
-     * Implementación optimizada: una sola pasada por el string.
+     * Implementacion optimizada: una sola pasada por el string.
      * Complejidad: O(n) donde n es la longitud del JSON
      */
     private List<Map<String, Object>> parsearJsonArray(String json) {
@@ -417,7 +417,7 @@ public class JsonAdapter implements ICargarRecital {
             }
         }
         
-        // Procesar último par
+        // Procesar ultimo par
         if (currentKey != null && valueStart != -1) {
             Object value = parsearValor(json.substring(valueStart).trim());
             map.put(currentKey, value);
