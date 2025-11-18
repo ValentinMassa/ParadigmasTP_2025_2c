@@ -70,13 +70,6 @@
     "maxCanciones": 3
   },
   {
-    "nombre": "Eddie Van Halen",
-    "roles": ["guitarra eléctrica"],
-    "bandas": ["Van Halen"],
-    "costo": 1250,
-    "maxCanciones": 2
-  },
-  {
     "nombre": "Gwen Stefani",
     "roles": ["voz principal"],
     "bandas": ["No Doubt"],
@@ -110,6 +103,13 @@
     "bandas": [],
     "costo": 2000,
     "maxCanciones": 1
+  },
+  {
+    "nombre": "Fiona Apple",
+    "roles": ["voz principal", "teclados"],
+    "bandas": [],
+    "costo": 1800,
+    "maxCanciones": 2
   },
   {
     "nombre": "Jean-Michel Jarre",

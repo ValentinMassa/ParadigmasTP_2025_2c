@@ -75,16 +75,6 @@
     }
   },
   {
-    "titulo": "Jump",
-    "rolesRequeridos": {
-      "voz principal": 1,
-      "guitarra eléctrica": 1,
-      "teclados": 2,
-      "bajo": 1,
-      "batería": 1
-    }
-  },
-  {
     "titulo": "Don't Speak",
     "rolesRequeridos": {
       "voz principal": 1,
@@ -112,9 +102,18 @@
       "guitarra eléctrica": 1,
       "bajo": 1,
       "batería": 1,
-      "teclados": 1,
-      "sintetizador": 1
+      "teclados": 1
     }
+  },
+  {
+    "titulo": "Criminal",
+    "rolesRequeridos": {
+        "voz principal": 1,
+        "guitarra acústica": 1,
+        "bajo": 1,
+        "batería": 1,
+        "teclados": 1
   }
+ }
 ]
 
