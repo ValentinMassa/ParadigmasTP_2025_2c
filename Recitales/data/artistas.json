@@ -82,6 +82,34 @@
     "bandas": ["Van Halen"],
     "costo": 1250,
     "maxCanciones": 2
+  },
+  {
+    "nombre": "Gwen Stefani",
+    "roles": ["voz principal"],
+    "bandas": ["No Doubt"],
+    "costo": 1100,
+    "maxCanciones": 3
+  },
+  {
+    "nombre": "Tom Dumont",
+    "roles": ["guitarra eléctrica"],
+    "bandas": ["No Doubt"],
+    "costo": 900,
+    "maxCanciones": 3
+  },
+  {
+    "nombre": "Tony Kanal",
+    "roles": ["bajo"],
+    "bandas": ["No Doubt"],
+    "costo": 950,
+    "maxCanciones": 3
+  },
+  {
+    "nombre": "Adrian Young",
+    "roles": ["batería"],
+    "bandas": ["No Doubt"],
+    "costo": 880,
+    "maxCanciones": 3
   }
 ]
 

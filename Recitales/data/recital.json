@@ -83,6 +83,16 @@
       "bajo": 1,
       "batería": 1
     }
+  },
+  {
+    "titulo": "Don't Speak",
+    "rolesRequeridos": {
+      "voz principal": 1,
+      "guitarra eléctrica": 1,
+      "bajo": 1,
+      "batería": 1,
+      "teclados": 1
+    }
   }
 ]
 
