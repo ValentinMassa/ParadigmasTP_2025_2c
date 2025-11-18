@@ -107,6 +107,18 @@ public class Recital {
             }
         }
         
+        // PARA OPCIÓN 2: Contar roles que PUEDEN ser cubiertos por artistas base
+        // Los artistas base pueden participar en múltiples canciones
+        for (ArtistaBase artista : artistaBase) {
+            for (Rol rol : artista.getRoles()) {
+                if (rolesRequeridos.getOrDefault(rol, 0) > 0) {
+                    // Cada artista base puede cubrir hasta maxCanciones del mismo rol
+                    int puedeAportar = Math.min(artista.getMaxCanciones(), rolesRequeridos.get(rol));
+                    rolesCubiertos.put(rol, rolesCubiertos.getOrDefault(rol, 0) + puedeAportar);
+                }
+            }
+        }
+        
         // Calcular faltantes
         Map<Rol, Integer> rolesFaltantes = new HashMap<>();
         for (Map.Entry<Rol, Integer> entry : rolesRequeridos.entrySet()) {
