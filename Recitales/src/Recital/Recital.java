@@ -91,8 +91,10 @@ public class Recital {
         
         // Contar todos los roles requeridos para todas las canciones
         for (Cancion cancion : canciones) {
-            for (Rol rol : cancion.getRolesRequeridos().keySet()) {
-                rolesRequeridos.put(rol, rolesRequeridos.getOrDefault(rol, 0) + 1);
+            Map<Rol, Integer> rolesCancion = cancion.getRolesRequeridos();
+            for (Rol rol : rolesCancion.keySet()) {
+                int cantidad = rolesCancion.get(rol);
+                rolesRequeridos.put(rol, rolesRequeridos.getOrDefault(rol, 0) + cantidad);
             }
         }
         
@@ -122,13 +124,8 @@ public class Recital {
     
 
     public Map<Rol, Integer> getRolesFaltantesParaCancion(Cancion cancion) {
-        Map<Rol, Integer> rolesRequeridos = new HashMap<>();
+        Map<Rol, Integer> rolesRequeridos = new HashMap<>(cancion.getRolesRequeridos());
         Map<Rol, Integer> rolesCubiertos = new HashMap<>();
-
-        // Contar roles requeridos por la canción
-        for (Rol rol : cancion.getRolesRequeridos().keySet()) {
-            rolesRequeridos.put(rol, rolesRequeridos.getOrDefault(rol, 0) + 1);
-        }
 
         // Contar roles que pueden ser cubiertos por artistas base
         for (ArtistaBase artista : artistaBase) {
