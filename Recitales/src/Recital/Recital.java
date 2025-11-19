@@ -8,27 +8,20 @@ import Recital.Rol.Rol;
 import java.util.Map;
 
 public class Recital {
-    private HashSet<ArtistaBase> artistaBase;
-    private HashSet<ArtistaExterno> artistaExternos;
+    @SuppressWarnings("unused")
+	private RepositorioArtistas repositorioArtistas;
     private HashSet<Cancion> canciones;
     private List<Contrato> contratos;
-    private ServicioContratacion servicioContratacion;
-
-
-    public Recital(HashSet<ArtistaBase> artistaBase, HashSet<ArtistaExterno> artistaExternos,
+    /// private ServicioContratacion servicioContratacion;
+    public Recital(RepositorioArtistas repositorioArtistas,
                    HashSet<Cancion> canciones, ServicioContratacion servicioContratacion)
                    throws IllegalArgumentException {
-        if (artistaExternos == null || artistaBase == null || canciones == null || servicioContratacion == null) {
+        if (repositorioArtistas == null || canciones == null || servicioContratacion == null) {
             throw new IllegalArgumentException("Ningun parametro puede ser nulo");
         } 
-        this.artistaBase = new HashSet<ArtistaBase>();
-        this.artistaExternos = new HashSet<ArtistaExterno>();
+        this.repositorioArtistas = repositorioArtistas;
         this.canciones = new HashSet<Cancion>();
-        this.servicioContratacion = new ServicioContratacion();
-        this.artistaBase.addAll(artistaBase);
-        this.artistaExternos.addAll(artistaExternos);
         this.canciones.addAll(canciones);
-        this.contratos = servicioContratacion.contratarParaTodo(this);
     }
 
     public Map<Rol, Integer> getRolesFaltantes(){
@@ -48,17 +41,6 @@ public class Recital {
     public double getCostoTotalRecital(){
         //Falta Desarrollar
         return 0;
-    }
-
-    public HashSet<Cancion> getCancionesCompletas() {
-        
-        //Falta Desarrollar
-        return null;
-    }
-    public HashSet<Cancion> getCancionesIncompletas() {
-        
-        //Falta Desarrollar
-        return null;
     }
 
     public Map<Cancion, Double> getCostosPorCancion(){

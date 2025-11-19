@@ -14,7 +14,6 @@ import Recital.Cancion;
 import Recital.Rol.Rol;
 import Recital.Banda.Banda;
 
-//Chequear logica: esta hecho con la IA
 /**
  * Adaptador para cargar información de recitales desde archivos JSON.
  * Utiliza solo bibliotecas estándar de Java para parsear JSON.

@@ -1,13 +1,14 @@
 package Recital;
 
-import java.util.HashSet;
+import java.util.HashMap;
+
 import Recital.Rol.Rol;
 
 public class Cancion {
     private String titulo;
-    private HashSet<Rol> rolesRequeridos;
+    private HashMap<Rol, Integer> rolesRequeridos;
 
-    public Cancion(String titulo, HashSet<Rol> rolesRequeridos) throws IllegalArgumentException {
+    public Cancion(String titulo, HashMap<Rol,Integer> rolesRequeridos) throws IllegalArgumentException {
         if (titulo == null || titulo.isBlank()) {
             throw new IllegalArgumentException("El título de la canción no puede ser nulo o vacío");
         }
@@ -15,15 +16,15 @@ public class Cancion {
             throw new IllegalArgumentException("Los roles requeridos no pueden ser nulos o vacíos");
         }
         this.titulo = titulo;
-        this.rolesRequeridos = new HashSet<>(rolesRequeridos);
+        this.rolesRequeridos = new HashMap<>(rolesRequeridos);
     }
 
     public String getTitulo() {
         return titulo;
     }
 
-    public HashSet<Rol> getRolesRequeridos() {
-        return new HashSet<>(rolesRequeridos);
+    public HashMap<Rol, Integer> getRolesRequeridos() {
+        return rolesRequeridos;
     }
 
     @Override

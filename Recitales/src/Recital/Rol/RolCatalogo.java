@@ -1,37 +1,32 @@
 package Recital.Rol;
 
-import java.util.HashSet;
+import java.util.HashMap;
 
 public class RolCatalogo {
-    private HashSet<Rol> roles;
+
+    private HashMap<String,Rol> roles;
 
     public RolCatalogo() {
-        this.roles = new HashSet<>();
+        this.roles = new HashMap<>();
     }
     public Rol obtenerRol(String nombreRol) {
         
         if(!existeRol(nombreRol)) {
             return agregarRol(nombreRol);
         }
-        return agregarRol(nombreRol);
+        return roles.get(nombreRol);
     }
 
-    public Rol obtenerRol(Rol nombreRol) {
-        roles.add(nombreRol);
-        return nombreRol;
+    public Rol getRol(String nombreRol) {
+        return roles.get(nombreRol);
     }
 
     private Boolean existeRol(String nombreRol) {
-        for (Rol r : roles) {
-            if (r.getNombre().equals(nombreRol)) {
-                return true;
-            }
-        }
-        return false;
+        return roles.containsKey(nombreRol);
     }
     private Rol agregarRol(String rolNuevo) {
         Rol r = new Rol(rolNuevo);
-        roles.add(r);
+        roles.put(rolNuevo, r);
         return r;
     }
 }
