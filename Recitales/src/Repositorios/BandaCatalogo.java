@@ -1,5 +1,7 @@
-package Recital.Banda;
+package Repositorios;
 import java.util.HashSet;
+
+import Recital.Banda;
 
 public class BandaCatalogo {
     private HashSet<Banda> bandas;

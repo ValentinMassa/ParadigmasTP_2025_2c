@@ -1,15 +1,17 @@
-package ServicioProlog;
+package Servicios;
 
 import java.util.HashSet;
 import java.util.HashMap;
 import java.util.Map;
+
+import Artista.ArtistaBase;
+import Artista.ArtistaExterno;
+import Recital.Cancion;
+import Recital.Recital;
+import Recital.Rol;
+
 import java.util.ArrayList;
 import java.util.List;
-import Recital.Artista.ArtistaBase;
-import Recital.Artista.ArtistaExterno;
-import Recital.Cancion;
-import Recital.Rol.Rol;
-import Recital.Recital;
 
 /**
  * Servicio de Prolog para resolver problemas de optimización de entrenamientos.

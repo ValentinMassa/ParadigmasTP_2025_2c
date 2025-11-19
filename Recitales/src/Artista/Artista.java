@@ -1,7 +1,8 @@
-package Recital.Artista;
-import Recital.Banda.Banda;
-import Recital.Rol.Rol;
+package Artista;
 import java.util.HashSet;
+
+import Recital.Banda;
+import Recital.Rol;
 
 public abstract class Artista {
     protected final int maxcanciones;

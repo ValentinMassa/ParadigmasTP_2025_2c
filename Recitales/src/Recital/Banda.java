@@ -1,4 +1,4 @@
-package Recital.Banda;
+package Recital;
 
 public class Banda {
     private String nombre;

@@ -1,6 +1,9 @@
-package Recital.Artista;
+package Repositorios;
 
 import java.util.HashSet;
+
+import Artista.ArtistaBase;
+import Artista.ArtistaExterno;
 
 public class RepositorioArtistas {
 

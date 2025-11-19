@@ -1,7 +1,5 @@
-package Recital.Contratos;
-import Recital.Artista.Artista;
-import Recital.Cancion;
-import Recital.Rol.Rol;
+package Recital;
+import Artista.Artista;
 
 
 public class Contrato {
@@ -30,5 +28,11 @@ public class Contrato {
         //Falta Desarrollar
         return 0;
     }
+    public Cancion getCancion() {
+        return cancion;
+    }
 
+    public Rol getRol() {
+        return rol;
+    }
 }

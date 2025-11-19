@@ -2,8 +2,6 @@ package Recital;
 
 import java.util.HashMap;
 
-import Recital.Rol.Rol;
-
 public class Cancion {
     private String titulo;
     private HashMap<Rol, Integer> rolesRequeridos;

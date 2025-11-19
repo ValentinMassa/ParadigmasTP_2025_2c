@@ -1,4 +1,4 @@
-package Recital.Rol;
+package Recital;
 
 public class Rol {
     private String nombre;
@@ -21,4 +21,8 @@ public class Rol {
         Rol rol = (Rol) obj;
         return nombre.equals(rol.nombre);
     }
+    @Override
+    public int hashCode() {
+        return nombre.hashCode();
+    } 
 }

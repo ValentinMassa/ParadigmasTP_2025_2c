@@ -1,6 +1,8 @@
-package Recital.Rol;
+package Repositorios;
 
 import java.util.HashMap;
+
+import Recital.Rol;
 
 public class RolCatalogo {
 

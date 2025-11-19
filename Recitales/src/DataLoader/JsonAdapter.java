@@ -1,4 +1,4 @@
-package Imports;
+package DataLoader;
 
 import java.io.File;
 import java.io.IOException;
@@ -7,12 +7,14 @@ import java.util.HashSet;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.HashMap;
-import Recital.Artista.ArtistaBase;
-import Recital.Artista.ArtistaExterno;
+
+import Artista.ArtistaBase;
+import Artista.ArtistaExterno;
+import Recital.Banda;
 import Recital.Cancion;
-import Recital.Rol.Rol;
-import Recital.Banda.Banda;
+import Recital.Rol;
+
+import java.util.HashMap;
 
 /**
  * Adaptador para cargar información de recitales desde archivos JSON.

@@ -1,8 +1,9 @@
-package Imports;
+package DataLoader;
 
 import java.util.HashSet;
-import Recital.Artista.ArtistaBase;
-import Recital.Artista.ArtistaExterno;
+
+import Artista.ArtistaBase;
+import Artista.ArtistaExterno;
 import Recital.Cancion;
 
 public interface ICargarRecital {
