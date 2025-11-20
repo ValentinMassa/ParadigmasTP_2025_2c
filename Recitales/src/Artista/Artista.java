@@ -83,7 +83,7 @@ public abstract class Artista {
     }
 
     public Boolean puedeTocarRol(Rol rolBuscado){
-        if(!rolHistorico.isEmpty()){
+        if(rolHistorico.isEmpty()){
             return false;
         }
         for(Rol r: rolHistorico){
@@ -94,5 +94,9 @@ public abstract class Artista {
         return false;
     }
     public abstract Boolean puedeSerEntrenado();
+
+    public int getCantCancionesAsignadas() {
+        return cantCancionesAsignado;
+    }  
 
 }

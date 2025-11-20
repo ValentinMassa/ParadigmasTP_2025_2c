@@ -35,4 +35,8 @@ public class Contrato {
     public Rol getRol() {
         return rol;
     }
+
+    public Artista getArtista() {
+        return artista;
+    }
 }

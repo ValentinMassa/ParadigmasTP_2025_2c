@@ -1,16 +1,6 @@
 package Recital;
 
 import java.util.HashSet;
-import java.util.List;
-
-import Recital.Artista.*;
-import Recital.Contratos.*;
-import Repositorios.RepositorioArtistas;
-import Servicios.ServicioContratacion;
-
-import java.util.Map;
-
-import Artista.Artista;
 
 public class Recital {
     private HashSet<Cancion> canciones;

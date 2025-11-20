@@ -6,7 +6,6 @@ import Artista.ArtistaBase;
 import Artista.ArtistaExterno;
 import Recital.Cancion;
 import Recital.Recital;
-import Servicios.ServicioContratacion;
 
 public class FabricaRecital {
     
@@ -33,11 +32,8 @@ public class FabricaRecital {
                 throw new Exception("Error: no se pudieron cargar los datos requeridos");
             }
             
-            // Creamos el servicio de contratación
-            ServicioContratacion servicioContratacion = new ServicioContratacion();
-            
             // creamos y retornamos el recital
-            return new Recital(artistasBase, artistasExternos, canciones, servicioContratacion);
+            return new Recital(canciones);
         } catch (Exception e) {
             throw new Exception("Error al crear el recital: " + e.getMessage(), e);
         }

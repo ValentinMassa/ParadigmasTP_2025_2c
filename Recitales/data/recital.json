@@ -1,0 +1,40 @@
+[
+  {
+    "titulo": "Bohemian Rhapsody",
+    "rolesRequeridos": {
+      "Voz": 2,
+      "Piano": 1,
+      "Guitarra": 2,
+      "Bajo": 1,
+      "Bateria": 1
+    }
+  },
+  {
+    "titulo": "We Will Rock You",
+    "rolesRequeridos": {
+      "Voz": 1,
+      "Guitarra": 1,
+      "Bajo": 1,
+      "Bateria": 1
+    }
+  },
+  {
+    "titulo": "Another One Bites the Dust",
+    "rolesRequeridos": {
+      "Voz": 1,
+      "Bajo": 2,
+      "Guitarra": 1,
+      "Bateria": 1
+    }
+  },
+  {
+    "titulo": "I Want to Break Free",
+    "rolesRequeridos": {
+      "Voz": 1,
+      "Piano": 1,
+      "Guitarra": 1,
+      "Bajo": 1,
+      "Bateria": 1
+    }
+  }
+]

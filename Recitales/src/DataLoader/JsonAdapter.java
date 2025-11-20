@@ -226,11 +226,13 @@ public class JsonAdapter implements ICargarRecital {
             String titulo = (String) data.get("titulo");
             
             @SuppressWarnings("unchecked")
-            List<String> rolesRequeridos = (List<String>) data.get("rolesRequeridos");
-            HashSet<Rol> roles = new HashSet<>();
+            Map<String, Object> rolesRequeridos = (Map<String, Object>) data.get("rolesRequeridos");
+            HashMap<Rol, Integer> roles = new HashMap<>();
             if (rolesRequeridos != null) {
-                for (String rolStr : rolesRequeridos) {
-                    roles.add(new Rol(rolStr));
+                for (Map.Entry<String, Object> entry : rolesRequeridos.entrySet()) {
+                    Rol rol = new Rol(entry.getKey());
+                    Integer cantidad = ((Number) entry.getValue()).intValue();
+                    roles.put(rol, cantidad);
                 }
             }
             
@@ -399,6 +401,8 @@ public class JsonAdapter implements ICargarRecital {
         
         if (valor.startsWith("\"") && valor.endsWith("\"")) {
             return valor.substring(1, valor.length() - 1);
+        } else if (valor.startsWith("{") && valor.endsWith("}")) {
+            return parsearJsonObjeto(valor);
         } else if (valor.startsWith("[") && valor.endsWith("]")) {
             return parsearLista(valor);
         } else if (valor.equals("true")) {

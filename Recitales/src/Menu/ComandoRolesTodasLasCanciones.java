@@ -7,7 +7,7 @@ import Recital.Rol;
 import Servicios.ServicioConsulta;
 import Servicios.ServicioContratacion;
 
-public class ComandoRolesTodasLasCanciones {
+public class ComandoRolesTodasLasCanciones implements Comando {
     private ServicioConsulta servC;
     private ServicioContratacion servContr;
     
@@ -35,8 +35,7 @@ public class ComandoRolesTodasLasCanciones {
 
     public void ejecutar() {
         HashMap<Cancion, HashMap<Rol,Integer>> todasLasCancionesRoles;
-        todasLasCancionesRoles = servC.calcularRolesFaltantesTodasLasCanciones(servContr.getContratos());
-    
+        todasLasCancionesRoles = servC.calcularRolesFaltantesTodasLasCanciones(servContr);
         imprimirRolesFaltantes(todasLasCancionesRoles);
     }
 
