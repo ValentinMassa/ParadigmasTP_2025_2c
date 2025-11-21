@@ -224,4 +224,8 @@ public class JsonAdapter implements ICargarRecital {
         return this.rolCatalogo;
     }
 
+    public BandaCatalogoMemory getBandaCatalogo() {
+        return this.bandaCatalogo;
+    }
+
 }

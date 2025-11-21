@@ -33,4 +33,8 @@ public class BandaCatalogoMemory {
         Rol r = new Rol(rolNuevo);   
         return this.bandas.add(new Banda(rolNuevo)) ? r : null;
     }
+
+    public HashSet<Banda> getTodosLasBandas() {
+        return new HashSet<>(bandas);
+    }
 }

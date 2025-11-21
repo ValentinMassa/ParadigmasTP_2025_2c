@@ -9,23 +9,28 @@ import java.util.ArrayList;
 
 import Artista.Artista;
 import Artista.ArtistaDiscografica;
+import Artista.ArtistaExterno;
+import Repositorios.BandaCatalogoMemory;
 
 
 
 public class ServicioConsulta {
     private RepositorioArtistasMemory repositorioArtistas;
+    private BandaCatalogoMemory bandas;
     private Recital recital;
     private RolCatalogoMemory rolCatalogo;
     
     
-    public ServicioConsulta(RepositorioArtistasMemory rA, Recital recital, RolCatalogoMemory rolCatalogo) 
+    public ServicioConsulta(RepositorioArtistasMemory rA, Recital recital, 
+        RolCatalogoMemory rolCatalogo, BandaCatalogoMemory bandas) 
             throws IllegalArgumentException {
-        if (rA == null|| recital == null || rolCatalogo == null) {
+        if (rA == null|| recital == null || rolCatalogo == null || bandas == null) {
             throw new IllegalArgumentException("Ningun parametro puede ser nulo");
         }
         this.repositorioArtistas = rA;
         this.recital = recital;
         this.rolCatalogo = rolCatalogo;
+        this.bandas = bandas;
     }
 
     public Cancion getCancionPorNombre(String nombre) {
@@ -134,6 +139,39 @@ public class ServicioConsulta {
 
     public HashSet<Rol> getTodosLosRoles(){
         return rolCatalogo.getTodosLosRoles();
+    }
+
+    public HashSet<Banda> getTodasLasBandas(){
+        return bandas.getTodosLasBandas();
+    }
+
+    public Recital getRecital() {
+        return this.recital;
+    }
+    
+    /**
+     * Actualiza todos los objetos del servicio con los datos de un snapshot cargado.
+     * Este método reemplaza completamente el estado actual con el estado del snapshot.
+     * 
+     * @param nuevoRepositorio El nuevo repositorio de artistas
+     * @param nuevoRecital El nuevo recital
+     * @param nuevoRolCatalogo El nuevo catálogo de roles
+     * @param nuevoBandaCatalogo El nuevo catálogo de bandas
+     * @param nuevoServicioContratacion El nuevo servicio de contratación con los contratos
+     */
+    public void actualizarDesdeSnapshot(RepositorioArtistasMemory nuevoRepositorio,
+                                       Recital nuevoRecital,
+                                       RolCatalogoMemory nuevoRolCatalogo,
+                                       BandaCatalogoMemory nuevoBandaCatalogo) {
+        if (nuevoRepositorio == null || nuevoRecital == null || 
+            nuevoRolCatalogo == null || nuevoBandaCatalogo == null) {
+            throw new IllegalArgumentException("Ningún parámetro puede ser nulo al actualizar desde snapshot");
+        }
+        
+        this.repositorioArtistas = nuevoRepositorio;
+        this.recital = nuevoRecital;
+        this.rolCatalogo = nuevoRolCatalogo;
+        this.bandas = nuevoBandaCatalogo;
     }
 
 }

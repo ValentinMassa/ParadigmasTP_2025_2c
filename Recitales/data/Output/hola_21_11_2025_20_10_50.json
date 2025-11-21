@@ -1,0 +1,80 @@
+{
+  "fechaExportacion": "Fri Nov 21 20:10:50 GMT-03:00 2025",
+  "canciones": [
+    {
+      "nombre": "I Want to Break Free",
+      "contratos": [],
+      "rolesRequeridos": 5,
+      "rolesContratados": 0,
+      "rolesRestantes": 5,
+      "estadoCompleto": false,
+      "costoTotal": 0.0
+    },
+    {
+      "nombre": "Bohemian Rhapsody",
+      "contratos": [
+        {
+          "artista": "Freddie Mercury",
+          "rol": "Voz",
+          "costo": 5000.0
+        },
+        {
+          "artista": "John Deacon",
+          "rol": "Bajo",
+          "costo": 4000.0
+        },
+        {
+          "artista": "Brian May",
+          "rol": "Voz",
+          "costo": 4500.0
+        },
+        {
+          "artista": "Roger Taylor",
+          "rol": "Bateria",
+          "costo": 4200.0
+        },
+        {
+          "artista": "Jimi Hendrix",
+          "rol": "Guitarra",
+          "costo": 6000.0
+        },
+        {
+          "artista": "Paul McCartney",
+          "rol": "Piano",
+          "costo": 5500.0
+        }
+      ],
+      "rolesRequeridos": 5,
+      "rolesContratados": 5,
+      "rolesRestantes": 0,
+      "estadoCompleto": true,
+      "costoTotal": 29200.0
+    },
+    {
+      "nombre": "Another One Bites the Dust",
+      "contratos": [],
+      "rolesRequeridos": 4,
+      "rolesContratados": 0,
+      "rolesRestantes": 4,
+      "estadoCompleto": false,
+      "costoTotal": 0.0
+    },
+    {
+      "nombre": "We Will Rock You",
+      "contratos": [],
+      "rolesRequeridos": 4,
+      "rolesContratados": 0,
+      "rolesRestantes": 4,
+      "estadoCompleto": false,
+      "costoTotal": 0.0
+    }
+  ],
+  "totalizadores": {
+    "totalCanciones": 4,
+    "cancionesCompletas": 1,
+    "cancionesIncompletas": 3,
+    "porcentajeCompletitud": 25.0,
+    "totalContratos": 6,
+    "costoTotalRecital": 29200.0
+  }
+}

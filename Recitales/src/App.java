@@ -1,6 +1,5 @@
 import DataLoader.FabricaRecital;
 import DataLoader.JsonAdapter;
-import DataLoader.ExportadorRecital;
 import Menu.Comando;
 import Menu.ComandoContratarArtistaParaCancionX;
 import Menu.ComandoEntrenarArtista;
@@ -8,6 +7,7 @@ import Menu.ComandoRolesFaltantesPorCancion;
 import Menu.ComandoRolesTodasLasCanciones;
 import Menu.MenuPrincipal;
 import Recital.Recital;
+import Repositorios.BandaCatalogoMemory;
 import Repositorios.RepositorioArtistasMemory;
 import Repositorios.RolCatalogoMemory;
 import Servicios.ServicioConsulta;
@@ -16,6 +16,10 @@ import Servicios.ServicioEntrenamiento;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import DataExport.ExportadorRecital;
+import Menu.ComandoHacerSnapshot;
+import Menu.ComandoCargarEstadoPrevio;
 
 public class App {
     public static void main(String[] args) {
@@ -44,6 +48,7 @@ public class App {
             Recital recital = fabrica.crearRecital();
             RepositorioArtistasMemory repositorio = fabrica.crearRepositorioArtistas();
             RolCatalogoMemory rolCatalogo = fabrica.construirRoles();
+            BandaCatalogoMemory bandaCatalogo = fabrica.construirBandas();
             
             System.out.println("\n[OK] Recital cargado exitosamente!");
             System.out.println("\n" + "-".repeat(60));
@@ -56,7 +61,7 @@ public class App {
             
             // Crear servicios
             ServicioContratacion servicioContratacion = new ServicioContratacion();
-            ServicioConsulta servicioConsulta = new ServicioConsulta(repositorio, recital, rolCatalogo);
+            ServicioConsulta servicioConsulta = new ServicioConsulta(repositorio, recital, rolCatalogo, bandaCatalogo);
             ServicioEntrenamiento servicioEntrenamiento = new ServicioEntrenamiento();
             
             // Crear comandos del menú
@@ -65,6 +70,14 @@ public class App {
             comandos.add(new ComandoRolesTodasLasCanciones(servicioConsulta, servicioContratacion));
             comandos.add(new ComandoContratarArtistaParaCancionX(servicioConsulta, servicioContratacion));
             comandos.add(new ComandoEntrenarArtista(servicioConsulta, servicioContratacion, servicioEntrenamiento));
+            comandos.add(new ComandoHacerSnapshot(
+                servicioConsulta,
+                servicioContratacion
+            ));
+            comandos.add(new ComandoCargarEstadoPrevio(
+                servicioConsulta,
+                servicioContratacion
+            ));
             
             // Crear y mostrar menú
             MenuPrincipal menu = new MenuPrincipal(comandos);

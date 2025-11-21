@@ -191,6 +191,14 @@ public class ServicioContratacion {
         return false;
     }
 
+    public void agregarContrato(Contrato contrato) {
+        this.contratos.add(contrato);
+    }
+
+    public void actualizarDesdeSnapshot(List<Contrato> contratosSnapshot) {
+        this.contratos = contratosSnapshot;
+    }
+
 }
 
 

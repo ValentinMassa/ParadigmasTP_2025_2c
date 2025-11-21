@@ -8,6 +8,7 @@ import Recital.Cancion;
 import Recital.Recital;
 import Repositorios.RepositorioArtistasMemory;
 import Repositorios.RolCatalogoMemory;
+import Repositorios.BandaCatalogoMemory;
 
 public class FabricaRecital {
     
@@ -62,6 +63,20 @@ public class FabricaRecital {
         RolCatalogoMemory catalogo = cargador.getRolCatalogo();
         if (catalogo == null) {
             throw new IllegalStateException("Los roles no han sido cargados. Debe llamar a crearRepositorioArtistas() primero.");
+        }
+        return catalogo;
+    }
+
+    /**
+     * Obtiene el catálogo de bandas.
+     * NOTA: Se debe llamar a crearRepositorioArtistas() y crearRecital() primero para cargar las bandas.
+     * @return el catálogo de roles
+     * @throws IllegalStateException si los roles no han sido cargados
+     */
+    public BandaCatalogoMemory construirBandas() {
+        BandaCatalogoMemory catalogo = cargador.getBandaCatalogo();
+        if (catalogo == null) {
+            throw new IllegalStateException("Las bandas no han sido cargadas. Debe llamar a crearRepositorioArtistas() primero.");
         }
         return catalogo;
     }

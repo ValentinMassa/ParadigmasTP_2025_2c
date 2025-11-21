@@ -66,4 +66,12 @@ public class ArtistaExterno extends Artista {
         return todosLosRoles;
     }
 
+    public HashSet<Rol> getRolesHistoricos() {
+        return super.getRoles();
+    }
+
+    public HashSet<Rol> getRolesEntrenados() {
+        return new HashSet<>(rolesEntrenados);
+    }
+
 }
