@@ -279,7 +279,7 @@ ParadigmasTP_2025_2c/
 │   │   │   └── ArtistaExterno.java       (candidato)
 │   │   ├── Banda/
 │   │   │   ├── Banda.java
-│   │   │   └── BandaCatalogo.java
+│   │   │   └── BandaCatalogoMemory.java
 │   │   ├── Rol/
 │   │   │   ├── Rol.java
 │   │   │   └── RolCatalogo.java

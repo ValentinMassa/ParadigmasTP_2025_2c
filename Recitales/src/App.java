@@ -1,11 +1,12 @@
 import DataLoader.FabricaRecital;
 import DataLoader.JsonAdapter;
 import Menu.Comando;
+import Menu.ComandoContratarArtistaParaCancionX;
 import Menu.ComandoRolesFaltantesPorCancion;
 import Menu.ComandoRolesTodasLasCanciones;
 import Menu.MenuPrincipal;
 import Recital.Recital;
-import Repositorios.RepositorioArtistas;
+import Repositorios.RepositorioArtistasMemory;
 import Servicios.ServicioConsulta;
 import Servicios.ServicioContratacion;
 
@@ -15,10 +16,16 @@ import java.util.List;
 public class App {
     public static void main(String[] args) {
         try {
+            // Determinar el directorio base
+            String baseDir = System.getProperty("user.dir");
+            if (!baseDir.endsWith("Recitales")) {
+                baseDir = baseDir + "/Recitales";
+            }
+            
             // Configurar rutas de archivos JSON
-            String rutaArtistas = "Recitales/data/artistas.json";
-            String rutaCanciones = "Recitales/data/recital.json";
-            String rutaArtistasBase = "Recitales/data/artistas-discografica.json";
+            String rutaArtistas = baseDir + "/data/artistas.json";
+            String rutaCanciones = baseDir + "/data/recital.json";
+            String rutaArtistasBase = baseDir + "/data/artistas-discografica.json";
             
             // Crear adaptador y fábrica de recital
             JsonAdapter jsonAdapter = new JsonAdapter(rutaArtistas, rutaCanciones, rutaArtistasBase);
@@ -29,15 +36,15 @@ public class App {
             Recital recital = fabrica.crearRecital();
             
             // Cargar artistas
-            RepositorioArtistas repositorio = new RepositorioArtistas(
+            RepositorioArtistasMemory repositorio = new RepositorioArtistasMemory(
                 jsonAdapter.cargarArtistasBase(),
                 jsonAdapter.cargarArtistasExternos()
             );
             
             System.out.println("Recital cargado exitosamente!");
             System.out.println("Canciones: " + recital.getCanciones().size());
-            System.out.println("Artistas Base: " + repositorio.getArtistaBase().size());
-            System.out.println("Artistas Externos: " + repositorio.getArtistaExternos().size());
+            System.out.println("Artistas Base: " + repositorio.getArtistasDiscografica().size());
+            System.out.println("Artistas Externos: " + repositorio.getArtistasExternos().size());
             System.out.println();
             
             // Crear servicios
@@ -48,6 +55,7 @@ public class App {
             List<Comando> comandos = new ArrayList<>();
             comandos.add(new ComandoRolesFaltantesPorCancion(servicioConsulta, servicioContratacion));
             comandos.add(new ComandoRolesTodasLasCanciones(servicioConsulta, servicioContratacion));
+            comandos.add(new ComandoContratarArtistaParaCancionX(servicioConsulta, servicioContratacion));
             
             // Crear y mostrar menú
             MenuPrincipal menu = new MenuPrincipal(comandos);

@@ -12,7 +12,7 @@ public abstract class Artista {
     protected double costo; 
     protected int cantCancionesAsignado;
 
-    public Artista(String nombre, int maxcanciones, double costo, HashSet<Rol> roles, HashSet<Banda> bandaHistorico) throws IllegalArgumentException{
+    public Artista(String nombre, int maxcanciones, double costo) throws IllegalArgumentException{
         if(maxcanciones < 1){
             throw new IllegalArgumentException("La cantidad maxima de canciones debe ser al menos 1");
         }
@@ -22,19 +22,14 @@ public abstract class Artista {
         if (nombre.isBlank()) {
             throw new IllegalArgumentException("El nombre no puede estar vacio");
         }
-        if(roles == null){
-            throw new IllegalArgumentException("El conjunto de roles no puede ser nulo");
-        }
-        if(bandaHistorico == null){
-            throw new IllegalArgumentException("El conjunto de bandas no puede ser nulo");
-        }
+
         this.nombre = nombre;
         this.maxcanciones = maxcanciones;
         this.costo = costo;
         this.rolHistorico = new HashSet<>();
         this.bandaHistorico = new HashSet<>();
-        this.rolHistorico.addAll(roles);
-        this.bandaHistorico.addAll(bandaHistorico);
+        this.rolHistorico = new HashSet<>();
+        this.bandaHistorico = new HashSet<>();
         this.cantCancionesAsignado = 0;
         
     }
@@ -53,6 +48,10 @@ public abstract class Artista {
 
     public HashSet<Rol> getRoles() {
         return new HashSet<>(rolHistorico);
+    }
+
+    public boolean tieneRol(Rol rol) {
+        return this.rolHistorico.contains(rol);
     }
 
     public HashSet<Banda> getBandas() {
@@ -97,6 +96,18 @@ public abstract class Artista {
 
     public int getCantCancionesAsignadas() {
         return cantCancionesAsignado;
-    }  
-
+    }
+    
+    public void agregarRolHistorico(Rol rol) {
+        this.rolHistorico.add(rol);
+    }
+    public void agregarBandaHistorico(Banda banda) {
+        this.bandaHistorico.add(banda);
+    }
+    public void setCosto(double nuevoCosto){
+        this.costo = nuevoCosto;
+    }
+    public void set_CantCancionesAsignado(int nuevaCantidad){
+        this.cantCancionesAsignado = nuevaCantidad;
+    }
 }

@@ -4,7 +4,7 @@ import java.util.HashSet;
 import java.util.HashMap;
 import java.util.Map;
 
-import Artista.ArtistaBase;
+import Artista.ArtistaDiscografica;
 import Artista.ArtistaExterno;
 import Recital.Cancion;
 import Recital.Recital;
@@ -217,8 +217,8 @@ public class EntrenamientosProlog {
             
             if (canciones != null) {
                 for (Cancion cancion : canciones) {
-                    rolesRequeridos.addAll(cancion.getRolesRequeridos());
-                }
+                   // rolesRequeridos.addAll(cancion.getRolesRequeridos());
+                }// hay error aca
             }
         } catch (Exception e) {
             System.err.println("Error extrayendo roles: " + e.getMessage());
@@ -239,10 +239,10 @@ public class EntrenamientosProlog {
             java.lang.reflect.Field artistaBaseField = Recital.class.getDeclaredField("artistaBase");
             artistaBaseField.setAccessible(true);
             @SuppressWarnings("unchecked")
-            HashSet<ArtistaBase> artistasBase = (HashSet<ArtistaBase>) artistaBaseField.get(recital);
+            HashSet<ArtistaDiscografica> artistasBase = (HashSet<ArtistaDiscografica>) artistaBaseField.get(recital);
             
             if (artistasBase != null) {
-                for (ArtistaBase artista : artistasBase) {
+                for (ArtistaDiscografica artista : artistasBase) {
                     if (artista.puedeTocarRol(rol)) {
                         contador++;
                     }
@@ -340,7 +340,7 @@ public class EntrenamientosProlog {
             java.lang.reflect.Field baseField = Recital.class.getDeclaredField("artistaBase");
             baseField.setAccessible(true);
             @SuppressWarnings("unchecked")
-            HashSet<ArtistaBase> artistasBase = (HashSet<ArtistaBase>) baseField.get(recital);
+            HashSet<ArtistaDiscografica> artistasBase = (HashSet<ArtistaDiscografica>) baseField.get(recital);
             if (artistasBase != null) total += artistasBase.size();
             
             java.lang.reflect.Field externosField = Recital.class.getDeclaredField("artistaExternos");

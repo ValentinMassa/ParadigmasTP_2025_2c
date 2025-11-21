@@ -2,27 +2,28 @@ package Repositorios;
 
 import java.util.HashSet;
 import Artista.*;
+import Repositorios.Interfaz.IRepositorioArtista;
 
-public class RepositorioArtistas {
+public class RepositorioArtistasMemory{
 
-    private HashSet<ArtistaBase> artistaBase;
+    private HashSet<ArtistaDiscografica> artistaBase;
     private HashSet<ArtistaExterno> artistaExternos;
 
-    public RepositorioArtistas() {
+    public RepositorioArtistasMemory() {
         this.artistaBase = new HashSet<>();
         this.artistaExternos = new HashSet<>();
     }
 
-    public RepositorioArtistas(HashSet<ArtistaBase> artistaBase, HashSet<ArtistaExterno> artistaExternos) {
+    public RepositorioArtistasMemory(HashSet<ArtistaDiscografica> artistaBase, HashSet<ArtistaExterno> artistaExternos) {
         this.artistaBase = new HashSet<>(artistaBase);
         this.artistaExternos = new HashSet<>(artistaExternos);
     }
 
-    public HashSet<ArtistaBase> getArtistaBase() {
+    public HashSet<ArtistaDiscografica> getArtistasDiscografica() {
         return new HashSet<>(artistaBase);
     }
 
-    public HashSet<ArtistaExterno> getArtistaExternos() {
+    public HashSet<ArtistaExterno> getArtistasExternos() {
         return new HashSet<>(artistaExternos);
     }
 }

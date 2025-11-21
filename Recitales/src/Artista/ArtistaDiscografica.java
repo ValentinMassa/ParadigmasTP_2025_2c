@@ -1,15 +1,12 @@
 package Artista;
 
-import java.util.HashSet;
 
-import Recital.Banda;
-import Recital.Rol;
 
-public class ArtistaBase extends Artista {
+public class ArtistaDiscografica extends Artista {
     
-    public ArtistaBase(String nombre, int maxcanciones, double costo, HashSet<Rol> roles, HashSet<Banda> bandaHistorico) 
+    public ArtistaDiscografica(String nombre, int maxcanciones, double costo) 
             throws IllegalArgumentException {
-        super(nombre, maxcanciones, costo, roles, bandaHistorico);
+        super(nombre, maxcanciones, costo);
     }
 
     @Override
@@ -21,7 +18,7 @@ public class ArtistaBase extends Artista {
     public boolean equals(Object obj) {
         if (this == obj) return true;
         if (obj == null || getClass() != obj.getClass()) return false;
-        ArtistaBase otro = (ArtistaBase) obj;
+        ArtistaDiscografica otro = (ArtistaDiscografica) obj;
         return nombre.equals(otro.nombre);
     }
 }

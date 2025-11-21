@@ -1,0 +1,17 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Launch App",
+            "request": "launch",
+            "mainClass": "App",
+            "projectName": "ParadigmasTP_2025_2c",
+            "cwd": "${workspaceFolder}/Recitales",
+            "classPaths": [
+                "${workspaceFolder}/Recitales/bin",
+                "${workspaceFolder}/Recitales/src/libs/gson-2.13.1.jar"
+            ]
+        }
+    ]
+}

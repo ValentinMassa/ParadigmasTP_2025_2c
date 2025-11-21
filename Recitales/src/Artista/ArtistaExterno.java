@@ -1,15 +1,11 @@
 package Artista;
 
-import java.util.HashSet;
-
-import Recital.Banda;
-import Recital.Rol;
 
 public class ArtistaExterno extends Artista {
     
-    public ArtistaExterno(String nombre, int maxcanciones, double costo, HashSet<Rol> roles, HashSet<Banda> bandaHistorico) 
+    public ArtistaExterno(String nombre, int maxcanciones, double costo) 
             throws IllegalArgumentException {
-        super(nombre, maxcanciones, costo, roles, bandaHistorico);
+        super(nombre, maxcanciones, costo);
     }
 
     @Override

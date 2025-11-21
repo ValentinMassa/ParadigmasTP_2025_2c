@@ -6,16 +6,16 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.ArrayList;
-import Artista.ArtistaBase;
+import Artista.ArtistaDiscografica;
 
 
 
 public class ServicioConsulta {
-    private RepositorioArtistas repositorioArtistas;
+    private RepositorioArtistasMemory repositorioArtistas;
     private Recital recital;
     
     
-    public ServicioConsulta(RepositorioArtistas rA, Recital recital  ) 
+    public ServicioConsulta(RepositorioArtistasMemory rA, Recital recital  ) 
             throws IllegalArgumentException {
         if (rA == null|| recital == null) {
             throw new IllegalArgumentException("Ningun parametro puede ser nulo");
@@ -37,35 +37,44 @@ public class ServicioConsulta {
         return new HashMap<>(cancion.getRolesRequeridos());
     }
 
+    /*
+    * Calcula los roles faltantes para una canción dada, considerando los contratos existentes.
+    * @param cancion La canción para la cual se desean calcular los roles faltantes.
+    * @param contratos La lista de contratos existentes para la canción.
+    * @return Un HashMap que mapea cada rol a la cantidad faltante para la canción.
+     */
     public HashMap<Rol, Integer> calcularRolesFaltantes(Cancion cancion, List<Contrato> contratos) {
-        
-        HashMap<Rol, Integer> rolesFaltantes = getRolesDeCancion(cancion);
-        
-        for (Contrato contrato : contratos) {
-            Rol rolContratado = contrato.getRol();
-            if (rolesFaltantes.containsKey(rolContratado)) {
-                rolesFaltantes.put(rolContratado, Math.max(0, rolesFaltantes.get(rolContratado) - 1));
-            }
-        }
-        return rolesFaltantes;
+        return cancion.getRolesFaltantes(contratos);
     }
 
+    /*
+    * Obtiene los roles requeridos para todas las canciones en el recital.
+    * @return Un HashMap que mapea cada canción a otro HashMap de roles y sus cantidades requeridas.
+     */
     public HashMap<Cancion, HashMap<Rol, Integer>> getRolesDeTodasLasCanciones(){
         HashMap<Cancion, HashMap<Rol, Integer>> resultado = new HashMap<>();
-        for (Cancion cancion : recital.getCanciones()) {
-            
+        for (Cancion cancion : recital.getCanciones())   
             resultado.put(cancion, new HashMap<>(cancion.getRolesRequeridos()));
-        }
         return resultado;
     }
 
-    public List<ArtistaBase> getArtistasBase(){
-        HashSet<ArtistaBase> a = repositorioArtistas.getArtistaBase();
-        List<ArtistaBase> artistas = new ArrayList<>();
+    /*
+    * Obtiene la lista de artistas base desde el repositorio.
+    * @return Una lista de artistas base.
+    */
+    public List<ArtistaDiscografica> getArtistasBase(){
+        HashSet<ArtistaDiscografica> a = repositorioArtistas.getArtistasDiscografica();
+        List<ArtistaDiscografica> artistas = new ArrayList<>();
         artistas.addAll(a);
         return artistas;
     }
 
+    /*
+    * Calcula los roles faltantes para todas las canciones en el recital, considerando los contratos existentes
+    * y posibles contratos con artistas base.
+    * @param servicioC El servicio de contratación que proporciona los contratos existentes.
+    * @return Un HashMap que mapea cada canción a otro HashMap de roles y sus cantidades faltantes.
+     */
     private void restarRolDeCancion(HashMap<Cancion, HashMap<Rol, Integer>> roles, Cancion cancion, Rol rol) {
         HashMap<Rol, Integer> rolesFaltantes = roles.get(cancion);
         if (rolesFaltantes != null && rolesFaltantes.containsKey(rol)) {
@@ -73,6 +82,22 @@ public class ServicioConsulta {
             
         }
     }
+
+    /*
+    * Obtiene el repositorio de artistas.
+    * @return El repositorio de artistas.
+    */
+    public RepositorioArtistasMemory getRepositorioArtistas() {
+        return this.repositorioArtistas;
+    }
+
+
+    /*
+    * Calcula los roles faltantes para todas las canciones en el recital, considerando los contratos existentes
+    * y posibles contratos con artistas base.
+    * @param servicioC El servicio de contratación que proporciona los contratos existentes.
+    * @return Un HashMap que mapea cada canción a otro HashMap de roles y sus cantidades faltantes.
+    */
     public HashMap<Cancion, HashMap<Rol, Integer>> calcularRolesFaltantesTodasLasCanciones(ServicioContratacion servicioC){
         HashMap<Cancion, HashMap<Rol, Integer>> resultado = getRolesDeTodasLasCanciones();
         
@@ -80,8 +105,8 @@ public class ServicioConsulta {
             restarRolDeCancion(resultado, contrato.getCancion(), contrato.getRol());
         }
 
-        for(ArtistaBase a : getArtistasBase()) {
-            List<Contrato> c = servicioC.posiblesContratoArtista(a, resultado);
+        for(ArtistaDiscografica a : getArtistasBase()) {
+            List<Contrato> c = servicioC.posiblesContratos(a, resultado);
             for(Contrato contrato : c) {
                 System.out.println("Asignando contrato: Artista " + contrato.getArtista().getNombre() + ", Cancion " + contrato.getCancion().getTitulo() + ", Rol " + contrato.getRol().getNombre());
                 restarRolDeCancion(resultado, contrato.getCancion(), contrato.getRol());
@@ -89,14 +114,6 @@ public class ServicioConsulta {
         }
         return resultado;
     }
-
-    
-
-
-
-
-
-
         //Freedy Mercury | Voz, Piano | max= 3 canciones
 
         //I love You | Voz = 0, Piano = 1

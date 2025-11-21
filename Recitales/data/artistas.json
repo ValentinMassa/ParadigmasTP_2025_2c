@@ -6,6 +6,7 @@
     "roles": ["Voz", "Piano"],
     "bandas": ["Queen"]
   },
+  
   {
     "nombre": "Brian May",
     "maxCanciones": 3,

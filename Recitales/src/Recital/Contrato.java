@@ -6,11 +6,16 @@ public class Contrato {
     private Cancion cancion;
     private Rol rol;
     private Artista artista;
+    private double costo;
 
-    public Contrato(Cancion cancion, Rol rol, Artista artista) {
+    public Contrato(Cancion cancion, Rol rol, Artista artista, double costo) throws IllegalArgumentException {
+        if (cancion == null || rol == null || artista == null || costo < 0) {
+            throw new IllegalArgumentException("Los parametros no pueden ser nulos");        
+        }
         this.cancion = cancion;
         this.rol = rol;
         this.artista = artista;
+        this.costo = costo;
     }
 
     @Override
@@ -21,22 +26,32 @@ public class Contrato {
         Contrato contrato = (Contrato) obj;
         return cancion.equals(contrato.cancion) &&
                rol.equals(contrato.rol) &&
-               artista.equals(contrato.artista);
+               artista.equals(contrato.artista) && 
+               Double.compare(contrato.costo, costo) == 0;
     }
 
     public double obtenerCostoContrato(){
-        //Falta Desarrollar
-        return 0;
+        return costo;
     }
     public Cancion getCancion() {
         return cancion;
     }
-
     public Rol getRol() {
         return rol;
     }
-
     public Artista getArtista() {
         return artista;
     }
+
+    @Override
+    public String toString() {
+    return "┌─────────────────────────────────────────┐\n" +
+           "│      ♫ CONTRATO MUSICAL ♫             │\n" +
+           "├─────────────────────────────────────────┤\n" +
+           String.format("│ 𝄞 Canción:  %-27s │\n", cancion.getTitulo()) +
+           String.format("│ ♩ Rol:      %-27s │\n", rol.getNombre()) +
+           String.format("│ ♪ Artista:  %-27s │\n", artista.getNombre()) +
+           String.format("│ 𝄢 Costo:    $%-26.2f │\n", costo) +
+           "└─────────────────────────────────────────┘";
+}
 }
