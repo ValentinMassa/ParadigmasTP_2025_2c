@@ -13,7 +13,7 @@ public class SelectorDeOpcion {
         opcion = scanner.nextLine();
         
         if (opcion.equalsIgnoreCase("S")) {
-            System.out.println("\n🔙 Volviendo al menú principal...\n");
+            System.out.println("\n[<<] Volviendo al menu principal...\n");
             return null;
         }
         

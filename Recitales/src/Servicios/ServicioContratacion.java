@@ -23,7 +23,7 @@ public class ServicioContratacion {
         HashMap<Rol, Integer> rolesFaltantes = cancion.getRolesFaltantes(this.getContratosPorCancion(cancion));
         
         if (!hayRolesFaltantes(rolesFaltantes)) {
-            System.out.println("\n✅ ¡Perfecto! No hay roles faltantes para la canción '" + cancion.getTitulo() + "'");
+            System.out.println("\n[OK] Perfecto! No hay roles faltantes para la cancion '" + cancion.getTitulo() + "'");
             return;
         }
 

@@ -42,16 +42,19 @@ public class Contrato {
     public Artista getArtista() {
         return artista;
     }
+    public double getCosto() {
+        return costo;
+    }
 
     @Override
     public String toString() {
-    return "┌─────────────────────────────────────────┐\n" +
-           "│      ♫ CONTRATO MUSICAL ♫             │\n" +
-           "├─────────────────────────────────────────┤\n" +
-           String.format("│ 𝄞 Canción:  %-27s │\n", cancion.getTitulo()) +
-           String.format("│ ♩ Rol:      %-27s │\n", rol.getNombre()) +
-           String.format("│ ♪ Artista:  %-27s │\n", artista.getNombre()) +
-           String.format("│ 𝄢 Costo:    $%-26.2f │\n", costo) +
-           "└─────────────────────────────────────────┘";
-}
+        return "+------------------------------------------+\n" +
+               "|         >> CONTRATO MUSICAL <<           |\n" +
+               "+------------------------------------------+\n" +
+               String.format("| Cancion:  %-30s |\n", cancion.getTitulo()) +
+               String.format("| Rol:      %-30s |\n", rol.getNombre()) +
+               String.format("| Artista:  %-30s |\n", artista.getNombre()) +
+               String.format("| Costo:    $%-29.2f |\n", costo) +
+               "+------------------------------------------+";
+    }
 }

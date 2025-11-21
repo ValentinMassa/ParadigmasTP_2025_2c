@@ -1,5 +1,6 @@
 import DataLoader.FabricaRecital;
 import DataLoader.JsonAdapter;
+import DataLoader.ExportadorRecital;
 import Menu.Comando;
 import Menu.ComandoContratarArtistaParaCancionX;
 import Menu.ComandoEntrenarArtista;
@@ -36,21 +37,21 @@ public class App {
             
             // Crear recital y cargar datos
             System.out.println("\n" + "=".repeat(60));
-            System.out.println("   🎵  SISTEMA DE GESTIÓN DE RECITALES  🎵");
+            System.out.println("     >> SISTEMA DE GESTION DE RECITALES <<");
             System.out.println("=".repeat(60));
-            System.out.println("\n⏳ Cargando datos del recital...");
+            System.out.println("\n[*] Cargando datos del recital...");
             
             Recital recital = fabrica.crearRecital();
             RepositorioArtistasMemory repositorio = fabrica.crearRepositorioArtistas();
             RolCatalogoMemory rolCatalogo = fabrica.construirRoles();
             
-            System.out.println("\n✅ ¡Recital cargado exitosamente!");
+            System.out.println("\n[OK] Recital cargado exitosamente!");
             System.out.println("\n" + "-".repeat(60));
-            System.out.println("   📊 ESTADÍSTICAS DEL SISTEMA");
+            System.out.println("          ESTADISTICAS DEL SISTEMA");
             System.out.println("-".repeat(60));
-            System.out.println(String.format("   🎼 Canciones en repertorio: %d", recital.getCanciones().size()));
-            System.out.println(String.format("   🎤 Artistas de discográfica: %d", repositorio.getArtistasDiscografica().size()));
-            System.out.println(String.format("   🎸 Artistas externos: %d", repositorio.getArtistasExternos().size()));
+            System.out.println(String.format("   >> Canciones en repertorio: %d", recital.getCanciones().size()));
+            System.out.println(String.format("   >> Artistas de discografica: %d", repositorio.getArtistasDiscografica().size()));
+            System.out.println(String.format("   >> Artistas externos: %d", repositorio.getArtistasExternos().size()));
             System.out.println("-".repeat(60) + "\n");
             
             // Crear servicios
@@ -68,6 +69,14 @@ public class App {
             // Crear y mostrar menú
             MenuPrincipal menu = new MenuPrincipal(comandos);
             menu.mostrar();
+            
+            // Exportar estado al salir si el usuario proporcionó un nombre
+            String nombreArchivo = menu.getNombreArchivoSalida();
+            if (nombreArchivo != null) {
+                String rutaSalida = baseDir + "/data/Output/" + nombreArchivo + ".json";
+                ExportadorRecital exportador = new ExportadorRecital();
+                exportador.exportarEstadoRecital(recital, servicioConsulta, servicioContratacion, rutaSalida);
+            }
             
         } catch (Exception e) {
             System.err.println("Error: " + e.getMessage());
