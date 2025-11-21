@@ -8,15 +8,13 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import com.google.gson.*;
 import Artista.*;
 import Recital.Banda;
 import Recital.Cancion;
 import Recital.Rol;
-import DataLoader.ICargarRecital;
 import Repositorios.BandaCatalogoMemory;
 import Repositorios.RolCatalogoMemory;
-
+import com.google.gson.*;
 
 
 public class JsonAdapter implements ICargarRecital {
@@ -59,7 +57,7 @@ public class JsonAdapter implements ICargarRecital {
     }
 
      @Override
-    public HashSet<ArtistaDiscografica> cargarArtistasBase() throws Exception{
+    public HashSet<ArtistaDiscografica> cargarArtistasDiscografica() throws Exception{
         if(artistasBase.isEmpty()){
             cargarArtistas();
         }
@@ -220,6 +218,10 @@ public class JsonAdapter implements ICargarRecital {
                 reader.close();
         }
         return canciones;
+    }
+
+    public RolCatalogoMemory getRolCatalogo() {
+        return this.rolCatalogo;
     }
 
 }

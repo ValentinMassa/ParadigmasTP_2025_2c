@@ -2,7 +2,7 @@ package Repositorios;
 
 import java.util.HashSet;
 import Artista.*;
-import Repositorios.Interfaz.IRepositorioArtista;
+import Recital.Rol;
 
 public class RepositorioArtistasMemory{
 
@@ -25,5 +25,14 @@ public class RepositorioArtistasMemory{
 
     public HashSet<ArtistaExterno> getArtistasExternos() {
         return new HashSet<>(artistaExternos);
+    }
+
+    public HashSet<Artista> getArtistasEntrenables() {
+        return new HashSet<Artista>() {{
+            addAll(artistaExternos);
+        }};
+    }
+    public HashSet<Rol> getRolesArtista(Artista artista) {
+        return artista.getRoles();
     }
 }

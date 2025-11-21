@@ -23,7 +23,7 @@ public class ServicioContratacion {
         HashMap<Rol, Integer> rolesFaltantes = cancion.getRolesFaltantes(this.getContratosPorCancion(cancion));
         
         if (!hayRolesFaltantes(rolesFaltantes)) {
-            System.out.println("No hay roles faltantes para la canción " + cancion.getTitulo());
+            System.out.println("\n✅ ¡Perfecto! No hay roles faltantes para la canción '" + cancion.getTitulo() + "'");
             return;
         }
 
@@ -176,6 +176,20 @@ public class ServicioContratacion {
         return costo;
     }
 
+    /*
+    * Verifica si un artista ya tiene algún contrato en el servicio de contratación.
+    * @param a El artista a verificar.
+    * @return true si el artista tiene al menos un contrato, false en caso contrario.
+    */
+
+    public Boolean tieneAlgunContrato(Artista a) {
+        for (Contrato contrato : contratos) {
+            if (contrato.getArtista().equals(a)) {
+                return true;
+            }
+        }
+        return false;
+    }
 
 }
 

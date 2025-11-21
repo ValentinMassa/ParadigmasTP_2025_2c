@@ -1,7 +1,8 @@
 package Repositorios;
 
-import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
+
 import Recital.Rol;
 
 
@@ -26,7 +27,7 @@ public class RolCatalogoMemory {
         return this.roles.putIfAbsent(rolNuevo, r);
     }
 
-    public Collection<Rol> getTodosLosRoles() {
-        return roles.values();
+    public HashSet<Rol> getTodosLosRoles() {
+        return new HashSet<>(roles.values());
     }
 }

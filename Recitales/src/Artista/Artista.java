@@ -49,11 +49,6 @@ public abstract class Artista {
     public HashSet<Rol> getRoles() {
         return new HashSet<>(rolHistorico);
     }
-
-    public boolean tieneRol(Rol rol) {
-        return this.rolHistorico.contains(rol);
-    }
-
     public HashSet<Banda> getBandas() {
         return new HashSet<>(bandaHistorico);
     }
@@ -61,6 +56,7 @@ public abstract class Artista {
     public Boolean puedeAceptarNuevaCancion(){
         return cantCancionesAsignado < maxcanciones;
     }
+
     public Boolean asignarCancion(){
         if(!puedeAceptarNuevaCancion()){
             return false;

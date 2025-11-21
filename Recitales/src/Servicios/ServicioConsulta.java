@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.ArrayList;
+
+import Artista.Artista;
 import Artista.ArtistaDiscografica;
 
 
@@ -13,15 +15,17 @@ import Artista.ArtistaDiscografica;
 public class ServicioConsulta {
     private RepositorioArtistasMemory repositorioArtistas;
     private Recital recital;
+    private RolCatalogoMemory rolCatalogo;
     
     
-    public ServicioConsulta(RepositorioArtistasMemory rA, Recital recital  ) 
+    public ServicioConsulta(RepositorioArtistasMemory rA, Recital recital, RolCatalogoMemory rolCatalogo) 
             throws IllegalArgumentException {
-        if (rA == null|| recital == null) {
+        if (rA == null|| recital == null || rolCatalogo == null) {
             throw new IllegalArgumentException("Ningun parametro puede ser nulo");
         }
         this.repositorioArtistas = rA;
         this.recital = recital;
+        this.rolCatalogo = rolCatalogo;
     }
 
     public Cancion getCancionPorNombre(String nombre) {
@@ -114,6 +118,29 @@ public class ServicioConsulta {
         }
         return resultado;
     }
+
+
+    /*
+    * Obtiene la lista de artistas entrenables desde el repositorio.
+    * @return Una lista de artistas entrenables. 
+    */
+    public HashSet<Artista> getArtistasEntrenables() {
+        return repositorioArtistas.getArtistasEntrenables();
+    }
+
+    public HashSet<Rol> getRolesDeArtista(Artista artista){
+        return repositorioArtistas.getRolesArtista(artista);
+    }
+
+    public HashSet<Rol> getTodosLosRoles(){
+        return rolCatalogo.getTodosLosRoles();
+    }
+
+}
+
+
+
+
         //Freedy Mercury | Voz, Piano | max= 3 canciones
 
         //I love You | Voz = 0, Piano = 1
@@ -141,4 +168,3 @@ public class ServicioConsulta {
         //  }
 
     
-}

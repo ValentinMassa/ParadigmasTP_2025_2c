@@ -1,13 +1,14 @@
 package Menu;
 
 import java.util.HashMap;
+import java.util.List;
+import java.util.Scanner;
 
 import Recital.Cancion;
 import Recital.Contrato;
 import Recital.Rol;
 import Servicios.ServicioConsulta;
 import Servicios.ServicioContratacion;
-import java.util.List;
 
 public class ComandoContratarArtistaParaCancionX implements Comando{
     private ServicioConsulta servC;
@@ -21,35 +22,52 @@ public class ComandoContratarArtistaParaCancionX implements Comando{
         this.servContr = scontr;
     } 
 
-    private Cancion seleccionarCancion(){
-        System.out.println("Seleccione una canción: ");
+    private Cancion seleccionarCancion(Scanner scanner){
         HashMap<Cancion, HashMap<Rol,Integer>> todasLasCancionesRoles;
-        todasLasCancionesRoles = servC.getRolesDeTodasLasCanciones();
-        int indice = 1;
         HashMap<Integer, Cancion> mapaIndicesCanciones = new HashMap<>();
+        int indice = 1;
+
+        System.out.println("\n" + "─".repeat(60));
+        System.out.println("   🎼 CANCIONES DISPONIBLES PARA CONTRATACIÓN");
+        System.out.println("─".repeat(60));
+        
+        todasLasCancionesRoles = servC.getRolesDeTodasLasCanciones();
+
         for (Cancion cancion : todasLasCancionesRoles.keySet()) {
-            System.out.println(indice + ". " + cancion.getTitulo());
+            System.out.println(String.format("   [%d] 🎵 %s", indice, cancion.getTitulo()));
             mapaIndicesCanciones.put(indice, cancion);
             indice++;
         }
-        System.out.print("Ingrese el número de la canción: ");
-        java.util.Scanner scanner = new java.util.Scanner(System.in);
-        int opcion = scanner.nextInt();
-        Cancion cancionSeleccionada = mapaIndicesCanciones.get(opcion);
-        if (cancionSeleccionada == null) {
-            throw new IllegalArgumentException("Opción inválida. No existe una canción con ese número.");
-        }
-        return cancionSeleccionada;
+        
+        System.out.println("─".repeat(60));
+        return SelectorDeOpcion.seleccionarDeLista(mapaIndicesCanciones, 
+            "\n👉 Ingrese el número de la canción o 'S' para salir: ", scanner);
     }
     
     public void ejecutar() {
-        servContr.contratarArtistasParaCancion(seleccionarCancion(), servC.getRepositorioArtistas());
-        List<Contrato> contratos = servContr.getContratosPorCancion(seleccionarCancion());
-        System.out.println("Contratos para la canción seleccionada: ");
-        for (Contrato contrato : contratos) {
-            System.out.println(contrato.toString());
+        Scanner scanner = new Scanner(System.in);
+        Cancion cancion = seleccionarCancion(scanner);
+        if (cancion == null) {
+            return;
         }
 
+        System.out.println("\n⏳ Procesando contratación de artistas...");
+        servContr.contratarArtistasParaCancion(cancion, servC.getRepositorioArtistas());
+        List<Contrato> contratos = servContr.getContratosPorCancion(cancion);
+        
+        System.out.println("\n" + "═".repeat(60));
+        System.out.println(String.format("   📋 CONTRATOS PARA: %s", cancion.getTitulo()));
+        System.out.println("═".repeat(60));
+        
+        if (contratos.isEmpty()) {
+            System.out.println("   ⚠️  No se realizaron contratos para esta canción.");
+        } else {
+            for (int i = 0; i < contratos.size(); i++) {
+                System.out.println(String.format("\n   [Contrato #%d]", (i + 1)));
+                System.out.println("   " + contratos.get(i).toString());
+            }
+        }
+        System.out.println("\n" + "═".repeat(60));
     }
 
     public String getDescripcion() {
