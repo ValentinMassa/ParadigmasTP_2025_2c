@@ -35,4 +35,10 @@ public class RepositorioArtistasMemory{
     public HashSet<Rol> getRolesArtista(Artista artista) {
         return artista.getRoles();
     }
+    public HashSet<Artista> getTodosLosArtistas() {
+        HashSet<Artista> todos = new HashSet<>();
+        todos.addAll(artistaBase);
+        todos.addAll(artistaExternos);
+        return todos;
+    }
 }

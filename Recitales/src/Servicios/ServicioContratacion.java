@@ -1,6 +1,12 @@
 package Servicios;
 
-import java.util.*;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+
 import Artista.*;
 import Recital.*;
 import Repositorios.RepositorioArtistasMemory;
@@ -198,7 +204,9 @@ public class ServicioContratacion {
     public void actualizarDesdeSnapshot(List<Contrato> contratosSnapshot) {
         this.contratos = contratosSnapshot;
     }
-
+    public void eliminarContratosDeArtista(Artista artista){
+        contratos.removeIf(contrato -> contrato.getArtista().equals(artista));
+    }
 }
 
 

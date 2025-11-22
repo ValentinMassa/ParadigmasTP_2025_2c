@@ -34,9 +34,30 @@ public class ComandoContratarArtistaParaCancionX implements Comando{
         todasLasCancionesRoles = servC.getRolesDeTodasLasCanciones();
 
         for (Cancion cancion : todasLasCancionesRoles.keySet()) {
-            System.out.println(String.format("   [%d] %s", indice, cancion.getTitulo()));
-            mapaIndicesCanciones.put(indice, cancion);
-            indice++;
+            // Verificar si la canción tiene roles faltantes
+            List<Contrato> contratosCancion = servContr.getContratosPorCancion(cancion);
+            HashMap<Rol, Integer> rolesFaltantes = cancion.getRolesFaltantes(contratosCancion);
+            
+            boolean tieneRolesFaltantes = false;
+            for (Integer cantidad : rolesFaltantes.values()) {
+                if (cantidad > 0) {
+                    tieneRolesFaltantes = true;
+                    break;
+                }
+            }
+            
+            // Solo mostrar canciones incompletas
+            if (tieneRolesFaltantes) {
+                System.out.println(String.format("   [%d] %s", indice, cancion.getTitulo()));
+                mapaIndicesCanciones.put(indice, cancion);
+                indice++;
+            }
+        }
+        
+        if (mapaIndicesCanciones.isEmpty()) {
+            System.out.println("   [!] Todas las canciones tienen sus roles completos.");
+            System.out.println("-".repeat(60));
+            return null;
         }
         
         System.out.println("-".repeat(60));
@@ -71,7 +92,7 @@ public class ComandoContratarArtistaParaCancionX implements Comando{
     }
 
     public String getDescripcion() {
-        return "Contratar artistas para una canción X del recital";
+        return "Contratar artistas para una cancion X del recital";
     }
 
 }

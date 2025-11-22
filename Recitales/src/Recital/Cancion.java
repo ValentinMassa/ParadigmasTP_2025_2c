@@ -41,7 +41,7 @@ public class Cancion {
                 rolesReq.put(rolContratado, Math.max(0, rolesReq.get(rolContratado) - 1));
             }
         }
-        return this.rolesRequeridos;
+        return rolesReq;
     }
 
 

@@ -15,6 +15,7 @@ import Repositorios.BandaCatalogoMemory;
 
 
 public class ServicioConsulta {
+    
     private RepositorioArtistasMemory repositorioArtistas;
     private BandaCatalogoMemory bandas;
     private Recital recital;
@@ -173,7 +174,15 @@ public class ServicioConsulta {
         this.rolCatalogo = nuevoRolCatalogo;
         this.bandas = nuevoBandaCatalogo;
     }
+    public HashSet<Artista> getArtistasContratados(ServicioContratacion sc){
+        HashSet<Artista> artistasContratados = new HashSet<>();
 
+        for (Contrato contrato : sc.getContratos()) {
+            artistasContratados.add(contrato.getArtista());
+        }
+
+        return artistasContratados;
+    }
 }
 
 

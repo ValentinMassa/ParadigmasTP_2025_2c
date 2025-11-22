@@ -20,6 +20,9 @@ import java.util.List;
 import DataExport.ExportadorRecital;
 import Menu.ComandoHacerSnapshot;
 import Menu.ComandoCargarEstadoPrevio;
+import Menu.ComandoListarEstadoCancion;
+import Menu.ComandoListarArtistasContratados;
+import Menu.ComandoArrepentimiento;
 
 public class App {
     public static void main(String[] args) {
@@ -69,6 +72,7 @@ public class App {
             comandos.add(new ComandoRolesFaltantesPorCancion(servicioConsulta, servicioContratacion));
             comandos.add(new ComandoRolesTodasLasCanciones(servicioConsulta, servicioContratacion));
             comandos.add(new ComandoContratarArtistaParaCancionX(servicioConsulta, servicioContratacion));
+            comandos.add(new ComandoArrepentimiento(servicioConsulta, servicioContratacion));
             comandos.add(new ComandoEntrenarArtista(servicioConsulta, servicioContratacion, servicioEntrenamiento));
             comandos.add(new ComandoHacerSnapshot(
                 servicioConsulta,
@@ -78,6 +82,8 @@ public class App {
                 servicioConsulta,
                 servicioContratacion
             ));
+            comandos.add(new ComandoListarArtistasContratados(servicioConsulta, servicioContratacion));
+            comandos.add(new ComandoListarEstadoCancion(servicioConsulta, servicioContratacion));
             
             // Crear y mostrar menú
             MenuPrincipal menu = new MenuPrincipal(comandos);
