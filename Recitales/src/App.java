@@ -22,6 +22,7 @@ import DataExport.ExportadorRecital;
 import Menu.ComandoHacerSnapshot;
 import Menu.ComandoCargarEstadoPrevio;
 import Menu.ComandoListarEstadoCancion;
+import Menu.ComandoProlog;
 import Menu.ComandoListarArtistasContratados;
 import Menu.ComandoArrepentimiento;
 
@@ -78,9 +79,12 @@ public class App {
             comandos.add(new ComandoEntrenarArtista(servicioConsulta, servicioContratacion, servicioEntrenamiento));
             comandos.add(new ComandoListarArtistasContratados(servicioConsulta, servicioContratacion));
             comandos.add(new ComandoListarEstadoCancion(servicioConsulta, servicioContratacion));
+            comandos.add(new ComandoProlog(servicioConsulta, servicioContratacion));
+            
             comandos.add(new ComandoArrepentimiento(servicioConsulta, servicioContratacion));
             comandos.add(new ComandoHacerSnapshot(servicioConsulta,servicioContratacion));
             comandos.add(new ComandoCargarEstadoPrevio(servicioConsulta, servicioContratacion));
+            
             
             
             

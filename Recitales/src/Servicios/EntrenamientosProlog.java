@@ -13,8 +13,15 @@ import Recital.Rol;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.jpl7.Atom;
+import org.jpl7.Compound;
+import org.jpl7.Query;
+import org.jpl7.Term;
+import org.jpl7.Variable;
+import Repositorios.RepositorioArtistasMemory;
+
 /**
- * Servicio de Prolog para resolver problemas de optimización de entrenamientos.
+ * Servicio para resolver problemas de optimización de entrenamientos con Prolog.
  * Integra JPL (Java-Prolog Library) para ejecutar consultas Prolog.
  * 
  * Pregunta: ¿Cuántos entrenamientos mínimos debo realizar para cubrir todos los roles 
@@ -24,6 +31,7 @@ import java.util.List;
 public class EntrenamientosProlog {
     
     private Recital recital;
+    private RepositorioArtistasMemory repositorioArtistas;
     private String rutaArchivoPrologActual;
     private static final String ARCHIVO_PROLOG_DEFECTO = "bin/ArchivosImport/entrenamientos.pl";
     private boolean prologInicializado = false;
@@ -34,12 +42,7 @@ public class EntrenamientosProlog {
      * @throws IllegalArgumentException si recital es nulo
      */
     public EntrenamientosProlog(Recital recital) throws IllegalArgumentException {
-        if (recital == null) {
-            throw new IllegalArgumentException("El recital no puede ser nulo");
-        }
-        this.recital = recital;
-        this.rutaArchivoPrologActual = ARCHIVO_PROLOG_DEFECTO;
-        inicializarProlog();
+        inicializarConRecital(recital, null, null);
     }
 
     /**
@@ -49,12 +52,31 @@ public class EntrenamientosProlog {
      * @throws IllegalArgumentException si recital es nulo
      */
     public EntrenamientosProlog(Recital recital, String rutaArchivoProlog) throws IllegalArgumentException {
+        inicializarConRecital(recital, null, rutaArchivoProlog);
+    }
+
+    public EntrenamientosProlog(ServicioConsulta servicioConsulta) throws IllegalArgumentException {
+        if (servicioConsulta == null) {
+            throw new IllegalArgumentException("El servicio de consulta no puede ser nulo");
+        }
+        inicializarConRecital(servicioConsulta.getRecital(), servicioConsulta.getRepositorioArtistas(), null);
+    }
+
+    public EntrenamientosProlog(ServicioConsulta servicioConsulta, String rutaArchivoProlog) throws IllegalArgumentException {
+        if (servicioConsulta == null) {
+            throw new IllegalArgumentException("El servicio de consulta no puede ser nulo");
+        }
+        inicializarConRecital(servicioConsulta.getRecital(), servicioConsulta.getRepositorioArtistas(), rutaArchivoProlog);
+    }
+
+    private void inicializarConRecital(Recital recital, RepositorioArtistasMemory repositorio, String rutaArchivoProlog) {
         if (recital == null) {
             throw new IllegalArgumentException("El recital no puede ser nulo");
         }
         this.recital = recital;
-        this.rutaArchivoPrologActual = (rutaArchivoProlog != null && !rutaArchivoProlog.isBlank()) 
-            ? rutaArchivoProlog 
+        this.repositorioArtistas = repositorio;
+        this.rutaArchivoPrologActual = (rutaArchivoProlog != null && !rutaArchivoProlog.isBlank())
+            ? rutaArchivoProlog
             : ARCHIVO_PROLOG_DEFECTO;
         inicializarProlog();
     }
@@ -64,31 +86,19 @@ public class EntrenamientosProlog {
      */
     private void inicializarProlog() {
         try {
-            // Intentar usar JPL para ejecutar consultas Prolog
             cargarArchivoProlog();
             prologInicializado = true;
-            System.out.println("✓ Prolog inicializado correctamente desde: " + rutaArchivoPrologActual);
         } catch (Exception e) {
-            System.err.println("⚠ Error inicializando Prolog: " + e.getMessage());
-            System.err.println("Usando modo heurístico como fallback");
             prologInicializado = false;
         }
     }
 
-    /**
-     * Carga el archivo Prolog que contiene la lógica de entrenamientos.
-     * @throws Exception si hay error al cargar
-     */
     private void cargarArchivoProlog() throws Exception {
         try {
-            // Aquí iría la integración real con JPL
-            // ejemplo: org.jpl7.PrologEngine.consult(rutaArchivoPrologActual);
-            // Por ahora, verificamos que el archivo existe
-            java.io.File archivo = new java.io.File(rutaArchivoPrologActual);
-            if (!archivo.exists()) {
-                throw new Exception("Archivo Prolog no encontrado: " + rutaArchivoPrologActual);
+            Query q1 = new Query("consult", new Term[] { new Atom(rutaArchivoPrologActual) });
+            if (!q1.hasSolution()) {
+                throw new Exception("No se pudo consultar el archivo Prolog: " + rutaArchivoPrologActual);
             }
-            System.out.println("Archivo Prolog encontrado en: " + archivo.getAbsolutePath());
         } catch (Exception e) {
             throw new Exception("Error cargando archivo Prolog: " + e.getMessage(), e);
         }
@@ -96,171 +106,194 @@ public class EntrenamientosProlog {
 
     /**
      * Calcula el número mínimo de entrenamientos necesarios.
-     * Utiliza Prolog si está disponible, sino cae back a heurística.
-     * 
      * @return número mínimo de entrenamientos necesarios
      * @throws Exception si hay error en el cálculo
      */
     public int calcularEntrenamientosMinimos() throws Exception {
-        try {
-            if (prologInicializado) {
-                return calcularConProlog();
-            } else {
-                return calcularConHeuristica();
-            }
-        } catch (Exception e) {
-            System.err.println("Error en calcularEntrenamientosMinimos: " + e.getMessage());
-            return calcularConHeuristica();
-        }
+        return calcularConProlog();
     }
 
-    /**
-     * Calcula entrenamientos usando JPL y Prolog.
-     * Ejecuta: entrenamientos_minimos(X)
-     * 
-     * @return número de entrenamientos mínimos
-     * @throws Exception si hay error
-     */
     private int calcularConProlog() throws Exception {
-        try {
-            // Ejemplo de cómo sería con JPL:
-            // org.jpl7.Query q = new org.jpl7.Query("entrenamientos_minimos(X)");
-            // if (q.hasSolution()) {
-            //     Map<String, org.jpl7.Term> solution = q.oneSolution();
-            //     org.jpl7.Term x = solution.get("X");
-            //     return Integer.parseInt(x.toString());
-            // }
-            
-            System.out.println("Ejecutando consulta Prolog: entrenamientos_minimos(X)");
-            return calcularConHeuristica(); // Fallback por ahora
-        } catch (Exception e) {
-            System.err.println("Error en consulta Prolog: " + e.getMessage());
-            return calcularConHeuristica();
-        }
-    }
-
-    /**
-     * Calcula entrenamientos usando heurística (modo fallback).
-     * @return número de entrenamientos necesarios
-     */
-    private int calcularConHeuristica() {
-        int entrenamientos = 0;
-        HashSet<Rol> rolesRequeridos = extraerRolesRequeridos();
+        Map<Rol, Integer> rolesReq = extraerRolesRequeridosConCantidad();
+        HashSet<ArtistaDiscografica> base = getArtistasBase();
         
-        for (Rol rol : rolesRequeridos) {
-            int disponibles = contarArtistaBaseConRol(rol);
-            if (disponibles == 0) {
-                entrenamientos++;
+        // Limpiar base de conocimiento previa
+        Query.hasSolution("retractall(rol_requerido(_, _))");
+        Query.hasSolution("retractall(base_tiene_rol(_, _))");
+        
+        // Assert facts
+        for (Map.Entry<Rol, Integer> entry : rolesReq.entrySet()) {
+            Rol rol = entry.getKey();
+            int cantidad = entry.getValue();
+            Query q = new Query("assert", new Term[] { 
+                new Compound("rol_requerido", new Term[] { 
+                    new Atom(rol.getNombre()), 
+                    new org.jpl7.Integer(cantidad) 
+                }) 
+            });
+            q.hasSolution();
+        }
+        
+        for (ArtistaDiscografica a : base) {
+            for (Rol r : a.getRoles()) {
+                Query q = new Query("assert", new Term[] { 
+                    new Compound("base_tiene_rol", new Term[] { 
+                        new Atom(a.getNombre()), 
+                        new Atom(r.getNombre()) 
+                    }) 
+                });
+                q.hasSolution();
             }
         }
         
-        return entrenamientos;
+        // Query min_trainings
+        Variable Min = new Variable("Min");
+        Query q = new Query("min_trainings", new Term[] { Min });
+        if (q.hasSolution()) {
+            Map<String, Term> solution = q.oneSolution();
+            Term minTerm = solution.get("Min");
+            if (minTerm.isInteger()) {
+                return ((org.jpl7.Integer) minTerm).intValue();
+            }
+        }
+        throw new Exception("No se encontró solución para min_trainings");
     }
 
-    /**
-     * Calcula entrenamientos mínimos con parámetros específicos.
-     * Responde la pregunta: "¿Cuántos entrenamientos mínimos debo realizar para cubrir 
-     * todos los roles para el recital, utilizando solo los miembros base, y artistas 
-     * contratados sin experiencia y con un coste base por parámetro, para todos iguales?"
-     * 
-     * @param costoBase costo base uniforme para todos los entrenamientos
-     * @param artistasContratados conjunto de artistas ya contratados (sin experiencia previa en rol)
-     * @return objeto con detalles del cálculo
-     * @throws Exception si hay error
-     */
     public ResultadoEntrenamiento calcularEntrenamientosConParametros(
             double costoBase,
             HashSet<ArtistaExterno> artistasContratados) throws Exception {
         
         try {
-            HashSet<Rol> rolesRequeridos = extraerRolesRequeridos();
-            List<String> rolesFaltantes = new ArrayList<>();
-            int entrenamientos = 0;
-            double costoTotal = 0;
+            int entrenamientos = calcularConPrologParametrizado(costoBase, artistasContratados);
             
-            for (Rol rol : rolesRequeridos) {
+            Map<Rol, Integer> rolesRequeridos = extraerRolesRequeridosConCantidad();
+            List<String> rolesFaltantes = new ArrayList<>();
+            int totalRoles = 0;
+            for (Map.Entry<Rol, Integer> entry : rolesRequeridos.entrySet()) {
+                Rol rol = entry.getKey();
+                int cantidad = entry.getValue();
+                totalRoles += cantidad;
                 int conBase = contarArtistaBaseConRol(rol);
                 int conContratados = contarArtistaContratadoConRol(rol, artistasContratados);
-                
-                if ((conBase + conContratados) == 0) {
+                int faltantes = Math.max(0, cantidad - (conBase + conContratados));
+                for (int i = 0; i < faltantes; i++) {
                     rolesFaltantes.add(rol.getNombre());
-                    entrenamientos++;
                 }
             }
             
-            costoTotal = costoBase * entrenamientos;
+            double costoTotal = costoBase * entrenamientos;
             
             return new ResultadoEntrenamiento(
                 entrenamientos,
                 costoTotal,
                 costoBase,
                 rolesFaltantes,
-                rolesRequeridos.size()
+                totalRoles
             );
         } catch (Exception e) {
             throw new Exception("Error calculando entrenamientos con parámetros: " + e.getMessage(), e);
         }
     }
 
-    /**
-     * Extrae todos los roles requeridos del recital.
-     * @return conjunto de roles únicos requeridos
-     */
-    private HashSet<Rol> extraerRolesRequeridos() {
-        HashSet<Rol> rolesRequeridos = new HashSet<>();
+    private int calcularConPrologParametrizado(double costoBase, HashSet<ArtistaExterno> artistasContratados) throws Exception {
+        Map<Rol, Integer> rolesReq = extraerRolesRequeridosConCantidad();
+        HashSet<ArtistaDiscografica> base = getArtistasBase();
+        HashSet<ArtistaExterno> artistasSinExperiencia = filtrarContratadosSinExperiencia(artistasContratados);
         
-        try {
-            java.lang.reflect.Field cancionesField = Recital.class.getDeclaredField("canciones");
-            cancionesField.setAccessible(true);
-            @SuppressWarnings("unchecked")
-            HashSet<Cancion> canciones = (HashSet<Cancion>) cancionesField.get(recital);
-            
-            if (canciones != null) {
-                for (Cancion cancion : canciones) {
-                   // rolesRequeridos.addAll(cancion.getRolesRequeridos());
-                }// hay error aca
-            }
-        } catch (Exception e) {
-            System.err.println("Error extrayendo roles: " + e.getMessage());
+        // Limpiar base de conocimiento previa
+        Query.hasSolution("retractall(rol_requerido(_, _))");
+        Query.hasSolution("retractall(base_tiene_rol(_, _))");
+        Query.hasSolution("retractall(artista_contratado(_))");
+        
+        // Assert facts de roles requeridos
+        for (Map.Entry<Rol, Integer> entry : rolesReq.entrySet()) {
+            Rol rol = entry.getKey();
+            int cantidad = entry.getValue();
+            Query q = new Query("assert", new Term[] { 
+                new Compound("rol_requerido", new Term[] { 
+                    new Atom(rol.getNombre()), 
+                    new org.jpl7.Integer(cantidad) 
+                }) 
+            });
+            q.hasSolution();
         }
         
+        // Assert facts de artistas base con sus roles
+        for (ArtistaDiscografica a : base) {
+            for (Rol r : a.getRoles()) {
+                Query q = new Query("assert", new Term[] { 
+                    new Compound("base_tiene_rol", new Term[] { 
+                        new Atom(a.getNombre()), 
+                        new Atom(r.getNombre()) 
+                    }) 
+                });
+                q.hasSolution();
+            }
+        }
+        
+        // Assert facts de artistas contratados sin experiencia
+        for (ArtistaExterno a : artistasSinExperiencia) {
+            Query q = new Query("assert", new Term[] { 
+                new Compound("artista_contratado", new Term[] { new Atom(a.getNombre()) }) 
+            });
+            q.hasSolution();
+        }
+        
+        // Query min_trainings
+        Variable Min = new Variable("Min");
+        Query q = new Query("min_trainings", new Term[] { Min });
+        if (q.hasSolution()) {
+            Map<String, Term> solution = q.oneSolution();
+            Term minTerm = solution.get("Min");
+            if (minTerm.isInteger()) {
+                int entrenamientos = ((org.jpl7.Integer) minTerm).intValue();
+                if (entrenamientos > 0 && artistasSinExperiencia.isEmpty()) {
+                    throw new Exception("No hay artistas contratados sin experiencia disponibles para entrenar los roles faltantes");
+                }
+                return entrenamientos;
+            }
+        }
+        throw new Exception("No se encontró solución para min_trainings");
+    }
+
+    private HashSet<ArtistaDiscografica> getArtistasBase() {
+        if (repositorioArtistas != null) {
+            return repositorioArtistas.getArtistasDiscografica();
+        }
+        try {
+            java.lang.reflect.Field field = Recital.class.getDeclaredField("artistaBase");
+            field.setAccessible(true);
+            @SuppressWarnings("unchecked")
+            HashSet<ArtistaDiscografica> artistas = (HashSet<ArtistaDiscografica>) field.get(recital);
+            return artistas != null ? artistas : new HashSet<>();
+        } catch (Exception e) {
+            return new HashSet<>();
+        }
+    }
+
+    private Map<Rol, Integer> extraerRolesRequeridosConCantidad() {
+        Map<Rol, Integer> rolesRequeridos = new HashMap<>();
+        for (Cancion cancion : recital.getCanciones()) {
+            Map<Rol, Integer> requeridos = cancion.getRolesRequeridos();
+            for (Map.Entry<Rol, Integer> entry : requeridos.entrySet()) {
+                rolesRequeridos.put(entry.getKey(),
+                    rolesRequeridos.getOrDefault(entry.getKey(), 0) + entry.getValue());
+            }
+        }
         return rolesRequeridos;
     }
 
-    /**
-     * Cuenta cuántos artistas base tienen un rol específico.
-     * @param rol rol a buscar
-     * @return cantidad de artistas base que tienen ese rol
-     */
     private int contarArtistaBaseConRol(Rol rol) {
         int contador = 0;
-        
-        try {
-            java.lang.reflect.Field artistaBaseField = Recital.class.getDeclaredField("artistaBase");
-            artistaBaseField.setAccessible(true);
-            @SuppressWarnings("unchecked")
-            HashSet<ArtistaDiscografica> artistasBase = (HashSet<ArtistaDiscografica>) artistaBaseField.get(recital);
-            
-            if (artistasBase != null) {
-                for (ArtistaDiscografica artista : artistasBase) {
-                    if (artista.puedeTocarRol(rol)) {
-                        contador++;
-                    }
-                }
+        HashSet<ArtistaDiscografica> artistasBase = getArtistasBase();
+        for (ArtistaDiscografica artista : artistasBase) {
+            if (artista.puedeTocarRol(rol)) {
+                contador++;
             }
-        } catch (Exception e) {
-            System.err.println("Error contando artistas: " + e.getMessage());
         }
-        
         return contador;
     }
 
-    /**
-     * Cuenta cuántos artistas contratados tienen un rol específico.
-     * @param rol rol a buscar
-     * @param artistasContratados conjunto de artistas contratados
-     * @return cantidad de artistas contratados que tienen ese rol
-     */
     private int contarArtistaContratadoConRol(Rol rol, HashSet<ArtistaExterno> artistasContratados) {
         if (artistasContratados == null) return 0;
         
@@ -271,6 +304,17 @@ public class EntrenamientosProlog {
             }
         }
         return contador;
+    }
+
+    private HashSet<ArtistaExterno> filtrarContratadosSinExperiencia(HashSet<ArtistaExterno> artistasContratados) {
+        HashSet<ArtistaExterno> novatos = new HashSet<>();
+        if (artistasContratados == null) return novatos;
+        for (ArtistaExterno artista : artistasContratados) {
+            if (artista.getRolesEntrenados().isEmpty()) {
+                novatos.add(artista);
+            }
+        }
+        return novatos;
     }
 
     /**
@@ -286,23 +330,29 @@ public class EntrenamientosProlog {
         
         try {
             int entrenamientos = calcularEntrenamientosMinimos();
-            HashSet<Rol> rolesRequeridos = extraerRolesRequeridos();
-            
+            Map<Rol, Integer> rolesRequeridos = extraerRolesRequeridosConCantidad();
+            int totalRoles = rolesRequeridos.values().stream().mapToInt(Integer::intValue).sum();
+
             reporte.append("📊 ANÁLISIS GENERAL:\n");
             reporte.append("─────────────────────────────────────────────────────────\n");
             reporte.append("Entrenamientos mínimos requeridos: ").append(entrenamientos).append("\n");
-            reporte.append("Total de roles requeridos: ").append(rolesRequeridos.size()).append("\n");
+            reporte.append("Total de roles requeridos: ").append(totalRoles).append("\n");
             reporte.append("Estado de Prolog: ").append(prologInicializado ? "✓ Activo" : "⚠ Inactivo (usando heurística)").append("\n\n");
             
             reporte.append("🎭 DETALLE DE ROLES:\n");
             reporte.append("─────────────────────────────────────────────────────────\n");
             
-            for (Rol rol : rolesRequeridos) {
+            Map<String, Integer> rolesAFalt = obtenerRolesAEntrenar();
+            for (Map.Entry<Rol, Integer> entry : rolesRequeridos.entrySet()) {
+                Rol rol = entry.getKey();
+                int cantidadRequerida = entry.getValue();
                 int disponibles = contarArtistaBaseConRol(rol);
                 reporte.append("  • ").append(rol.getNombre())
-                       .append(": ").append(disponibles).append(" disponibles en base");
-                if (disponibles == 0) {
-                    reporte.append(" [⚠ REQUIERE ENTRENAMIENTO]");
+                       .append(": ").append(disponibles).append(" / ")
+                       .append(cantidadRequerida).append(" cubiertos");
+                int faltan = rolesAFalt.getOrDefault(rol.getNombre(), 0);
+                if (faltan > 0) {
+                    reporte.append(" [⚠ ").append(faltan).append(" necesitan entrenamiento]");
                 }
                 reporte.append("\n");
             }
@@ -329,11 +379,11 @@ public class EntrenamientosProlog {
         }
     }
 
-    /**
-     * Cuenta el número total de artistas disponibles (base + externos).
-     * @return cantidad total de artistas
-     */
     private int contarArtistasTotales() {
+        if (repositorioArtistas != null) {
+            return repositorioArtistas.getArtistasDiscografica().size()
+                    + repositorioArtistas.getArtistasExternos().size();
+        }
         int total = 0;
         
         try {
@@ -349,30 +399,20 @@ public class EntrenamientosProlog {
             HashSet<ArtistaExterno> artistasExternos = (HashSet<ArtistaExterno>) externosField.get(recital);
             if (artistasExternos != null) total += artistasExternos.size();
         } catch (Exception e) {
-            System.err.println("Error contando artistas totales: " + e.getMessage());
         }
         
         return total;
     }
 
-    /**
-     * Obtiene una descripción de qué roles necesitarían entrenamiento.
-     * @return mapa de roles y cantidad de entrenamientos necesarios
-     */
     public Map<String, Integer> obtenerRolesAEntrenar() {
         Map<String, Integer> resultado = new HashMap<>();
-        
-        try {
-            HashSet<Rol> rolesRequeridos = extraerRolesRequeridos();
-            
-            for (Rol rol : rolesRequeridos) {
-                int disponibles = contarArtistaBaseConRol(rol);
-                if (disponibles == 0) {
-                    resultado.put(rol.getNombre(), 1);
-                }
+        Map<Rol, Integer> rolesRequeridos = extraerRolesRequeridosConCantidad();
+        for (Map.Entry<Rol, Integer> entry : rolesRequeridos.entrySet()) {
+            int disponibles = contarArtistaBaseConRol(entry.getKey());
+            int faltantes = Math.max(0, entry.getValue() - disponibles);
+            if (faltantes > 0) {
+                resultado.put(entry.getKey().getNombre(), faltantes);
             }
-        } catch (Exception e) {
-            System.err.println("Error obteniendo roles a entrenar: " + e.getMessage());
         }
         
         return resultado;
@@ -385,6 +425,8 @@ public class EntrenamientosProlog {
     public boolean isPrologInicializado() {
         return prologInicializado;
     }
+
+
 
     /**
      * Clase interna para encapsular resultados de cálculo con parámetros.

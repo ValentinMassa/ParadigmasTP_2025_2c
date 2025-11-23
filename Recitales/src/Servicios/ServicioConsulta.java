@@ -183,12 +183,68 @@ public class ServicioConsulta {
 
         return artistasContratados;
     }
+
+    /**
+     * Calcula la cantidad total requerida de cada rol sumando los requerimientos de todas las canciones.
+     * 
+     * @return Un HashMap que mapea cada rol a la cantidad total requerida en todas las canciones del recital
+     */
+    public HashMap<Rol, Integer> calcularCantidadTotalRequeridaPorRol() {
+        HashMap<Rol, Integer> totalPorRol = new HashMap<>();
+        
+        // Iterar sobre todas las canciones del recital
+        for (Cancion cancion : recital.getCanciones()) {
+            HashMap<Rol, Integer> rolesCancion = cancion.getRolesRequeridos();
+            
+            // Sumar los roles de esta canción al total
+            for (Rol rol : rolesCancion.keySet()) {
+                int cantidadRequerida = rolesCancion.get(rol);
+                totalPorRol.put(rol, totalPorRol.getOrDefault(rol, 0) + cantidadRequerida);
+            }
+        }
+        
+        return totalPorRol;
+    }
+
+    /**
+     * Genera una lista de candidatos por rol, considerando tanto artistas de la discográfica como externos.
+     * Solo incluye artistas que pueden tocar el rol y tienen capacidad disponible.
+     * 
+     * @param necesidadTotal Mapa que indica la cantidad necesaria por cada rol
+     * @return Un mapa que asocia cada rol con la lista de artistas candidatos que pueden tocarlo
+     */
+    public HashMap<Rol, List<Artista>> generarCandidatosPorRol(HashMap<Rol, Integer> necesidadTotal) {
+        HashMap<Rol, List<Artista>> candidatosPorRol = new HashMap<>();
+
+        for (Rol rol : necesidadTotal.keySet()) {
+            List<Artista> lista = new ArrayList<>();
+
+            // ----- 1. Artistas de la discográfica -----
+            for (ArtistaDiscografica a : repositorioArtistas.getArtistasDiscografica()) {
+                if (a.puedeTocarRol(rol)) {
+                    int capacidad = a.getMaxCanciones() - a.getCantCancionesAsignadas();
+                    if (capacidad > 0) {
+                        lista.add(a);
+                    }
+                }
+            }
+
+            // ----- 2. Artistas externos -----
+            for (ArtistaExterno a : repositorioArtistas.getArtistasExternos()) {
+                if (a.puedeTocarRol(rol)) {
+                    int capacidad = a.getMaxCanciones() - a.getCantCancionesAsignadas();
+                    if (capacidad > 0) {
+                        lista.add(a);
+                    }
+                }
+            }
+
+            candidatosPorRol.put(rol, lista);
+        }
+
+        return candidatosPorRol;
+    }
 }
-
-
-
-
-        //Freedy Mercury | Voz, Piano | max= 3 canciones
 
         //I love You | Voz = 0, Piano = 1
 
