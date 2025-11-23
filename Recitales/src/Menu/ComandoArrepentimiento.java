@@ -1,8 +1,6 @@
 package Menu;
 import Servicios.*;
-import Recital.*;
 import Artista.*;
-import Repositorios.*;
 import java.util.*;
 
 public class ComandoArrepentimiento implements Comando {
@@ -20,61 +18,51 @@ public class ComandoArrepentimiento implements Comando {
     public String getDescripcion() {
         return "Quitar artista contratado (arrepentimiento).";
     }
-    private Integer seleccionarArtista(List<Artista> artistas){
-        Scanner scanner = new Scanner(System.in);
-        String input;
-        Integer opcion = null;
+    
+    private Artista seleccionarArtista(Scanner scanner) {
+        HashSet<Artista> artistasContratados = new HashSet<>(servC.getArtistasContratados(servContr));
+        List<Artista> artistas = new ArrayList<>(artistasContratados);
+        
         if(artistas.isEmpty()){
             System.out.println("No hay artistas contratados para arrepentirse.");
             return null;
         }
 
-        System.out.println("\nArtistas disponibles para arrepentimiento:");
-        for (int i = 0; i < artistas.size(); i++) {
-            System.out.println((i + 1) + ".- " + artistas.get(i).getNombre());
+        int cont = 1;
+        HashMap<Integer, Artista> mapaIndicesArtistas = new HashMap<>();
+
+        System.out.println("\n" + "-".repeat(60));
+        System.out.println("         ARTISTAS DISPONIBLES PARA ARREPENTIMIENTO");
+        System.out.println("-".repeat(60));
+        for(Artista a : artistas) {
+            mapaIndicesArtistas.put(cont, a);
+            System.out.println(String.format("   [%d] %s", cont, a.getNombre()));
+            cont++;
         }
-        System.out.print("Seleccione el numero del artista para arrepentirse o 'S' para salir: ");
+        System.out.println("-".repeat(60));
 
-        while (opcion == null) {
-            input = scanner.nextLine().trim();
-
-            // opción de salida
-            if (input.equalsIgnoreCase("S")) {
-                System.out.println("Saliendo...");
-                return null;
-            }
-
-            // si es un número válido
-            if (input.matches("\\d+")) {
-                int n = Integer.parseInt(input);
-
-                if (n >= 1 && n <= artistas.size()) {
-                    opcion = n; //  seleccionó un índice válido
-                } else {
-                    System.out.println("Número fuera de rango. Intente nuevamente:");
-                }
-
-            } else {
-                System.out.println("Entrada inválida. Intente nuevamente:");
-            }
-        }
-
-        return opcion;
+        return SelectorDeOpcion.seleccionarDeLista(mapaIndicesArtistas, 
+            "\n>> Seleccione el numero del artista para arrepentirse o 'S' para salir: ", scanner);
     }
+    
+    private void eliminarContratos(Artista artista) {
+        servContr.eliminarContratosDeArtista(artista);
+        System.out.println("\n" + "=".repeat(60));
+        System.out.println("            RESULTADO DEL ARREPENTIMIENTO");
+        System.out.println("=".repeat(60));
+        System.out.println("   Se han eliminado todos los contratos del artista: " + artista.getNombre());
+        System.out.println("=".repeat(60));
+    }
+    
     public void ejecutar() {
-        HashSet<Artista> artistasContratados = new HashSet<>(servC.getArtistasContratados(servContr));
-        List<Artista> artistas = new ArrayList<>(artistasContratados);
-        Integer opc = seleccionarArtista(artistas);
-        if(opc == null){
+        Scanner scanner = new Scanner(System.in);
+        Artista artistaSeleccionado = seleccionarArtista(scanner);
+        
+        if(artistaSeleccionado == null){
             return;
         }
-        else{
-            Artista artistaSeleccionado = artistas.get(opc - 1);
-            servContr.eliminarContratosDeArtista(artistaSeleccionado);
-            System.out.println("Se han eliminado todos los contratos del artista: " + artistaSeleccionado.getNombre());
-
-        }
-
+        
+        eliminarContratos(artistaSeleccionado);
     }
 
 }

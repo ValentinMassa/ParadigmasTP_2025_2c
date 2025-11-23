@@ -2,6 +2,7 @@ import DataLoader.FabricaRecital;
 import DataLoader.JsonAdapter;
 import Menu.Comando;
 import Menu.ComandoContratarArtistaParaCancionX;
+import Menu.ComandoContratarArtistas;
 import Menu.ComandoEntrenarArtista;
 import Menu.ComandoRolesFaltantesPorCancion;
 import Menu.ComandoRolesTodasLasCanciones;
@@ -69,21 +70,19 @@ public class App {
             
             // Crear comandos del menú
             List<Comando> comandos = new ArrayList<>();
+
             comandos.add(new ComandoRolesFaltantesPorCancion(servicioConsulta, servicioContratacion));
             comandos.add(new ComandoRolesTodasLasCanciones(servicioConsulta, servicioContratacion));
             comandos.add(new ComandoContratarArtistaParaCancionX(servicioConsulta, servicioContratacion));
-            comandos.add(new ComandoArrepentimiento(servicioConsulta, servicioContratacion));
+            comandos.add(new ComandoContratarArtistas(servicioConsulta, servicioContratacion));
             comandos.add(new ComandoEntrenarArtista(servicioConsulta, servicioContratacion, servicioEntrenamiento));
-            comandos.add(new ComandoHacerSnapshot(
-                servicioConsulta,
-                servicioContratacion
-            ));
-            comandos.add(new ComandoCargarEstadoPrevio(
-                servicioConsulta,
-                servicioContratacion
-            ));
             comandos.add(new ComandoListarArtistasContratados(servicioConsulta, servicioContratacion));
             comandos.add(new ComandoListarEstadoCancion(servicioConsulta, servicioContratacion));
+            comandos.add(new ComandoArrepentimiento(servicioConsulta, servicioContratacion));
+            comandos.add(new ComandoHacerSnapshot(servicioConsulta,servicioContratacion));
+            comandos.add(new ComandoCargarEstadoPrevio(servicioConsulta, servicioContratacion));
+            
+            
             
             // Crear y mostrar menú
             MenuPrincipal menu = new MenuPrincipal(comandos);
