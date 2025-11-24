@@ -251,7 +251,7 @@ public class ExportadorSnapshotCompleto {
             contratoSnap.cancion = contrato.getCancion().getTitulo();
             contratoSnap.artista = contrato.getArtista().getNombre();
             contratoSnap.rol = contrato.getRol().getNombre();
-            contratoSnap.costo = contrato.getCosto();
+            contratoSnap.costo = contrato.obtenerCostoContrato();
             contratosSnap.add(contratoSnap);
         }
         

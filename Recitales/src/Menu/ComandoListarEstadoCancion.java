@@ -56,7 +56,7 @@ public class ComandoListarEstadoCancion implements Comando {
             // Calcular y mostrar costo total
             double costoTotal = 0.0;
             for (Contrato contrato : contratosCancion) {
-                costoTotal += contrato.getCosto();
+                costoTotal += contrato.obtenerCostoContrato();
             }
             System.out.println("Costo actual: $" + String.format("%.2f", costoTotal));
             System.out.println("Contratos: " + contratosCancion.size());

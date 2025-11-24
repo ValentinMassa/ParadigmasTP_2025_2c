@@ -95,11 +95,11 @@ public class ExportadorRecital {
                 ContratoDTO contratoDTO = new ContratoDTO();
                 contratoDTO.artista = contrato.getArtista().getNombre();
                 contratoDTO.rol = contrato.getRol().getNombre();
-                contratoDTO.costo = contrato.getCosto();
+                contratoDTO.costo = contrato.obtenerCostoContrato();
                 
                 cancionDTO.contratos.add(contratoDTO);
                 rolesContratados.add(contrato.getRol().getNombre());
-                costoPorCancion += contrato.getCosto();
+                costoPorCancion += contrato.obtenerCostoContrato();
                 totalContratos++;
             }
             

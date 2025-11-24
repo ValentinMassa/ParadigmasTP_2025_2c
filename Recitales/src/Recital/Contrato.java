@@ -42,9 +42,6 @@ public class Contrato {
     public Artista getArtista() {
         return artista;
     }
-    public double getCosto() {
-        return costo;
-    }
 
     @Override
     public String toString() {

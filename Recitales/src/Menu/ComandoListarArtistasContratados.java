@@ -34,7 +34,7 @@ public class ComandoListarArtistasContratados implements Comando{
                 for(Contrato contrato : contratosCancion){
                      Artista artista = contrato.getArtista();
                      Rol rol = contrato.getRol();
-                     System.out.println(" - " + artista.getNombre() + " como " + rol.getNombre() + " (Costo: $" + contrato.getCosto() + ")");
+                     System.out.println(" - " + artista.getNombre() + " como " + rol.getNombre() + " (Costo: $" + contrato.obtenerCostoContrato() + ")");
                 }
               }
               System.out.println("========================================");
