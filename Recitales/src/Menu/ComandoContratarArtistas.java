@@ -37,7 +37,7 @@ public class ComandoContratarArtistas implements Comando{
             // Calcular costo total
             double costoTotal = 0;
             for (var contrato : servContr.getContratos()) {
-                costoTotal += contrato.getCosto();
+                costoTotal += contrato.obtenerCostoContrato();
             }
             System.out.println("[*] Costo total acumulado: $" + String.format("%.2f", costoTotal));
             System.out.println("\n" + "=".repeat(60) + "\n");
