@@ -20,6 +20,7 @@ import java.util.List;
 
 import DataExport.ExportadorRecital;
 import Menu.ComandoHacerSnapshot;
+import Menu.ComandoHistorialDeColaboraciones;
 import Menu.ComandoCargarEstadoPrevio;
 import Menu.ComandoListarEstadoCancion;
 import Menu.ComandoProlog;
@@ -84,6 +85,7 @@ public class App {
             comandos.add(new ComandoArrepentimiento(servicioConsulta, servicioContratacion));
             comandos.add(new ComandoHacerSnapshot(servicioConsulta,servicioContratacion));
             comandos.add(new ComandoCargarEstadoPrevio(servicioConsulta, servicioContratacion));
+            comandos.add(new ComandoHistorialDeColaboraciones(servicioConsulta));
             
             
             

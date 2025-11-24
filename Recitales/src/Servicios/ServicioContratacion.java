@@ -192,41 +192,12 @@ public class ServicioContratacion {
     public void actualizarDesdeSnapshot(List<Contrato> contratosSnapshot) {
         this.contratos = contratosSnapshot;
     }
+
     public void eliminarContratosDeArtista(Artista artista){
         contratos.removeIf(contrato -> contrato.getArtista().equals(artista));
     }
 
-    /**
-     * Devuelve los artistas externos sin experiencia de entrenamiento (sin roles entrenados).
-     * Combina los contratados y los disponibles en el repositorio para asegurar que siempre
-     * se consideren candidatos frescos.
-     */
-    public HashSet<ArtistaExterno> obtenerExternosSinExperiencia(RepositorioArtistasMemory repositorio) {
-        HashSet<ArtistaExterno> novatos = new HashSet<>();
 
-        for (Contrato contrato : contratos) {
-            if (contrato.getArtista() instanceof ArtistaExterno) {
-                ArtistaExterno externo = (ArtistaExterno) contrato.getArtista();
-                if (esSinExperiencia(externo)) {
-                    novatos.add(externo);
-                }
-            }
-        }
-
-        if (repositorio != null) {
-            for (ArtistaExterno externo : repositorio.getArtistasExternos()) {
-                if (esSinExperiencia(externo)) {
-                    novatos.add(externo);
-                }
-            }
-        }
-
-        return novatos;
-    }
-
-    private boolean esSinExperiencia(ArtistaExterno artista) {
-        return artista.getRolesEntrenados().isEmpty();
-    }
     
     /**
      * Contrata artistas para todas las canciones del recital optimizando el costo total.

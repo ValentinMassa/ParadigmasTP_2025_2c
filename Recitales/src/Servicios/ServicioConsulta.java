@@ -34,6 +34,11 @@ public class ServicioConsulta {
         this.bandas = bandas;
     }
 
+    /* 
+    * Obtiene una canción por su nombre.
+    * @param nombre El nombre de la canción a buscar.
+    * @return La canción encontrada o null si no existe.
+    */
     public Cancion getCancionPorNombre(String nombre) {
         for (Cancion c : recital.getCanciones()) {
             if (c.getTitulo().equalsIgnoreCase(nombre)) {
@@ -43,6 +48,11 @@ public class ServicioConsulta {
         return null;
     }
 
+    /*
+    * Obtiene los roles requeridos para una canción dada.
+    * @param cancion La canción para la cual se desean obtener los roles.
+    * @return Un HashMap que mapea cada rol a la cantidad requerida para la canción.
+    */
     public HashMap<Rol, Integer> getRolesDeCancion(Cancion cancion) {
         return new HashMap<>(cancion.getRolesRequeridos());
     }
@@ -72,9 +82,21 @@ public class ServicioConsulta {
     * Obtiene la lista de artistas base desde el repositorio.
     * @return Una lista de artistas base.
     */
-    public List<ArtistaDiscografica> getArtistasBase(){
+    public List<ArtistaDiscografica> getArtistasDiscografica(){
         HashSet<ArtistaDiscografica> a = repositorioArtistas.getArtistasDiscografica();
         List<ArtistaDiscografica> artistas = new ArrayList<>();
+        artistas.addAll(a);
+        return artistas;
+    }
+
+
+    /* 
+    * Obtiene la lista de artistas externos desde el repositorio.
+    * @return Una lista de artistas externos.
+    */
+    public List<ArtistaExterno> getArtistasExternos(){
+        HashSet<ArtistaExterno> a = repositorioArtistas.getArtistasExternos();
+        List<ArtistaExterno> artistas = new ArrayList<>();
         artistas.addAll(a);
         return artistas;
     }
@@ -101,7 +123,6 @@ public class ServicioConsulta {
         return this.repositorioArtistas;
     }
 
-
     /*
     * Calcula los roles faltantes para todas las canciones en el recital, considerando los contratos existentes
     * y posibles contratos con artistas base.
@@ -115,10 +136,10 @@ public class ServicioConsulta {
             restarRolDeCancion(resultado, contrato.getCancion(), contrato.getRol());
         }
 
-        for(ArtistaDiscografica a : getArtistasBase()) {
+        for(ArtistaDiscografica a : getArtistasDiscografica()) {
             List<Contrato> c = servicioC.posiblesContratos(a, resultado);
             for(Contrato contrato : c) {
-                System.out.println("Asignando contrato: Artista " + contrato.getArtista().getNombre() + ", Cancion " + contrato.getCancion().getTitulo() + ", Rol " + contrato.getRol().getNombre());
+                System.out.println("Cubriendo con artista base: Artista " + contrato.getArtista().getNombre() + ", Cancion " + contrato.getCancion().getTitulo() + ", Rol " + contrato.getRol().getNombre());
                 restarRolDeCancion(resultado, contrato.getCancion(), contrato.getRol());
             }
         }
@@ -174,15 +195,39 @@ public class ServicioConsulta {
         this.rolCatalogo = nuevoRolCatalogo;
         this.bandas = nuevoBandaCatalogo;
     }
+
+    /*
+    * Obtiene los artistas que tienen contratos vigentes.
+    * @param sc El servicio de contratación que proporciona los contratos existentes.
+    * @return Un conjunto de artistas que tienen contratos vigentes.
+    */
     public HashSet<Artista> getArtistasContratados(ServicioContratacion sc){
-        HashSet<Artista> artistasContratados = new HashSet<>();
+        HashSet<Artista> artistasContratados = new HashSet<>(this.getArtistasExternos());
 
-        for (Contrato contrato : sc.getContratos()) {
-            artistasContratados.add(contrato.getArtista());
+        for(ArtistaExterno a : this.getArtistasExternos()){
+            if(!sc.tieneAlgunContrato(a)){
+                artistasContratados.remove(a);
+            }
         }
-
         return artistasContratados;
     }
+
+    /*
+    * Obtiene los artistas que no tienen contratos vigentes.
+    * @param sc El servicio de contratación que proporciona los contratos existentes.
+    * @return Un conjunto de artistas que no tienen contratos vigentes.
+    */
+    public HashSet<ArtistaExterno> getArtistasExternosContratados(ServicioContratacion sc){
+        HashSet<ArtistaExterno> artistasContratados = new HashSet<>(this.getArtistasExternos());
+
+        for(ArtistaExterno a : this.getArtistasExternos()){
+            if(!sc.tieneAlgunContrato(a)){
+                artistasContratados.remove(a);
+            }
+        }
+        return artistasContratados;
+    }
+
 
     /**
      * Calcula la cantidad total requerida de cada rol sumando los requerimientos de todas las canciones.
@@ -244,7 +289,60 @@ public class ServicioConsulta {
 
         return candidatosPorRol;
     }
-}
+
+    /*
+    * Obtiene los artistas externos sin experiencia (no entrenados) que no tienen contratos vigentes.
+    * @param sc El servicio de contratación que proporciona los contratos existentes.
+    * @return Un conjunto de artistas externos sin experiencia y sin contratos vigentes.
+    */
+
+    public List<ArtistaExterno> getArtistasExternosSinExperiencia(ServicioContratacion servC){
+        HashSet<ArtistaExterno> artistasSinExperiencia = getArtistasExternosContratados(servC);
+        for(ArtistaExterno a : this.getArtistasExternos()){
+            if(a.fueEntrenado()){
+                artistasSinExperiencia.remove(a);
+            }
+        }
+        return new ArrayList<>(artistasSinExperiencia);
+
+    }
+
+    /**
+     * Obtiene una lista de relaciones entre artistas basadas en bandas compartidas.
+     * Cada relación se representa como una cadena en formato "ArtistaA ↔ ArtistaB (banda compartida: BandaX)".
+     * 
+     * @return Una lista de cadenas representando las relaciones entre artistas.
+     */
+    public List<String> getRelacionesArtistas() {
+        List<String> relaciones = new ArrayList<>();
+        List<Artista> todosArtistas = new ArrayList<>();
+        todosArtistas.addAll(getArtistasDiscografica());
+        todosArtistas.addAll(getArtistasExternos());
+
+        for (int i = 0; i < todosArtistas.size(); i++) {
+            for (int j = i + 1; j < todosArtistas.size(); j++) {
+                Artista a1 = todosArtistas.get(i);
+                Artista a2 = todosArtistas.get(j);
+                HashSet<Banda> bandas1 = a1.getBandas();
+                HashSet<Banda> bandas2 = a2.getBandas();
+                HashSet<String> nombresBandas1 = new HashSet<>();
+                for (Banda b : bandas1) {
+                    nombresBandas1.add(b.getNombre());
+                }
+                HashSet<String> nombresBandas2 = new HashSet<>();
+                for (Banda b : bandas2) {
+                    nombresBandas2.add(b.getNombre());
+                }
+                nombresBandas1.retainAll(nombresBandas2);
+                if (!nombresBandas1.isEmpty()) {
+                    String bandaCompartida = nombresBandas1.iterator().next();
+                    relaciones.add(a1.getNombre() + " <--> " + a2.getNombre() + " (banda compartida: " + bandaCompartida + ")");
+                }
+            }
+        }
+        return relaciones;
+    }
+ }
 
         //I love You | Voz = 0, Piano = 1
 

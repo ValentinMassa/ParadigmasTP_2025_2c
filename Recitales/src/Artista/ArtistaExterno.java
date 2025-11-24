@@ -70,6 +70,13 @@ public class ArtistaExterno extends Artista {
         return super.getRoles();
     }
 
+    public Boolean fueEntrenado(){
+        if(rolesEntrenados.isEmpty()){
+            return true;
+        }
+        return false; 
+    }
+
     public HashSet<Rol> getRolesEntrenados() {
         return new HashSet<>(rolesEntrenados);
     }
