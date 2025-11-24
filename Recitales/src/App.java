@@ -1,5 +1,7 @@
 import DataLoader.FabricaRecital;
-import DataLoader.JsonAdapter;
+import DataLoader.Adapters.JsonAdapter;
+import DataLoader.Adapters.XmlAdapter;
+import DataLoader.ICargarRecital;
 import Menu.Comando;
 import Menu.ComandoContratarArtistaParaCancionX;
 import Menu.ComandoContratarArtistas;
@@ -17,6 +19,7 @@ import Servicios.ServicioEntrenamiento;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 import DataExport.ExportadorRecital;
 import Menu.ComandoHacerSnapshot;
@@ -28,22 +31,51 @@ import Menu.ComandoListarArtistasContratados;
 import Menu.ComandoArrepentimiento;
 
 public class App {
+    private static ICargarRecital seleccionarAdaptador(String baseDir) {
+        // Preguntar al usuario el formato de datos
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Seleccione el formato de datos:");
+        System.out.println("1. JSON");
+        System.out.println("2. XML");
+        System.out.print("Ingrese el número: ");
+        int opcion = scanner.nextInt();
+        
+        String rutaArtistas;
+        String rutaCanciones;
+        String rutaArtistasBase;
+        
+        ICargarRecital adapter;
+        
+        if (opcion == 2) {
+            rutaArtistas = baseDir + "/data/XML/artistas.xml";
+            rutaCanciones = baseDir + "/data/XML/recital.xml";
+            rutaArtistasBase = baseDir + "/data/XML/artistas-discografica.xml";
+            adapter = new XmlAdapter(rutaArtistas, rutaCanciones, rutaArtistasBase);
+        } else {
+            // Por defecto JSON
+            if (opcion != 1) {
+                System.out.println("Opción inválida, usando JSON por defecto.");
+            }
+            rutaArtistas = baseDir + "/data/Json/artistas.json";
+            rutaCanciones = baseDir + "/data/Json/recital.json";
+            rutaArtistasBase = baseDir + "/data/Json/artistas-discografica.json";
+            adapter = new JsonAdapter(rutaArtistas, rutaCanciones, rutaArtistasBase);
+        }
+        
+        return adapter;
+    }
+
     public static void main(String[] args) {
         try {
-            // Determinar el directorio base
             String baseDir = System.getProperty("user.dir");
             if (!baseDir.endsWith("Recitales")) {
                 baseDir = baseDir + "/Recitales";
             }
             
-            // Configurar rutas de archivos JSON
-            String rutaArtistas = baseDir + "/data/artistas.json";
-            String rutaCanciones = baseDir + "/data/recital.json";
-            String rutaArtistasBase = baseDir + "/data/artistas-discografica.json";
+            ICargarRecital adapter = seleccionarAdaptador(baseDir);
             
-            // Crear adaptador y fábrica de recital
-            JsonAdapter jsonAdapter = new JsonAdapter(rutaArtistas, rutaCanciones, rutaArtistasBase);
-            FabricaRecital fabrica = new FabricaRecital(jsonAdapter);
+            // Crear fábrica de recital
+            FabricaRecital fabrica = new FabricaRecital(adapter);
             
             // Crear recital y cargar datos
             System.out.println("\n" + "=".repeat(60));

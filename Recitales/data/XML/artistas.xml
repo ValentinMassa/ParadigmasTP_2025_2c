@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<artistas>
+  <artista>
+    <nombre>Freddie Mercury</nombre>
+    <maxCanciones>3</maxCanciones>
+    <costo>5000.0</costo>
+    <roles>
+      <rol>Voz</rol>
+      <rol>Piano</rol>
+    </roles>
+    <bandas>
+      <banda>Queen</banda>
+    </bandas>
+  </artista>
+  <artista>
+    <nombre>Brian May</nombre>
+    <maxCanciones>3</maxCanciones>
+    <costo>4500.0</costo>
+    <roles>
+      <rol>Guitarra</rol>
+      <rol>Voz</rol>
+    </roles>
+    <bandas>
+      <banda>Queen</banda>
+    </bandas>
+  </artista>
+  <artista>
+    <nombre>John Deacon</nombre>
+    <maxCanciones>3</maxCanciones>
+    <costo>4000.0</costo>
+    <roles>
+      <rol>Bajo</rol>
+    </roles>
+    <bandas>
+      <banda>Queen</banda>
+    </bandas>
+  </artista>
+  <artista>
+    <nombre>Roger Taylor</nombre>
+    <maxCanciones>3</maxCanciones>
+    <costo>4200.0</costo>
+    <roles>
+      <rol>Bateria</rol>
+      <rol>Voz</rol>
+    </roles>
+    <bandas>
+      <banda>Queen</banda>
+    </bandas>
+  </artista>
+  <artista>
+    <nombre>Jimi Hendrix</nombre>
+    <maxCanciones>2</maxCanciones>
+    <costo>6000.0</costo>
+    <roles>
+      <rol>Guitarra</rol>
+      <rol>Voz</rol>
+    </roles>
+    <bandas>
+      <banda>The Jimi Hendrix Experience</banda>
+    </bandas>
+  </artista>
+  <artista>
+    <nombre>Paul McCartney</nombre>
+    <maxCanciones>4</maxCanciones>
+    <costo>5500.0</costo>
+    <roles>
+      <rol>Bajo</rol>
+      <rol>Voz</rol>
+      <rol>Piano</rol>
+    </roles>
+    <bandas>
+      <banda>The Beatles</banda>
+      <banda>Wings</banda>
+    </bandas>
+  </artista>
+</artistas>

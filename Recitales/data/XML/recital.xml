@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<recitales>
+  <recital>
+    <titulo>Bohemian Rhapsody</titulo>
+    <rolesRequeridos>
+      <rol nombre="Voz" cantidad="2"/>
+      <rol nombre="Piano" cantidad="1"/>
+      <rol nombre="Guitarra" cantidad="2"/>
+      <rol nombre="Bajo" cantidad="1"/>
+      <rol nombre="Bateria" cantidad="1"/>
+    </rolesRequeridos>
+  </recital>
+  <recital>
+    <titulo>We Will Rock You</titulo>
+    <rolesRequeridos>
+      <rol nombre="Voz" cantidad="1"/>
+      <rol nombre="Guitarra" cantidad="1"/>
+      <rol nombre="Bajo" cantidad="1"/>
+      <rol nombre="Bateria" cantidad="1"/>
+    </rolesRequeridos>
+  </recital>
+  <recital>
+    <titulo>Another One Bites the Dust</titulo>
+    <rolesRequeridos>
+      <rol nombre="Voz" cantidad="1"/>
+      <rol nombre="Bajo" cantidad="2"/>
+      <rol nombre="Guitarra" cantidad="1"/>
+      <rol nombre="Bateria" cantidad="1"/>
+    </rolesRequeridos>
+  </recital>
+  <recital>
+    <titulo>I Want to Break Free</titulo>
+    <rolesRequeridos>
+      <rol nombre="Voz" cantidad="1"/>
+      <rol nombre="Piano" cantidad="1"/>
+      <rol nombre="Guitarra" cantidad="1"/>
+      <rol nombre="Bajo" cantidad="1"/>
+      <rol nombre="Bateria" cantidad="1"/>
+    </rolesRequeridos>
+  </recital>
+</recitales>

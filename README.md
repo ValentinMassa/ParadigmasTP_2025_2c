@@ -17,14 +17,16 @@ Una discográfica necesita formar una "banda temporal" para un recital especial.
 7. [Reglas de Negocio](#reglas-de-negocio)
 8. [Formato de Datos](#formato-de-datos)
 9. [Arquitectura del Proyecto](#arquitectura-del-proyecto)
-10. [Guía de Uso](#guía-de-uso)
-11. [Pruebas Automatizadas](#pruebas-automatizadas)
-12. [Integración con Prolog](#integración-con-prolog)
-13. [Requisitos Técnicos](#requisitos-técnicos)
-14. [Bonus Opcionales](#bonus-opcionales)
-15. [Entrega y Defensa](#entrega-y-defensa)
-16. [Integrantes](#integrantes)
-17. [Licencia](#licencia)
+10. [Guía de Instalación y Ejecución](#guía-de-instalación-y-ejecución)
+11. [Problemas Comunes y Soluciones](#problemas-comunes-y-soluciones)
+12. [Cosas a Tener en Cuenta](#cosas-a-tener-en-cuenta)
+13. [Pruebas y Validación](#pruebas-y-validación)
+14. [Integración con Prolog](#integración-con-prolog)
+15. [Requisitos Técnicos](#requisitos-técnicos)
+16. [Bonus Opcionales](#bonus-opcionales)
+17. [Entrega y Defensa](#entrega-y-defensa)
+18. [Integrantes](#integrantes)
+19. [Licencia](#licencia)
 
 ---
 
@@ -324,52 +326,223 @@ ParadigmasTP_2025_2c/
 
 ---
 
-## 🚀 Guía de Uso
+## 🚀 Guía de Instalación y Ejecución
 
-### Requisitos Previos
-- **Java 11+**
-- **Maven 3.6+**
-- **SWI-Prolog 8+** (para integración Prolog)
-- **JPL (Java Prolog Library)** para integración
+### Requisitos del Sistema
 
-### Instalación y Ejecución
+#### Requisitos Obligatorios
+- **Sistema Operativo**: Windows 10/11, Linux o macOS
+- **Java Development Kit (JDK)**: Versión 11 o superior (recomendado JDK 17+)
+  - Descargar desde: https://adoptium.net/temurin/releases/
+- **SWI-Prolog**: Versión 8.0 o superior (para integración Prolog)
+  - Descargar desde: https://www.swi-prolog.org/download/stable/
+  - **Importante**: Instalar la versión de 64 bits
 
-#### 1. Clonar el repositorio
+#### Librerías Incluidas
+El proyecto incluye las siguientes librerías en `src/libs/`:
+- **Gson 2.13.1**: Para procesamiento de JSON
+- **JPL (Java Prolog Library)**: Para integración con Prolog
+
+### Instalación Paso a Paso
+
+#### 1. Clonar el Repositorio
 ```bash
 git clone https://github.com/ValentinMassa/ParadigmasTP_2025_2c.git
 cd ParadigmasTP_2025_2c/Recitales
 ```
 
-#### 2. Preparar datos
-Colocar archivos en `data/`:
+#### 2. Verificar JDK
+```bash
+java -version
+javac -version
+```
+Debe mostrar versión 11 o superior.
+
+#### 3. Verificar SWI-Prolog
+```bash
+swipl --version
+```
+Debe mostrar versión 8.0 o superior.
+
+#### 4. Verificar Archivos de Datos
+Asegurarse de que existan los archivos en `data/Json/`:
 - `artistas.json`
 - `recital.json`
 - `artistas-discografica.json`
 
-#### 3. Compilar con Maven
-```bash
-mvn clean compile
+### Ejecución del Programa
+
+#### Opción 1: Script PowerShell (Recomendado para Windows)
+```powershell
+.\run.ps1
 ```
 
-#### 4. Ejecutar tests
-```bash
-mvn test
+#### Opción 2: Script Batch (Alternativo para Windows)
+```batch
+run.bat
 ```
 
-#### 5. Ejecutar la aplicación
+#### Opción 3: Ejecución Manual
 ```bash
-mvn exec:java -Dexec.mainClass="App"
+# Compilar
+javac -cp "src/libs/gson-2.13.1.jar;src/libs/jpl.jar" -d bin -encoding UTF-8 src\*.java src\Artista\*.java src\DataExport\*.java src\DataLoader\*.java src\Menu\*.java src\Recital\*.java src\Repositorios\*.java src\Servicios\*.java
+
+# Ejecutar
+java -Djava.library.path="C:\Program Files\swipl\bin" -cp "bin;src/libs/gson-2.13.1.jar;src/libs/jpl.jar" App
 ```
 
-O desde el IDE (ejecutar `App.java`).
+### Interfaz del Programa
+Al ejecutar, el programa mostrará:
+1. Selección de formato de datos (JSON/XML)
+2. Estadísticas del sistema cargado
+3. Menú principal con opciones numeradas
+
+### Archivos Generados
+- **Snapshots**: Guardados en `data/Snapshots/`
+- **Output**: Exportaciones en `data/Output/`
+- **Compilación**: Archivos `.class` en `bin/`
 
 ---
 
-## 🧪 Pruebas Automatizadas
+## ⚠️ Problemas Comunes y Soluciones
+
+### Error: "java command not found" o "javac command not found"
+**Causa**: JDK no instalado o no configurado en PATH.
+**Solución**:
+1. Instalar JDK desde https://adoptium.net/temurin/releases/
+2. Agregar `JAVA_HOME` y `%JAVA_HOME%\bin` al PATH del sistema
+3. Reiniciar terminal y verificar con `java -version`
+
+### Error: "swipl command not found"
+**Causa**: SWI-Prolog no instalado o no en PATH.
+**Solución**:
+1. Instalar SWI-Prolog 64-bit desde https://www.swi-prolog.org/download/stable/
+2. Asegurar que esté en PATH (normalmente se agrega automáticamente)
+3. Verificar con `swipl --version`
+
+### Error de Compilación: "package org.jpl7 does not exist"
+**Causa**: Librería JPL no encontrada o versión incorrecta.
+**Solución**:
+1. Verificar que `src/libs/jpl.jar` exista
+2. Si usa SWI-Prolog del sistema, el script debería detectarlo automáticamente
+3. Para instalación portable, colocar SWI-Prolog en el directorio del proyecto
+
+### Error: "Could not find or load main class App"
+**Causa**: Problemas en la compilación o classpath.
+**Solución**:
+1. Limpiar directorio `bin/` y recompilar
+2. Verificar que todas las dependencias estén en classpath
+3. Asegurar que `App.class` se generó en `bin/`
+
+### Error: "java.library.path" o DLL no encontrada
+**Causa**: Problemas con la integración de JPL/SWI-Prolog.
+**Solución**:
+1. Verificar instalación de SWI-Prolog 64-bit
+2. Asegurar que `jpl.dll` esté en el PATH de SWI-Prolog
+3. En Windows, verificar que no haya conflicto entre versiones 32/64-bit
+
+### Error: "FileNotFoundException" al cargar datos
+**Causa**: Archivos de datos faltantes o rutas incorrectas.
+**Solución**:
+1. Verificar que existan `data/Json/artistas.json`, `recital.json`, `artistas-discografica.json`
+2. Ejecutar desde el directorio `Recitales/`
+3. Verificar permisos de lectura en archivos
+
+### Error: "Exception in thread 'main' java.lang.UnsupportedClassVersionError"
+**Causa**: Versión de Java incompatible.
+**Solución**:
+1. Verificar versión de Java: `java -version` debe ser 11+
+2. Si tiene múltiples JDK, usar el correcto
+3. Configurar JAVA_HOME apuntando a JDK 11+
+
+### Problema: El programa se ejecuta pero la integración Prolog no funciona
+**Causa**: SWI-Prolog no configurado correctamente.
+**Solución**:
+1. El programa funciona sin Prolog, pero la opción 8 del menú estará limitada
+2. Verificar que SWI-Prolog esté instalado y en PATH
+3. Revisar logs del programa para mensajes de advertencia sobre Prolog
+
+### Problema: Scripts no se ejecutan (PowerShell/Batch)
+**Causa**: Políticas de ejecución o permisos.
+**Solución para PowerShell**:
+```powershell
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+```
+**Solución para Batch**: Ejecutar como administrador.
+
+### Problema: Archivos JSON malformados
+**Causa**: Errores de sintaxis en archivos de datos.
+**Solución**:
+1. Validar JSON con herramientas online
+2. Revisar comillas, comas y estructura
+3. Comparar con los ejemplos en el README
+
+### Problema: Memoria insuficiente
+**Causa**: Archivos grandes o algoritmos complejos.
+**Solución**:
+1. Aumentar memoria JVM: `java -Xmx2g ...`
+2. Optimizar archivos de datos si es necesario
+
+---
+
+## 📋 Cosas a Tener en Cuenta
+
+### Arquitectura del Sistema
+- **Compilación Manual**: No usa Maven/Gradle, se compila con `javac` directamente
+- **Dependencias Externas**: Gson para JSON, JPL para Prolog
+- **Persistencia**: Archivos JSON/XML externos, no base de datos
+- **Interfaz**: CLI basada en menús numéricos
+
+### Limitaciones Conocidas
+- **Prolog Opcional**: El sistema funciona sin SWI-Prolog, pero con funcionalidad reducida
+- **Formato de Datos**: Solo JSON y XML soportados
+- **Plataforma**: Probado principalmente en Windows
+- **Codificación**: Archivos deben estar en UTF-8
+
+### Recomendaciones de Desarrollo
+- **IDE**: Usar IntelliJ IDEA, Eclipse o VS Code con extensiones Java
+- **Debugging**: El menú incluye opciones para exportar estado del sistema
+- **Testing**: Ejecutar desde línea de comandos para verificar integración completa
+- **Versionado**: Commits frecuentes con snapshots del estado
+
+### Consideraciones de Rendimiento
+- **Optimización**: Algoritmos de contratación consideran múltiples factores
+- **Memoria**: Cargar archivos grandes puede requerir más RAM
+- **Tiempo de Ejecución**: Consultas complejas pueden demorar según el tamaño de datos
+
+### Seguridad y Validación
+- **Validación de Datos**: El sistema valida archivos de entrada
+- **Manejo de Errores**: Mensajes claros para problemas comunes
+- **Persistencia Segura**: Snapshots permiten recuperar estados anteriores
+
+### Extensibilidad
+- **Patrones de Diseño**: Factory, Strategy, Adapter facilitan extensiones
+- **Nuevo Formatos**: Agregar adapters para YAML, CSV, etc.
+- **Nuevos Roles**: Extensibles sin modificar código existente
+- **Integraciones**: Posible agregar otras tecnologías de razonamiento
+
+## 🧪 Pruebas y Validación
 
 ### Estrategia de Testing
+El proyecto incluye pruebas automatizadas usando JUnit. Para ejecutarlas:
 
-Usar **JUnit 5** con cobertura mínima del 70%.
+#### Compilar y Ejecutar Tests
+```bash
+# Compilar incluyendo tests (si existen archivos de test)
+javac -cp "src/libs/gson-2.13.1.jar;src/libs/jpl.jar" -d bin -encoding UTF-8 src\*.java src\Artista\*.java src\DataExport\*.java src\DataLoader\*.java src\Menu\*.java src\Recital\*.java src\Repositorios\*.java src\Servicios\*.java
+
+# Si hay archivos de test, compilar también
+# javac -cp "bin;src/libs/gson-2.13.1.jar;src/libs/jpl.jar" -d bin test\*.java
+
+# Ejecutar aplicación para testing manual
+java -Djava.library.path="C:\Program Files\swipl\bin" -cp "bin;src/libs/gson-2.13.1.jar;src/libs/jpl.jar" App
+```
+
+### Validación Manual
+- **Funcionalidades Core**: Probar todas las opciones del menú
+- **Casos Edge**: Artistas sin roles, canciones sin artistas base, etc.
+- **Persistencia**: Crear snapshots y cargarlos
+- **Integración Prolog**: Verificar consultas de entrenamientos mínimos
 
 ### Casos de Prueba por Funcionalidad
 
@@ -383,9 +556,8 @@ Usar **JUnit 5** con cobertura mínima del 70%.
 
 ### Ejecución de Tests
 ```bash
-mvn test                                    # Todos los tests
-mvn test -Dtest=ArtistaTest                # Tests específicos
-mvn test -Dcode-coverage                    # Con cobertura
+# Nota: El proyecto no incluye suite de tests automatizada completa
+# Las validaciones se realizan mediante testing manual del menú
 ```
 
 ---
@@ -401,15 +573,7 @@ Responder: **¿Cuántos entrenamientos mínimos debo realizar para cubrir todos 
 3. Realizar consultas desde `EntrenamientosProlog.java`
 
 ### Instalación de Dependencias
-
-**En `pom.xml`**:
-```xml
-<dependency>
-    <groupId>org.jpl7</groupId>
-    <artifactId>jpl</artifactId>
-    <version>7.8.0</version>
-</dependency>
-```
+Las librerías JPL están incluidas en `src/libs/jpl.jar`. El script de ejecución configura automáticamente el classpath y las variables de entorno para SWI-Prolog.
 
 ### Ejemplo de Consulta Prolog
 
@@ -533,4 +697,3 @@ Este README es una **guía completa y viva** del proyecto. Se espera que:
 1. **Durante el desarrollo**, se use como referencia para implementación
 2. **En la defensa**, se demuestre adherencia a todos los requisitos aquí mencionados
 3. **Post-entrega**, sirva como documentación para mantener y extender el proyecto
-
