@@ -477,7 +477,20 @@ public class ServicioContratacion {
      
 }
 
+// HashSet<Rol, HashSet<Artistas>>: roles faltantas + artiastas que pueden hacer ese rol. El hashset se ordena por costo (mas barato primero)
+// por cancion: max combinaciones (2) --> HashSet<Cancion, List<Combinaciones(conjunto de contratos posibles)>> 
+// HashMap<Artista, MaxAsginado>
+
+// costo, como rehacer esa combinacion -> hashmap<costo, claveCombinacion> / 0 0 0, 1 0 0
+
+// contrata los base -> contrata un artista Externo (que comparta banda y sea el mas barato)
+//                         List<Artista>, banda, precio (desc menor precio y comparte banda)
+// HashMap<Boolean, Lista<Contratos>>
+
+// new Lista<Contratos>>
+// contrata los base -> contrata un artista Externo (que comparta banda y sea el mas barato)
+//                         List<Artista>, banda, precio (desc menor precio y comparte banda)
 
 
-
+// HashMap<Cancion, HashMap<Rol, List<Artista>, Int: costo>>
 
