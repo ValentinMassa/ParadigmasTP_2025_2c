@@ -10,15 +10,7 @@ public class SelectorDeOpcion {
         int opcionNum;
         
         System.out.print(mensajePrompt);
-        
-        // Consumir líneas vacías silenciosamente
-        while (true) {
-            opcion = scanner.nextLine().trim();
-            if (!opcion.isEmpty()) {
-                break;
-            }
-            // No mostrar el prompt de nuevo, solo consumir la línea vacía
-        }
+        opcion = scanner.nextLine().trim();
         
         if (opcion.equalsIgnoreCase("S")) {
             System.out.println("\n[<<] Volviendo al menu principal...\n");
