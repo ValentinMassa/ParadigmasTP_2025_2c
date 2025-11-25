@@ -142,7 +142,7 @@ public class ServicioContratacion {
         return contratos;
     }
 
-    private Boolean tieneContratoConCancion(Artista a, Cancion c) {
+    private boolean tieneContratoConCancion(Artista a, Cancion c) {
         for (Contrato contrato : contratos) {
             if (contrato.getArtista().equals(a) && contrato.getCancion().equals(c)) {
                 return true;
@@ -197,7 +197,7 @@ public class ServicioContratacion {
     * @param a El artista a verificar.
     * @return true si el artista tiene al menos un contrato, false en caso contrario.
     */
-    public Boolean tieneAlgunContrato(Artista a) {
+    public boolean tieneAlgunContrato(Artista a) {
         for (Contrato contrato : contratos) {
             if (contrato.getArtista().equals(a)) {
                 return true;
@@ -316,7 +316,7 @@ public class ServicioContratacion {
             
             // ASIGNAR ARTISTAS
             for (Rol rol : rolesCancion.keySet()) {
-                int cantidadRequerida = rolesCancion.get(rol);
+                int cantidadRequerida = rolesCancion.getOrDefault(rol, 0);
                 
                 for (int i = 0; i < cantidadRequerida; i++) {
                     // Ordenar candidatos por costo
@@ -354,8 +354,29 @@ public class ServicioContratacion {
                 }
             }
         }
-        nuevosContratos.removeAll(this.contratos);
-        this.contratos.addAll(nuevosContratos);
+        
+        // Actualizar contadores de artistas antes de agregar contratos
+        HashMap<Artista, Integer> contadoresPorArtista = new HashMap<>();
+        
+        for (Contrato contrato : nuevosContratos) {
+            Artista artista = contrato.getArtista();
+            contadoresPorArtista.put(artista, contadoresPorArtista.getOrDefault(artista, 0) + 1);
+        }
+        
+        // Actualizar contadores de cada artista
+        for (Map.Entry<Artista, Integer> entry : contadoresPorArtista.entrySet()) {
+            Artista artista = entry.getKey();
+            int cantidadNuevosContratos = entry.getValue();
+            artista.setCantCancionesAsignado(artista.getCantCancionesAsignadas() + cantidadNuevosContratos);
+        }
+        
+        // Agregar contratos nuevos evitando duplicados
+        HashSet<Contrato> contratosExistentes = new HashSet<>(this.contratos);
+        for (Contrato nuevo : nuevosContratos) {
+            if (!contratosExistentes.contains(nuevo)) {
+                this.contratos.add(nuevo);
+            }
+        }
     
         // Retornar null si todo se completó exitosamente, o la estructura con roles que requieren entrenamiento
         if (rolesQueRequierenEntrenamiento.isEmpty()) {
@@ -445,10 +466,15 @@ public class ServicioContratacion {
             double costoActual = externo.getCosto();
             double costoConEntrenamiento = costoActual * 1.5; // 50% aumento por entrenamiento
             
+            // Simular contratos existentes + nuevos para calcular descuento correcto
+            List<Contrato> contratosSimulados = new ArrayList<>(this.contratos);
+            contratosSimulados.addAll(nuevosContratos);
+            
             // Obtener el costo con descuento usando el método existente (simula el descuento)
-            double costoBaseConDescuento = obtenerCostoExterno(externo, cancion, this.contratos);
+            double costoBaseConDescuento = obtenerCostoExterno(externo, cancion, contratosSimulados);
             // Si obtenerCostoExterno aplicó descuento, también lo aplicamos al costo con entrenamiento
-            double factorDescuento = costoBaseConDescuento / costoActual; // 0.5 si hay descuento, 1.0 si no
+            // Prevenir división por cero
+            double factorDescuento = (costoActual == 0) ? 1.0 : (costoBaseConDescuento / costoActual);
             double costoFinal = costoConEntrenamiento * factorDescuento;
             
             if (costoFinal < menorCostoConEntrenamiento) {
@@ -482,31 +508,6 @@ public class ServicioContratacion {
         }
         
         return cancionesUnicas.size();
-    }
-    
-    /**
-     * Verifica si un artista ya está contratado para una canción específica.
-     * Revisa tanto contratos existentes como nuevos contratos en proceso.
-     */
-    private boolean estaContratadoEnCancion(
-            Artista artista,
-            Cancion cancion,
-            List<Contrato> nuevosContratos) {
-        
-        // Verificar contratos existentes
-        if (tieneContratoConCancion(artista, cancion)) {
-            return true;
-        }
-        
-        // Verificar nuevos contratos en proceso
-        for (Contrato contrato : nuevosContratos) {
-            if (contrato.getArtista().equals(artista) && 
-                contrato.getCancion().equals(cancion)) {
-                return true;
-            }
-        }
-        
-        return false;
     }
     
     /**
