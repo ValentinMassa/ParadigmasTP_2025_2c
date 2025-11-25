@@ -10,7 +10,7 @@ public class ArtistaDiscografica extends Artista {
     }
 
     @Override
-    public Boolean puedeSerEntrenado() {
+    public boolean puedeSerEntrenado() {
         return false; // Los artistas base NO pueden ser entrenados
     }
 

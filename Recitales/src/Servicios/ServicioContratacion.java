@@ -315,6 +315,9 @@ public class ServicioContratacion {
             }
             
             // ASIGNAR ARTISTAS
+            // Mantener registro de artistas ya usados en esta canción (restricción: un artista = un rol por canción)
+            HashSet<Artista> artistasYaUsadosEnCancion = new HashSet<>();
+            
             for (Rol rol : rolesCancion.keySet()) {
                 int cantidadRequerida = rolesCancion.getOrDefault(rol, 0);
                 
@@ -332,25 +335,41 @@ public class ServicioContratacion {
                         new ArrayList<>(mapaCandidatos.entrySet());
                     listaOrdenada.sort(Map.Entry.comparingByValue());
                     
-                    // Tomar el más barato
-                    Artista mejorArtista = listaOrdenada.get(0).getKey();
-                    double costoFinal = listaOrdenada.get(0).getValue();
+                    // Buscar el primer artista disponible que NO esté ya usado en esta canción
+                    Artista mejorArtista = null;
+                    double costoFinal = 0;
+                    
+                    for (Map.Entry<Artista, Double> entry : listaOrdenada) {
+                        if (!artistasYaUsadosEnCancion.contains(entry.getKey())) {
+                            mejorArtista = entry.getKey();
+                            costoFinal = entry.getValue();
+                            break;
+                        }
+                    }
+                    
+                    // Si no encontramos un artista disponible (todos ya están usados en esta canción)
+                    if (mejorArtista == null) {
+                        int cantidadFaltante = cantidadRequerida - i;
+                        rolesQueRequierenEntrenamiento.put(rol, rolesQueRequierenEntrenamiento.getOrDefault(rol, 0) + cantidadFaltante);
+                        break;
+                    }
                     
                     // Registrar contrato tentativo
                     Contrato nuevoContrato = new Contrato(cancion, rol, mejorArtista, costoFinal);
                     nuevosContratos.add(nuevoContrato);
                     
+                    // Marcar al artista como ya usado en esta canción
+                    artistasYaUsadosEnCancion.add(mejorArtista);
+                    
                     // Actualizar max canciones
                     int capacidadActual = maxCancionesPorArtista.get(mejorArtista) - 1;
                     maxCancionesPorArtista.put(mejorArtista, capacidadActual);
                     
-                    // Si ya no puede más, eliminarlo de todas las listas de candidatos
+                    // Si ya no puede más canciones, eliminarlo de todas las listas de candidatos
                     if (capacidadActual == 0) {
                         eliminarArtistaDeTodosLosRoles(candidatosPorRol, mejorArtista);
-                    } else {
-                        // Solo eliminar del rol actual para evitar doble asignación en misma canción
-                        mapaCandidatos.remove(mejorArtista);
                     }
+                    // No eliminamos del mapaCandidatos actual porque ya lo filtramos con artistasYaUsadosEnCancion
                 }
             }
         }
@@ -388,6 +407,62 @@ public class ServicioContratacion {
     }
 
     /**
+     * Contrata artistas priorizando los que fueron recién entrenados para roles específicos.
+     * Este método se usa después de entrenar artistas para asegurar que sean asignados
+     * a los roles para los que fueron entrenados.
+     * 
+     * @param sc El servicio de consulta
+     * @param entrenamientosRealizados Lista de entrenamientos que se deben priorizar
+     * @return null si todo fue completado, o HashMap con roles que aún requieren entrenamiento
+     */
+    public HashMap<Rol, Integer> contratarParaTodoConPrioridad(
+            ServicioConsulta sc, 
+            List<Menu.Auxiliares.EntrenadorMasivo.EntrenamientoRealizado> entrenamientosRealizados) {
+        
+        // Primero, intentar asignar contratos específicos para los artistas entrenados
+        HashMap<Cancion, HashMap<Rol, Integer>> rolesFaltantes = sc.calcularRolesFaltantes(this);
+        
+        for (Menu.Auxiliares.EntrenadorMasivo.EntrenamientoRealizado entrenamiento : entrenamientosRealizados) {
+            Artista artistaEntrenado = entrenamiento.artista;
+            Rol rolEntrenado = entrenamiento.rol;
+            
+            // Buscar una canción que necesite este rol y donde el artista tenga capacidad
+            for (Cancion cancion : rolesFaltantes.keySet()) {
+                HashMap<Rol, Integer> rolesCancion = rolesFaltantes.get(cancion);
+                
+                // Verificar si esta canción necesita el rol entrenado
+                if (rolesCancion.containsKey(rolEntrenado) && rolesCancion.get(rolEntrenado) > 0) {
+                    // Verificar que el artista no esté ya contratado en esta canción
+                    if (!tieneContratoConCancion(artistaEntrenado, cancion)) {
+                        // Verificar capacidad del artista
+                        int cancionesAsignadas = artistaEntrenado.getCantCancionesAsignadas();
+                        if (cancionesAsignadas < artistaEntrenado.getMaxCanciones()) {
+                            // Calcular costo
+                            double costo = (artistaEntrenado instanceof ArtistaExterno) 
+                                ? obtenerCostoExterno((ArtistaExterno) artistaEntrenado, cancion)
+                                : artistaEntrenado.getCosto();
+                            
+                            // Crear y agregar el contrato
+                            Contrato nuevoContrato = new Contrato(cancion, rolEntrenado, artistaEntrenado, costo);
+                            this.contratos.add(nuevoContrato);
+                            artistaEntrenado.setCantCancionesAsignado(cancionesAsignadas + 1);
+                            
+                            // Actualizar roles faltantes
+                            rolesCancion.put(rolEntrenado, rolesCancion.get(rolEntrenado) - 1);
+                            
+                            // Este artista ya fue asignado, pasar al siguiente entrenamiento
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+        
+        // Ahora ejecutar contratación normal para el resto
+        return contratarParaTodo(sc);
+    }
+
+    /**
      * Verifica si un artista ya está contratado para una canción específica,
      * considerando tanto contratos existentes como nuevos contratos en proceso.
      */
@@ -422,7 +497,7 @@ public class ServicioContratacion {
     }
     
     /**
-     * Busca el artista externo MÁS BARATO que pueda ser entrenado para el rol faltante.
+     * Busca el artista externo MAS BARATO que pueda ser entrenado para el rol faltante.
      * Considera TODOS los artistas externos sin importar contratos actuales.
      * Solo considera artistas externos que:
      * - Puedan ser entrenados (sean entrenables)

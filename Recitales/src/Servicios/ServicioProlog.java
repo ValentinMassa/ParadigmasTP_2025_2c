@@ -1,5 +1,6 @@
 package Servicios;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.List;
@@ -19,7 +20,7 @@ import org.jpl7.Variable;
 public class ServicioProlog {
     private ServicioConsulta servicioConsulta;
     private ServicioContratacion servC;
-    private final String RUTA_PROLOG = System.getProperty("user.dir") + "/Prolog/entrenamientos.pl";
+    private final String RUTA_PROLOG = System.getProperty("user.dir") + File.separator + "Prolog" + File.separator + "entrenamientos.pl";
 
     public static class ResultadoEntrenamiento {
         private int entrenamientosMinimos;
@@ -92,7 +93,7 @@ public class ServicioProlog {
             if (q.hasSolution()) {
                 cargado = true;
             }
-        } catch (Exception e) {
+        } catch (org.jpl7.PrologException | UnsatisfiedLinkError e) {
             System.err.println("Excepcion al cargar Prolog: " + e.getMessage());
         }
         
@@ -100,18 +101,23 @@ public class ServicioProlog {
             System.err.println("Error: No se pudo cargar el archivo " + RUTA_PROLOG);
             // Intentar ruta alternativa por si se ejecuta desde dentro de Recitales
             try {
-                Query q = new Query("consult", new Term[] {new Atom("Prolog/entrenamientos.pl")});
+                String rutaAlternativa = "Prolog" + File.separator + "entrenamientos.pl";
+                Query q = new Query("consult", new Term[] {new Atom(rutaAlternativa)});
                 if (q.hasSolution()) {
                     cargado = true;
                 }
-            } catch (Exception e) {
-                 System.err.println("Tampoco se pudo cargar desde Prolog/entrenamientos.pl");
+            } catch (org.jpl7.PrologException | UnsatisfiedLinkError e) {
+                 System.err.println("Tampoco se pudo cargar desde ruta alternativa");
             }
         }
 
         // Limpiar hechos anteriores
-        new Query("retractall(rol_requerido(_,_))").hasSolution();
-        new Query("retractall(base_tiene_rol(_,_))").hasSolution();
+        try {
+            new Query("retractall(rol_requerido(_,_))").hasSolution();
+            new Query("retractall(base_tiene_rol(_,_))").hasSolution();
+        } catch (Exception e) {
+            System.err.println("Error al limpiar hechos Prolog: " + e.getMessage());
+        }
 
         // Asentar roles requeridos
         for (Map.Entry<Rol, Integer> entry : rolesRequeridos.entrySet()) {

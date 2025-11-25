@@ -28,8 +28,6 @@ public abstract class Artista {
         this.costo = costo;
         this.rolHistorico = new HashSet<>();
         this.bandaHistorico = new HashSet<>();
-        this.rolHistorico = new HashSet<>();
-        this.bandaHistorico = new HashSet<>();
         this.cantCancionesAsignado = 0;
         
     }
@@ -53,11 +51,11 @@ public abstract class Artista {
         return new HashSet<>(bandaHistorico);
     }
 
-    public Boolean puedeAceptarNuevaCancion(){
+    public boolean puedeAceptarNuevaCancion(){
         return cantCancionesAsignado < maxcanciones;
     }
 
-    public Boolean asignarCancion(){
+    public boolean asignarCancion(){
         if(!puedeAceptarNuevaCancion()){
             return false;
         }
@@ -65,19 +63,19 @@ public abstract class Artista {
         return true;
     }
 
-    public Boolean puedeTocarRol(String rolBuscado){
-        if(!rolHistorico.isEmpty()){
+    public boolean puedeTocarRol(String rolBuscado){
+        if(rolHistorico.isEmpty()){
             return false;
         }
         for(Rol r: rolHistorico){
-            if(r.getNombre() == rolBuscado){
+            if(r.getNombre().equalsIgnoreCase(rolBuscado)){
                 return true;
             }
         }
         return false;
     }
 
-    public Boolean puedeTocarRol(Rol rolBuscado){
+    public boolean puedeTocarRol(Rol rolBuscado){
         if(rolHistorico.isEmpty()){
             return false;
         }
@@ -88,7 +86,7 @@ public abstract class Artista {
         }
         return false;
     }
-    public abstract Boolean puedeSerEntrenado();
+    public abstract boolean puedeSerEntrenado();
 
     public int getCantCancionesAsignadas() {
         return cantCancionesAsignado;

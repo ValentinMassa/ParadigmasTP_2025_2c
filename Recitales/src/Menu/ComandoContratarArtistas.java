@@ -69,10 +69,11 @@ public class ComandoContratarArtistas implements Comando{
         mostrarRolesFaltantes(rolesFaltantes);
         
         Scanner scanner = new Scanner(System.in);
-        EntrenadorMasivo.entrenarRolesFaltantes(rolesFaltantes, servC, servContr, servEntrenamiento, scanner);
+        java.util.List<EntrenadorMasivo.EntrenamientoRealizado> entrenamientosRealizados = 
+            EntrenadorMasivo.entrenarRolesFaltantes(rolesFaltantes, servC, servContr, servEntrenamiento, scanner);
         
         System.out.println("[*] Reintentando contratación masiva tras entrenamientos...\n");
-        rolesFaltantes = servContr.contratarParaTodo(servC);
+        rolesFaltantes = servContr.contratarParaTodoConPrioridad(servC, entrenamientosRealizados);
         
         if (rolesFaltantes == null) {
             mostrarContratacionCompletadaTrasEntrenamientos();

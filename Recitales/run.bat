@@ -10,7 +10,7 @@ if exist bin rmdir /s /q bin
 mkdir bin
 
 REM Compilar
-javac -cp "src/libs/gson-2.13.1.jar;src/libs/jpl.jar" -d bin -encoding UTF-8 src\*.java src\Artista\*.java src\DataExport\*.java src\DataLoader\*.java src\Menu\*.java src\Recital\*.java src\Repositorios\*.java src\Servicios\*.java
+javac -cp "src/libs/gson-2.13.1.jar;src/libs/jpl.jar" -d bin -encoding UTF-8 src\*.java src\Artista\*.java src\DataExport\*.java src\DataLoader\*.java src\DataLoader\Adapters\*.java src\Menu\*.java src\Menu\Auxiliares\*.java src\Recital\*.java src\Repositorios\*.java src\Servicios\*.java
 
 if %errorlevel% neq 0 (
     echo.

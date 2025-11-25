@@ -22,7 +22,6 @@ public class Contrato {
     public boolean equals(Object obj) {
         if (this == obj) return true;
         if (obj == null || getClass() != obj.getClass()) return false;
-        if (!(obj instanceof Contrato)) return false;
         Contrato contrato = (Contrato) obj;
         return cancion.equals(contrato.cancion) &&
                rol.equals(contrato.rol) &&

@@ -15,7 +15,7 @@ public class ArtistaExterno extends Artista {
     }
 
     @Override
-    public Boolean puedeSerEntrenado() {
+    public boolean puedeSerEntrenado() {
         return true; // Los artistas externos pueden ser entrenados
     }
     @Override
@@ -27,8 +27,8 @@ public class ArtistaExterno extends Artista {
     }
 
     @Override
-    public Boolean puedeTocarRol(String rolBuscado){
-        Boolean puedeTocarRolHistorico = super.puedeTocarRol(rolBuscado);
+    public boolean puedeTocarRol(String rolBuscado){
+        boolean puedeTocarRolHistorico = super.puedeTocarRol(rolBuscado);
         
         if(puedeTocarRolHistorico){
             return true;
@@ -42,8 +42,8 @@ public class ArtistaExterno extends Artista {
     }
 
     @Override
-    public Boolean puedeTocarRol(Rol rolBuscado){
-        Boolean puedeTocarRolHistorico = super.puedeTocarRol(rolBuscado);
+    public boolean puedeTocarRol(Rol rolBuscado){
+        boolean puedeTocarRolHistorico = super.puedeTocarRol(rolBuscado);
         
         if(puedeTocarRolHistorico){
             return true;
@@ -57,7 +57,7 @@ public class ArtistaExterno extends Artista {
         return false; 
     }
 
-    public synchronized boolean agregarRolEntrenado(Rol rol, double multiplicadorDeCosto){
+    public boolean agregarRolEntrenado(Rol rol, double multiplicadorDeCosto){
 
         if(rol == null){
             throw new IllegalArgumentException("El rol no puede ser nulo");
@@ -86,7 +86,7 @@ public class ArtistaExterno extends Artista {
         return super.getRoles();
     }
 
-    public Boolean fueEntrenado(){
+    public boolean fueEntrenado(){
         return !rolesEntrenados.isEmpty(); // Retorna true si tiene roles entrenados
     }
 

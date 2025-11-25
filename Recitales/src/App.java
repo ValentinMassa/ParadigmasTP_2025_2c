@@ -31,9 +31,8 @@ import Menu.ComandoListarArtistasContratados;
 import Menu.ComandoArrepentimiento;
 
 public class App {
-    private static ICargarRecital seleccionarAdaptador(String baseDir) {
+    private static ICargarRecital seleccionarAdaptador(String baseDir, Scanner scanner) {
         // Preguntar al usuario el formato de datos
-        Scanner scanner = new Scanner(System.in);
         System.out.println("Seleccione el formato de datos:");
         System.out.println("1. JSON");
         System.out.println("2. XML");
@@ -66,13 +65,13 @@ public class App {
     }
 
     public static void main(String[] args) {
-        try {
+        try (Scanner scanner = new Scanner(System.in)) {
             String baseDir = System.getProperty("user.dir");
             if (!baseDir.endsWith("Recitales")) {
                 baseDir = baseDir + "/Recitales";
             }
             
-            ICargarRecital adapter = seleccionarAdaptador(baseDir);
+            ICargarRecital adapter = seleccionarAdaptador(baseDir, scanner);
             
             // Crear fábrica de recital
             FabricaRecital fabrica = new FabricaRecital(adapter);

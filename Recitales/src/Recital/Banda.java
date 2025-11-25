@@ -17,8 +17,12 @@ public class Banda {
     public boolean equals(Object obj) {
         if (this == obj) return true;
         if (obj == null || getClass() != obj.getClass()) return false;
-        if(!(obj instanceof Banda)) return false;
         Banda banda = (Banda) obj;
-        return nombre != null ? nombre.equals(banda.nombre) : banda.nombre == null;
+        return nombre.equals(banda.nombre);
+    }
+    
+    @Override
+    public int hashCode() {
+        return nombre != null ? nombre.hashCode() : 0;
     }
 }

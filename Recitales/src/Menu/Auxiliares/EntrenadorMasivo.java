@@ -1,6 +1,8 @@
 package Menu.Auxiliares;
 
 import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 import Servicios.ServicioConsulta;
 import Servicios.ServicioContratacion;
@@ -10,17 +12,35 @@ import Recital.Rol;
 
 public class EntrenadorMasivo {
     
-    public static void entrenarRolesFaltantes(HashMap<Rol, Integer> rolesFaltantes, 
+    // Clase interna para representar un entrenamiento realizado
+    public static class EntrenamientoRealizado {
+        public final Artista artista;
+        public final Rol rol;
+        
+        public EntrenamientoRealizado(Artista artista, Rol rol) {
+            this.artista = artista;
+            this.rol = rol;
+        }
+    }
+    
+    public static List<EntrenamientoRealizado> entrenarRolesFaltantes(HashMap<Rol, Integer> rolesFaltantes, 
                                               ServicioConsulta servC, 
                                               ServicioContratacion servContr, 
                                               ServicioEntrenamiento servEntrenamiento, 
                                               Scanner scanner) {
+        List<EntrenamientoRealizado> entrenamientos = new ArrayList<>();
+        
         for (Rol rol : rolesFaltantes.keySet()) {
             int cantidad = rolesFaltantes.get(rol);
             for (int i = 0; i < cantidad; i++) {
-                entrenarRol(rol, servC, servContr, servEntrenamiento, scanner);
+                Artista artistaEntrenado = entrenarRol(rol, servC, servContr, servEntrenamiento, scanner);
+                if (artistaEntrenado != null) {
+                    entrenamientos.add(new EntrenamientoRealizado(artistaEntrenado, rol));
+                }
             }
         }
+        
+        return entrenamientos;
     }
     
     public static void entrenarRolesFaltantesParaCancion(HashMap<Rol, Integer> rolesFaltantes, 
@@ -36,7 +56,7 @@ public class EntrenadorMasivo {
         }
     }
     
-    private static void entrenarRol(Rol rolRequerido, 
+    private static Artista entrenarRol(Rol rolRequerido, 
                                    ServicioConsulta servC, 
                                    ServicioContratacion servContr, 
                                    ServicioEntrenamiento servEntrenamiento, 
@@ -47,13 +67,13 @@ public class EntrenadorMasivo {
         
         if (!respuesta.equals("s")) {
             System.out.println("[*] Entrenamiento omitido.");
-            return;
+            return null;
         }
         
         // Seleccionar artista entrenable
         Artista artistaSeleccionado = SelectorArtistaEntrenable.seleccionarParaRol(servC, servContr, rolRequerido, scanner);
         if (artistaSeleccionado == null) {
-            return;
+            return null;
         }
         
         // Entrenar artista
@@ -65,5 +85,7 @@ public class EntrenadorMasivo {
         System.out.println("=".repeat(60));
         System.out.println("   " + resultado);
         System.out.println("=".repeat(60));
+        
+        return artistaSeleccionado;
     }
 }
