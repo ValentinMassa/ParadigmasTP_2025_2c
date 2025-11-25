@@ -251,19 +251,9 @@ public class ServicioContratacion {
         HashMap<Artista, Integer> maxCancionesPorArtista = new HashMap<>();
         List<Contrato> nuevosContratos = new ArrayList<>();
         
+        // calcularRolesFaltantes() YA resta los contratos existentes, no hacerlo de nuevo
         HashMap<Cancion, HashMap<Rol, Integer>> rolesFaltantes = sc.calcularRolesFaltantes(this);
         HashMap<Rol, Integer> rolesQueRequierenEntrenamiento = new HashMap<>();
-        
-        // Restar roles ya contratados (contratos reales existentes)
-        for (Contrato contrato : this.contratos) {
-            HashMap<Rol, Integer> rolesCancion = rolesFaltantes.get(contrato.getCancion());
-            if (rolesCancion != null && rolesCancion.containsKey(contrato.getRol())) {
-                int cantidad = rolesCancion.get(contrato.getRol());
-                if (cantidad > 0) {
-                    rolesCancion.put(contrato.getRol(), cantidad - 1);
-                }
-            }
-        }
 
         // Verificar si hay algo que contratar
         if (!hayRolesFaltantesEnAlgunaCancion(rolesFaltantes)) {

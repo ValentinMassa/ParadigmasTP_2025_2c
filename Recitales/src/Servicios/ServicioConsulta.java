@@ -146,8 +146,11 @@ public class ServicioConsulta {
         HashMap<Cancion, HashMap<Rol, Integer>> resultado = getRolesDeTodasLasCanciones();
         
         for (Contrato contrato : servicioC.getContratos()) {
-            resultado.get(contrato.getCancion()).put(contrato.getRol(), 
-                Math.max(0, resultado.get(contrato.getCancion()).get(contrato.getRol()) - 1));
+            HashMap<Rol, Integer> rolesCancion = resultado.get(contrato.getCancion());
+            if (rolesCancion != null && rolesCancion.containsKey(contrato.getRol())) {
+                int cantidadActual = rolesCancion.get(contrato.getRol());
+                rolesCancion.put(contrato.getRol(), Math.max(0, cantidadActual - 1));
+            }
         }
         return resultado;
     }

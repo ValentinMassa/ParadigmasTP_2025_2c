@@ -104,4 +104,17 @@ public abstract class Artista {
     public void setCantCancionesAsignado(int nuevaCantidad){
         this.cantCancionesAsignado = nuevaCantidad;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Artista artista = (Artista) obj;
+        return nombre.equalsIgnoreCase(artista.nombre);
+    }
+
+    @Override
+    public int hashCode() {
+        return nombre.toLowerCase().hashCode();
+    }
 }
