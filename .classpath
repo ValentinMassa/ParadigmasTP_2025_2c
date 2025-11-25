@@ -7,5 +7,7 @@
 	</classpathentry>
 	<classpathentry kind="src" path="Recitales/src"/>
 	<classpathentry kind="lib" path="Recitales/src/libs/gson-2.13.1.jar"/>
+	<classpathentry kind="lib" path="Recitales/src/libs/jpl.jar"/>
+	<classpathentry kind="lib" path="Recitales/src/libs/junit-platform-console-standalone-1.10.2.jar"/>
 	<classpathentry kind="output" path="Recitales/bin"/>
 </classpath>

@@ -1,6 +1,34 @@
 # Compiled class file
 *.class
 
+# VS Code
+.vscode/
+
+# PowerShell/Batch/Terminal
+*.ps1~
+*.bat~
+*.sh~
+*.tmp
+*.bak
+
+# Test/Output/Results
+test-output-prolog.txt
+test-prolog-full.txt
+test-results.txt
+
+# System/OS
+Thumbs.db
+.DS_Store
+
+# Recitales
+Recitales/bin/
+Recitales/target/
+Recitales/.settings/
+Recitales/.vscode/
+Recitales/.classpath
+Recitales/.project
+
+
 # Log file
 *.log
 
