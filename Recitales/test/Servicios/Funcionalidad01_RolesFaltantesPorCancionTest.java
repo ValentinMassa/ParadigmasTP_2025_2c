@@ -9,6 +9,7 @@ import java.util.HashSet;
 
 import Recital.*;
 import Repositorios.*;
+import Servicios.*;
 import Artista.*;
 
 @DisplayName("Tests Funcionalidad 1: Calcular Roles Faltantes por Cancion")
@@ -17,9 +18,9 @@ public class Funcionalidad01_RolesFaltantesPorCancionTest {
     private Recital recital;
     private ServicioContratacion servicioContratacion;
     private ServicioConsulta servicioConsulta;
-    private RepositorioArtistasMemory repositorioArtistas;
-    private RolCatalogoMemory rolCatalogo;
-    private BandaCatalogoMemory bandaCatalogo;
+    private RepositorioArtistas repositorioArtistas;
+    private RepositorioRoles rolCatalogo;
+    private RepositorioBandas bandaCatalogo;
     
     private Rol vozPrincipal;
     private Rol guitarra;
@@ -36,9 +37,9 @@ public class Funcionalidad01_RolesFaltantesPorCancionTest {
     @BeforeEach
     void setUp() {
         // PASO 1: Crear repositorios vacios para almacenar artistas, roles y bandas
-        repositorioArtistas = new RepositorioArtistasMemory();
-        rolCatalogo = new RolCatalogoMemory();
-        bandaCatalogo = new BandaCatalogoMemory();
+        repositorioArtistas = new RepositorioArtistas();
+        rolCatalogo = new RepositorioRoles();
+        bandaCatalogo = new RepositorioBandas();
         
         // PASO 2: Crear roles y agregarlos al catalogo
         // agregarRol retorna null si el rol se agrega exitosamente, o el rol existente si ya estaba
@@ -90,7 +91,7 @@ public class Funcionalidad01_RolesFaltantesPorCancionTest {
         artistasBase.add(freddie);
         artistasBase.add(brian);
         artistasBase.add(roger);
-        repositorioArtistas = new RepositorioArtistasMemory(artistasBase, new HashSet<>());
+        repositorioArtistas = new RepositorioArtistas(artistasBase, new HashSet<>());
         
         // PASO 7: Crear servicios de consulta y contratacion
         servicioConsulta = new ServicioConsulta(repositorioArtistas, recital, rolCatalogo, bandaCatalogo);

@@ -14,9 +14,9 @@ import Recital.Cancion;
 import Recital.Rol;
 import Recital.Banda;
 import Recital.Contrato;
-import Repositorios.RepositorioArtistasMemory;
-import Repositorios.RolCatalogoMemory;
-import Repositorios.BandaCatalogoMemory;
+import Repositorios.RepositorioArtistas;
+import Repositorios.RepositorioRoles;
+import Repositorios.RepositorioBandas;
 import Artista.Artista;
 import Artista.ArtistaDiscografica;
 import Artista.ArtistaExterno;
@@ -31,9 +31,9 @@ public class Funcionalidad08_CalculoEntrenamientosPrologTest {
     private Recital recital;
     private ServicioContratacion servicioContratacion;
     private ServicioConsulta servicioConsulta;
-    private RepositorioArtistasMemory repositorioArtistas;
-    private RolCatalogoMemory rolCatalogo;
-    private BandaCatalogoMemory bandaCatalogo;
+    private RepositorioArtistas repositorioArtistas;
+    private RepositorioRoles rolCatalogo;
+    private RepositorioBandas bandaCatalogo;
     
     private Rol vozPrincipal;
     private Rol guitarra;
@@ -55,9 +55,9 @@ public class Funcionalidad08_CalculoEntrenamientosPrologTest {
     @BeforeEach
     void setUp() {
         // PASO 1: Inicializar repositorios
-        repositorioArtistas = new RepositorioArtistasMemory();
-        rolCatalogo = new RolCatalogoMemory();
-        bandaCatalogo = new BandaCatalogoMemory();
+        repositorioArtistas = new RepositorioArtistas();
+        rolCatalogo = new RepositorioRoles();
+        bandaCatalogo = new RepositorioBandas();
         
         // PASO 2: Crear roles
         vozPrincipal = rolCatalogo.agregarRol("voz principal");
@@ -100,7 +100,7 @@ public class Funcionalidad08_CalculoEntrenamientosPrologTest {
         artistasBase.add(freddie);
         artistasBase.add(brian);
         artistasBase.add(roger);
-        repositorioArtistas = new RepositorioArtistasMemory(artistasBase, new HashSet<>());
+        repositorioArtistas = new RepositorioArtistas(artistasBase, new HashSet<>());
         
         // PASO 6: Crear recital e inicializar servicios
         Recital recital = new Recital(new HashSet<>());
@@ -392,7 +392,7 @@ public class Funcionalidad08_CalculoEntrenamientosPrologTest {
         // PASO 3: Agregar el artista externo al repositorio y hacer un contrato
         HashSet<ArtistaExterno> artistasExternos = new HashSet<>();
         artistasExternos.add(saxofonistaHistorico);
-        repositorioArtistas = new RepositorioArtistasMemory(
+        repositorioArtistas = new RepositorioArtistas(
             new HashSet<>(java.util.Arrays.asList(freddie, brian, roger)),
             artistasExternos
         );
@@ -483,7 +483,7 @@ public class Funcionalidad08_CalculoEntrenamientosPrologTest {
         // PASO 3: Agregar el artista externo al repositorio
         HashSet<ArtistaExterno> artistasExternos = new HashSet<>();
         artistasExternos.add(tecladistaNoContratado);
-        repositorioArtistas = new RepositorioArtistasMemory(
+        repositorioArtistas = new RepositorioArtistas(
             new HashSet<>(java.util.Arrays.asList(freddie, brian, roger)),
             artistasExternos
         );
@@ -570,7 +570,7 @@ public class Funcionalidad08_CalculoEntrenamientosPrologTest {
         // PASO 3: Agregar al repositorio
         HashSet<ArtistaExterno> artistasExternos = new HashSet<>();
         artistasExternos.add(artistaConExperiencia);
-        repositorioArtistas = new RepositorioArtistasMemory(
+        repositorioArtistas = new RepositorioArtistas(
             new HashSet<>(java.util.Arrays.asList(freddie, brian, roger)),
             artistasExternos
         );

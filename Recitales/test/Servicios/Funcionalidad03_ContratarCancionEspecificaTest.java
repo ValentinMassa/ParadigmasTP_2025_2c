@@ -12,9 +12,9 @@ import Recital.Cancion;
 import Recital.Rol;
 import Recital.Banda;
 import Recital.Contrato;
-import Repositorios.RepositorioArtistasMemory;
-import Repositorios.RolCatalogoMemory;
-import Repositorios.BandaCatalogoMemory;
+import Repositorios.RepositorioArtistas;
+import Repositorios.RepositorioRoles;
+import Repositorios.RepositorioBandas;
 import Artista.Artista;
 import Artista.ArtistaDiscografica;
 import Artista.ArtistaExterno;
@@ -28,9 +28,9 @@ public class Funcionalidad03_ContratarCancionEspecificaTest {
     private Recital recital;
     private ServicioContratacion servicioContratacion;
     private ServicioConsulta servicioConsulta;
-    private RepositorioArtistasMemory repositorioArtistas;
-    private RolCatalogoMemory rolCatalogo;
-    private BandaCatalogoMemory bandaCatalogo;
+    private RepositorioArtistas repositorioArtistas;
+    private RepositorioRoles rolCatalogo;
+    private RepositorioBandas bandaCatalogo;
     
     private Rol vozPrincipal;
     private Rol guitarra;
@@ -49,9 +49,9 @@ public class Funcionalidad03_ContratarCancionEspecificaTest {
     @BeforeEach
     void setUp() {
         // PASO 1: Inicializar repositorios
-        repositorioArtistas = new RepositorioArtistasMemory();
-        rolCatalogo = new RolCatalogoMemory();
-        bandaCatalogo = new BandaCatalogoMemory();
+        repositorioArtistas = new RepositorioArtistas();
+        rolCatalogo = new RepositorioRoles();
+        bandaCatalogo = new RepositorioBandas();
         
         // PASO 2: Crear roles
         vozPrincipal = rolCatalogo.agregarRol("voz principal");
@@ -107,7 +107,7 @@ public class Funcionalidad03_ContratarCancionEspecificaTest {
         artistasBase.add(freddie);
         artistasBase.add(brian);
         artistasBase.add(roger);
-        repositorioArtistas = new RepositorioArtistasMemory(artistasBase, new HashSet<>());
+        repositorioArtistas = new RepositorioArtistas(artistasBase, new HashSet<>());
         
         // PASO 8: Crear servicios
         servicioConsulta = new ServicioConsulta(repositorioArtistas, recital, rolCatalogo, bandaCatalogo);
@@ -172,7 +172,7 @@ public class Funcionalidad03_ContratarCancionEspecificaTest {
         
         HashSet<ArtistaExterno> externos = new HashSet<>();
         externos.add(adamLambert);
-        repositorioArtistas = new RepositorioArtistasMemory(
+        repositorioArtistas = new RepositorioArtistas(
             new HashSet<>(java.util.Arrays.asList(freddie, brian, roger)), 
             externos);
         servicioConsulta = new ServicioConsulta(repositorioArtistas, recital, rolCatalogo, bandaCatalogo);
@@ -231,7 +231,7 @@ public class Funcionalidad03_ContratarCancionEspecificaTest {
         
         HashSet<ArtistaExterno> externos = new HashSet<>();
         externos.add(prince);
-        repositorioArtistas = new RepositorioArtistasMemory(
+        repositorioArtistas = new RepositorioArtistas(
             new HashSet<>(java.util.Arrays.asList(freddie, brian, roger)), 
             externos);
         servicioConsulta = new ServicioConsulta(repositorioArtistas, recital, rolCatalogo, bandaCatalogo);
@@ -273,7 +273,7 @@ public class Funcionalidad03_ContratarCancionEspecificaTest {
         
         HashSet<ArtistaExterno> externos = new HashSet<>();
         externos.add(johnDeacon);
-        repositorioArtistas = new RepositorioArtistasMemory(
+        repositorioArtistas = new RepositorioArtistas(
             new HashSet<>(java.util.Arrays.asList(freddie, brian, roger)), 
             externos);
         servicioConsulta = new ServicioConsulta(repositorioArtistas, recital, rolCatalogo, bandaCatalogo);
@@ -414,7 +414,7 @@ public class Funcionalidad03_ContratarCancionEspecificaTest {
         externos.add(mediano);
         externos.add(caro);
         
-        repositorioArtistas = new RepositorioArtistasMemory(
+        repositorioArtistas = new RepositorioArtistas(
             new HashSet<>(java.util.Arrays.asList(freddieVozSolo, brianGuitarraSolo)), 
             externos);
         servicioConsulta = new ServicioConsulta(repositorioArtistas, recital, rolCatalogo, bandaCatalogo);
@@ -468,7 +468,7 @@ public class Funcionalidad03_ContratarCancionEspecificaTest {
         externos.add(multiinstrumentista);
         
         // NO agregar artistas base, solo el multiinstrumentista
-        repositorioArtistas = new RepositorioArtistasMemory(new HashSet<>(), externos);
+        repositorioArtistas = new RepositorioArtistas(new HashSet<>(), externos);
         servicioConsulta = new ServicioConsulta(repositorioArtistas, recital, rolCatalogo, bandaCatalogo);
         
         // PASO 2: Contratar para Bohemian Rhapsody (voz + guitarra + 2 coros = 4 roles)

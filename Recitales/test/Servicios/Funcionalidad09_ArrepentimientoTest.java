@@ -9,6 +9,7 @@ import java.util.HashSet;
 
 import Recital.*;
 import Repositorios.*;
+import Servicios.*;
 import Artista.*;
 
 @DisplayName("Tests Funcionalidad 9: Arrepentimiento (Quitar Artista Contratado)")
@@ -17,9 +18,9 @@ public class Funcionalidad09_ArrepentimientoTest {
     private Recital recital;
     private ServicioContratacion servicioContratacion;
     private ServicioConsulta servicioConsulta;
-    private RepositorioArtistasMemory repositorioArtistas;
-    private RolCatalogoMemory rolCatalogo;
-    private BandaCatalogoMemory bandaCatalogo;
+    private RepositorioArtistas repositorioArtistas;
+    private RepositorioRoles rolCatalogo;
+    private RepositorioBandas bandaCatalogo;
     
     private Rol vozPrincipal;
     private Rol guitarra;
@@ -32,9 +33,9 @@ public class Funcionalidad09_ArrepentimientoTest {
     @BeforeEach
     void setUp() {
         // Crear repositorios
-        repositorioArtistas = new RepositorioArtistasMemory();
-        rolCatalogo = new RolCatalogoMemory();
-        bandaCatalogo = new BandaCatalogoMemory();
+        repositorioArtistas = new RepositorioArtistas();
+        rolCatalogo = new RepositorioRoles();
+        bandaCatalogo = new RepositorioBandas();
         
         // Crear roles y agregarlos al catálogo
         vozPrincipal = rolCatalogo.agregarRol("voz principal");
@@ -63,7 +64,7 @@ public class Funcionalidad09_ArrepentimientoTest {
         HashSet<ArtistaDiscografica> artistasBase = new HashSet<>();
         artistasBase.add(freddie);
         artistasBase.add(brian);
-        repositorioArtistas = new RepositorioArtistasMemory(artistasBase, new HashSet<>());
+        repositorioArtistas = new RepositorioArtistas(artistasBase, new HashSet<>());
         
         // Crear servicios
         servicioConsulta = new ServicioConsulta(repositorioArtistas, recital, rolCatalogo, bandaCatalogo);
@@ -173,7 +174,7 @@ public class Funcionalidad09_ArrepentimientoTest {
         
         HashSet<ArtistaExterno> externos = new HashSet<>();
         externos.add(madonna);
-        repositorioArtistas = new RepositorioArtistasMemory(new HashSet<>(), externos);
+        repositorioArtistas = new RepositorioArtistas(new HashSet<>(), externos);
         servicioConsulta = new ServicioConsulta(repositorioArtistas, recital, rolCatalogo, bandaCatalogo);
         
         Contrato contrato = new Contrato(cancion1, vozPrincipal, madonna, 150.0);
