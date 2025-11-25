@@ -314,38 +314,66 @@ public class ServicioConsulta {
     }
 
     /**
-     * Obtiene una lista de relaciones entre artistas basadas en bandas compartidas.
-     * Cada relación se representa como una cadena en formato "ArtistaA ↔ ArtistaB (banda compartida: BandaX)".
+     * Obtiene una lista de relaciones entre artistas y bandas basadas en colaboraciones en canciones.
+     * Cada relación se representa como una cadena en formato "Artista ↔ Banda por Canción".
+     * Una colaboración ocurre cuando un artista toca en una canción con todos los miembros de una banda.
      * 
-     * @return Una lista de cadenas representando las relaciones entre artistas.
+     * @param sc El servicio de contratación para obtener los contratos.
+     * @return Una lista de cadenas representando las relaciones entre artistas y bandas.
      */
-    public List<String> getRelacionesArtistas() {
+    public List<String> getRelacionesArtistas(ServicioContratacion sc) {
         List<String> relaciones = new ArrayList<>();
-        List<Artista> todosArtistas = new ArrayList<>();
-        todosArtistas.addAll(getArtistasDiscografica());
-        todosArtistas.addAll(getArtistasExternos());
-
-        for (int i = 0; i < todosArtistas.size(); i++) {
-            for (int j = i + 1; j < todosArtistas.size(); j++) {
-                Artista a1 = todosArtistas.get(i);
-                Artista a2 = todosArtistas.get(j);
-                HashSet<Banda> bandas1 = a1.getBandas();
-                HashSet<Banda> bandas2 = a2.getBandas();
-                HashSet<String> nombresBandas1 = new HashSet<>();
-                for (Banda b : bandas1) {
-                    nombresBandas1.add(b.getNombre());
+        List<Contrato> contratos = sc.getContratos();
+        
+        // Agrupar contratos por canción
+        HashMap<Cancion, List<Contrato>> contratosPorCancion = new HashMap<>();
+        for (Contrato contrato : contratos) {
+            contratosPorCancion.computeIfAbsent(contrato.getCancion(), k -> new ArrayList<>()).add(contrato);
+        }
+        
+        // Para cada banda
+        for (Banda banda : bandas.getTodosLasBandas()) {
+            // Obtener miembros de la banda
+            List<Artista> miembrosBanda = new ArrayList<>();
+            for (Artista artista : getArtistasDiscografica()) {
+                if (artista.getBandas().contains(banda)) {
+                    miembrosBanda.add(artista);
                 }
-                HashSet<String> nombresBandas2 = new HashSet<>();
-                for (Banda b : bandas2) {
-                    nombresBandas2.add(b.getNombre());
+            }
+            for (Artista artista : getArtistasExternos()) {
+                if (artista.getBandas().contains(banda)) {
+                    miembrosBanda.add(artista);
                 }
-                nombresBandas1.retainAll(nombresBandas2);
-                if (!nombresBandas1.isEmpty()) {
-                    String bandaCompartida = nombresBandas1.iterator().next();
-                    relaciones.add(a1.getNombre() + " <--> " + a2.getNombre() + " (banda compartida: " + bandaCompartida + ")");
+            }
+            
+            // Para cada canción
+            for (Cancion cancion : contratosPorCancion.keySet()) {
+                List<Contrato> contratosCancion = contratosPorCancion.get(cancion);
+                HashSet<Artista> artistasContratados = new HashSet<>();
+                for (Contrato c : contratosCancion) {
+                    artistasContratados.add(c.getArtista());
+                }
+                
+                // Verificar si todos los miembros de la banda están contratados
+                boolean todosMiembrosContratados = true;
+                for (Artista miembro : miembrosBanda) {
+                    if (!artistasContratados.contains(miembro)) {
+                        todosMiembrosContratados = false;
+                        break;
+                    }
+                }
+                
+                if (todosMiembrosContratados) {
+                    // Los otros artistas contratados colaboran con la banda
+                    for (Artista artista : artistasContratados) {
+                        if (!miembrosBanda.contains(artista)) {
+                            relaciones.add(artista.getNombre() + " <-> " + banda.getNombre() + " por " + cancion.getTitulo());
+                        }
+                    }
                 }
             }
         }
+        
         return relaciones;
     }
 

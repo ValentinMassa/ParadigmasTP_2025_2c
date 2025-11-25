@@ -116,7 +116,7 @@ public class App {
             comandos.add(new ComandoArrepentimiento(servicioConsulta, servicioContratacion));
             comandos.add(new ComandoHacerSnapshot(servicioConsulta,servicioContratacion));
             comandos.add(new ComandoCargarEstadoPrevio(servicioConsulta, servicioContratacion));
-            comandos.add(new ComandoHistorialDeColaboraciones(servicioConsulta));
+            comandos.add(new ComandoHistorialDeColaboraciones(servicioConsulta, servicioContratacion));
             
             
             
