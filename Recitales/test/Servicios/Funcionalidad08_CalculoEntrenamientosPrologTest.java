@@ -267,7 +267,7 @@ public class Funcionalidad08_CalculoEntrenamientosPrologTest {
         System.out.println("  - guitarra: 1 (cubierto por Brian)");
         System.out.println("  - coros: 2 (FALTAN - requieren entrenamiento)");
         System.out.println("\nWe Will Rock You:");
-        System.out.println("  - voz principal: 1 (cubierto por Freddie)");
+        System.out.println("  - voz principal: 1 (cubierto por Freddie - puede cantar en ambas)");
         System.out.println("  - bateria: 1 (cubierto por Roger)");
         System.out.println("  - coros: 1 (FALTA - requiere entrenamiento)");
         System.out.println("\nTotal coros faltantes: 3 (2 + 1)");
@@ -284,7 +284,7 @@ public class Funcionalidad08_CalculoEntrenamientosPrologTest {
             
             // VERIFICACIONES
             assertEquals(3, resultado.getEntrenamientosMinimos(),
-                "Se necesitan 3 entrenamientos en coros (2 para Bohemian + 1 para We Will)");
+                "Se necesitan 3 entrenamientos en coros (Freddie puede cantar en ambas canciones)");
             
             assertEquals(300.0, resultado.getCostoTotal(), 0.01,
                 "Costo total: 3 entrenamientos × $100 = $300");
@@ -299,9 +299,13 @@ public class Funcionalidad08_CalculoEntrenamientosPrologTest {
         }
         
         // DOCUMENTACION:
-        // Escenario: 2 canciones que comparten artistas base pero necesitan coros
-        // Resultado: 3 entrenamientos en coros (pueden ser 3 personas diferentes o misma persona 3 veces)
-        // Interpretacion: Se necesitan contratar 3 artistas sin experiencia en coros y entrenarlos
+        // Escenario: 2 canciones con algunos roles cubiertos por artistas base
+        // - Bohemian necesita voz(1), guitarra(1), coros(2)
+        // - We Will necesita voz(1), bateria(1), coros(1)
+        // - Total requerido: voz(2), guitarra(1), bateria(1), coros(3)
+        // - Cobertura base: Freddie puede voz en AMBAS canciones, Brian(guitarra), Roger(bateria)
+        // Resultado: 3 entrenamientos solo en coros (2 + 1)
+        // Nota: Un artista puede estar en multiples canciones, solo no puede tener multiples roles en la MISMA cancion
     }
     
     @Test
