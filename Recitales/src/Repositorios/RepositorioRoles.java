@@ -6,11 +6,11 @@ import java.util.HashSet;
 import Recital.Rol;
 
 
-public class RolCatalogoMemory {
+public class RepositorioRoles {
 
     private HashMap<String, Rol> roles;
 
-    public RolCatalogoMemory() {
+    public RepositorioRoles() {
         this.roles = new HashMap<>();
     }
 

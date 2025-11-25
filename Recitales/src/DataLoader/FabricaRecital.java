@@ -6,9 +6,9 @@ import Artista.ArtistaDiscografica;
 import Artista.ArtistaExterno;
 import Recital.Cancion;
 import Recital.Recital;
-import Repositorios.RepositorioArtistasMemory;
-import Repositorios.RolCatalogoMemory;
-import Repositorios.BandaCatalogoMemory;
+import Repositorios.RepositorioArtistas;
+import Repositorios.RepositorioRoles;
+import Repositorios.RepositorioBandas;
 
 public class FabricaRecital {
     
@@ -33,14 +33,14 @@ public class FabricaRecital {
         }
     }
 
-    public RepositorioArtistasMemory crearRepositorioArtistas() throws Exception {
+    public RepositorioArtistas crearRepositorioArtistas() throws Exception {
         try {
             HashSet<ArtistaDiscografica> artistasBase = cargador.cargarArtistasDiscografica();
             HashSet<ArtistaExterno> artistasExternos = cargador.cargarArtistasExternos();
             if (artistasBase == null || artistasExternos == null) {
                 throw new Exception("Error: no se pudieron cargar los datos requeridos");
             }
-            return new RepositorioArtistasMemory(artistasBase, artistasExternos);
+            return new RepositorioArtistas(artistasBase, artistasExternos);
         } catch (Exception e) {
             throw new Exception("Error al crear el repositorio de artistas: " + e.getMessage(), e);
         }
@@ -59,8 +59,8 @@ public class FabricaRecital {
      * @return el catálogo de roles
      * @throws IllegalStateException si los roles no han sido cargados
      */
-    public RolCatalogoMemory construirRoles() {
-        RolCatalogoMemory catalogo = cargador.getRolCatalogo();
+    public RepositorioRoles construirRoles() {
+        RepositorioRoles catalogo = cargador.getRolCatalogo();
         if (catalogo == null) {
             throw new IllegalStateException("Los roles no han sido cargados. Debe llamar a crearRepositorioArtistas() primero.");
         }
@@ -73,8 +73,8 @@ public class FabricaRecital {
      * @return el catálogo de roles
      * @throws IllegalStateException si los roles no han sido cargados
      */
-    public BandaCatalogoMemory construirBandas() {
-        BandaCatalogoMemory catalogo = cargador.getBandaCatalogo();
+    public RepositorioBandas construirBandas() {
+        RepositorioBandas catalogo = cargador.getBandaCatalogo();
         if (catalogo == null) {
             throw new IllegalStateException("Las bandas no han sido cargadas. Debe llamar a crearRepositorioArtistas() primero.");
         }

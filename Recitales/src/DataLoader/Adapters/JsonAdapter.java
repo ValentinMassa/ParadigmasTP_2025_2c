@@ -13,8 +13,8 @@ import DataLoader.ICargarRecital;
 import Recital.Banda;
 import Recital.Cancion;
 import Recital.Rol;
-import Repositorios.BandaCatalogoMemory;
-import Repositorios.RolCatalogoMemory;
+import Repositorios.RepositorioBandas;
+import Repositorios.RepositorioRoles;
 import com.google.gson.*;
 
 
@@ -23,8 +23,8 @@ public class JsonAdapter implements ICargarRecital {
     private String rutaArtistas;
     private String rutaCanciones;
     private String rutaArtistasBase;
-    private RolCatalogoMemory rolCatalogo;
-    private BandaCatalogoMemory bandaCatalogo;
+    private RepositorioRoles rolCatalogo;
+    private RepositorioBandas bandaCatalogo;
 
     private HashSet<ArtistaExterno> artistasExternos;
     private HashSet<ArtistaDiscografica> artistasBase;
@@ -51,8 +51,8 @@ public class JsonAdapter implements ICargarRecital {
         this.rutaArtistas = rutaArtistas;
         this.rutaCanciones = rutaCanciones;
         this.rutaArtistasBase = rutaArtistasBase;
-        this.rolCatalogo = new RolCatalogoMemory();
-        this.bandaCatalogo = new BandaCatalogoMemory();
+        this.rolCatalogo = new RepositorioRoles();
+        this.bandaCatalogo = new RepositorioBandas();
         this.artistasExternos = new HashSet<>();
         this.artistasBase = new HashSet<>();
     }
@@ -221,11 +221,11 @@ public class JsonAdapter implements ICargarRecital {
         return canciones;
     }
 
-    public RolCatalogoMemory getRolCatalogo() {
+    public RepositorioRoles getRolCatalogo() {
         return this.rolCatalogo;
     }
 
-    public BandaCatalogoMemory getBandaCatalogo() {
+    public RepositorioBandas getBandaCatalogo() {
         return this.bandaCatalogo;
     }
 

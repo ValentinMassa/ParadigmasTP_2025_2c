@@ -11,7 +11,7 @@ import Artista.ArtistaExterno;
 import Artista.ArtistaDiscografica;
 import Servicios.ServicioConsulta;
 import Servicios.ServicioContratacion;
-import Repositorios.RepositorioArtistasMemory;
+import Repositorios.RepositorioArtistas;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -74,7 +74,7 @@ public class ExportadorSnapshotCompleto {
 
     public void exportarSnapshotCompleto(
             Recital recital, 
-            RepositorioArtistasMemory repoArtistas,
+            RepositorioArtistas repoArtistas,
             Set<Banda> bandas,
             Set<Rol> roles,
             ServicioConsulta servC, 
@@ -117,7 +117,7 @@ public class ExportadorSnapshotCompleto {
 
     private SnapshotCompleto construirSnapshotCompleto(
             Recital recital,
-            RepositorioArtistasMemory repoArtistas,
+            RepositorioArtistas repoArtistas,
             Set<Banda> bandas,
             Set<Rol> roles,
             ServicioConsulta servC,
@@ -159,7 +159,7 @@ public class ExportadorSnapshotCompleto {
         return recitalSnap;
     }
 
-    private List<ArtistaSnapshot> exportarArtistas(RepositorioArtistasMemory repoArtistas) {
+    private List<ArtistaSnapshot> exportarArtistas(RepositorioArtistas repoArtistas) {
         List<ArtistaSnapshot> artistasSnap = new ArrayList<>();
         
         // Exportar artistas de discográfica
