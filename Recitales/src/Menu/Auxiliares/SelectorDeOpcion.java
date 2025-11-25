@@ -9,12 +9,11 @@ public class SelectorDeOpcion {
         String opcion;
         int opcionNum;
         
-        System.out.print(mensajePrompt);
-        opcion = scanner.nextLine().trim();
-        
-        if (opcion.isEmpty()) {
-            throw new IllegalArgumentException("Opción inválida. No puede estar vacía.");
-        }
+        // Leer y repetir hasta obtener una entrada válida no vacía
+        do {
+            System.out.print(mensajePrompt);
+            opcion = scanner.nextLine().trim();
+        } while (opcion.isEmpty());
         
         if (opcion.equalsIgnoreCase("S")) {
             System.out.println("\n[<<] Volviendo al menu principal...\n");
