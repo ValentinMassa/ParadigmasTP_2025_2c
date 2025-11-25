@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.ArrayList;
 
 import Artista.ArtistaDiscografica;
-import Artista.ArtistaExterno;
 import Recital.Cancion;
 import Recital.Rol;
 
@@ -15,7 +14,6 @@ import org.jpl7.Atom;
 import org.jpl7.JPL;
 import org.jpl7.Query;
 import org.jpl7.Term;
-import org.jpl7.Variable;
 
 public class ServicioProlog {
     private ServicioConsulta servicioConsulta;

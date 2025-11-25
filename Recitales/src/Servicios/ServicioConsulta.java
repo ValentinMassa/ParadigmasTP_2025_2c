@@ -10,20 +10,20 @@ import java.util.ArrayList;
 import Artista.Artista;
 import Artista.ArtistaDiscografica;
 import Artista.ArtistaExterno;
-import Repositorios.BandaCatalogoMemory;
+import Repositorios.RepositorioBandas;
 
 
 
 public class ServicioConsulta {
     
-    private RepositorioArtistasMemory repositorioArtistas;
-    private BandaCatalogoMemory bandas;
+    private RepositorioArtistas repositorioArtistas;
+    private RepositorioBandas bandas;
     private Recital recital;
-    private RolCatalogoMemory rolCatalogo;
+    private RepositorioRoles rolCatalogo;
     
     
-    public ServicioConsulta(RepositorioArtistasMemory rA, Recital recital, 
-        RolCatalogoMemory rolCatalogo, BandaCatalogoMemory bandas) 
+    public ServicioConsulta(RepositorioArtistas rA, Recital recital, 
+        RepositorioRoles rolCatalogo, RepositorioBandas bandas) 
             throws IllegalArgumentException {
         if (rA == null|| recital == null || rolCatalogo == null || bandas == null) {
             throw new IllegalArgumentException("Ningun parametro puede ser nulo");
@@ -114,7 +114,7 @@ public class ServicioConsulta {
     * Obtiene el repositorio de artistas.
     * @return El repositorio de artistas.
     */
-    public RepositorioArtistasMemory getRepositorioArtistas() {
+    public RepositorioArtistas getRepositorioArtistas() {
         return this.repositorioArtistas;
     }
 
@@ -190,10 +190,10 @@ public class ServicioConsulta {
      * @param nuevoBandaCatalogo El nuevo catálogo de bandas
      * @param nuevoServicioContratacion El nuevo servicio de contratación con los contratos
      */
-    public void actualizarDesdeSnapshot(RepositorioArtistasMemory nuevoRepositorio,
+    public void actualizarDesdeSnapshot(RepositorioArtistas nuevoRepositorio,
                                        Recital nuevoRecital,
-                                       RolCatalogoMemory nuevoRolCatalogo,
-                                       BandaCatalogoMemory nuevoBandaCatalogo) {
+                                       RepositorioRoles nuevoRolCatalogo,
+                                       RepositorioBandas nuevoBandaCatalogo) {
         if (nuevoRepositorio == null || nuevoRecital == null || 
             nuevoRolCatalogo == null || nuevoBandaCatalogo == null) {
             throw new IllegalArgumentException("Ningún parámetro puede ser nulo al actualizar desde snapshot");

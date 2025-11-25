@@ -8,7 +8,7 @@ import java.util.Map;
 
 import Artista.*;
 import Recital.*;
-import Repositorios.RepositorioArtistasMemory;
+import Repositorios.RepositorioArtistas;
 
 
 public class ServicioContratacion {
@@ -25,7 +25,7 @@ public class ServicioContratacion {
         * @param repo El repositorio de artistas que contiene tanto artistas de discográficas como externos
         * @return void
     */
-    public HashMap<Rol, Integer> contratarArtistasParaCancion(Cancion cancion, RepositorioArtistasMemory repo) {     
+    public HashMap<Rol, Integer> contratarArtistasParaCancion(Cancion cancion, RepositorioArtistas repo) {     
         HashMap<Rol, Integer> rolesFaltantes = cancion.getRolesFaltantes(this.getContratosPorCancion(cancion));
         
         if (!hayRolesFaltantes(rolesFaltantes)) {

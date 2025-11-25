@@ -4,10 +4,10 @@ import java.util.HashSet;
 import Recital.Banda;
 import Recital.Rol;
 
-public class BandaCatalogoMemory {
+public class RepositorioBandas {
     private HashSet<Banda> bandas;
 
-    public BandaCatalogoMemory() {
+    public RepositorioBandas() {
         this.bandas = new HashSet<>();
     }
 

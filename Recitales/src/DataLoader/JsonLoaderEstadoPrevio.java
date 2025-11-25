@@ -19,9 +19,9 @@ public class JsonLoaderEstadoPrevio {
         public String fechaExportacion;
         public String timestampExportacion;
         public Recital recital;
-        public RepositorioArtistasMemory repositorioArtistas;
-        public RolCatalogoMemory rolCatalogo;
-        public BandaCatalogoMemory bandaCatalogo;
+        public RepositorioArtistas repositorioArtistas;
+        public RepositorioRoles rolCatalogo;
+        public RepositorioBandas bandaCatalogo;
         public ServicioContratacion servicioContratacion;
         public List<ContratoSnapshot> contratos;
         
@@ -89,8 +89,8 @@ public class JsonLoaderEstadoPrevio {
         return snapshot;
     }
     
-    private RolCatalogoMemory cargarRoles(JsonObject jsonObject) {
-        RolCatalogoMemory catalogo = new RolCatalogoMemory();
+    private RepositorioRoles cargarRoles(JsonObject jsonObject) {
+        RepositorioRoles catalogo = new RepositorioRoles();
         
         if (jsonObject.has("roles")) {
             JsonArray rolesArray = jsonObject.getAsJsonArray("roles");
@@ -104,8 +104,8 @@ public class JsonLoaderEstadoPrevio {
         return catalogo;
     }
     
-    private BandaCatalogoMemory cargarBandas(JsonObject jsonObject) {
-        BandaCatalogoMemory catalogo = new BandaCatalogoMemory();
+    private RepositorioBandas cargarBandas(JsonObject jsonObject) {
+        RepositorioBandas catalogo = new RepositorioBandas();
         
         if (jsonObject.has("bandas")) {
             JsonArray bandasArray = jsonObject.getAsJsonArray("bandas");
@@ -119,9 +119,9 @@ public class JsonLoaderEstadoPrevio {
         return catalogo;
     }
     
-    private RepositorioArtistasMemory cargarArtistas(JsonObject jsonObject, 
-                                                     RolCatalogoMemory rolCatalogo,
-                                                     BandaCatalogoMemory bandaCatalogo) {
+    private RepositorioArtistas cargarArtistas(JsonObject jsonObject, 
+                                                     RepositorioRoles rolCatalogo,
+                                                     RepositorioBandas bandaCatalogo) {
         HashSet<ArtistaDiscografica> artistasDiscografica = new HashSet<>();
         HashSet<ArtistaExterno> artistasExternos = new HashSet<>();
         
@@ -201,10 +201,10 @@ public class JsonLoaderEstadoPrevio {
             }
         }
         
-        return new RepositorioArtistasMemory(artistasDiscografica, artistasExternos);
+        return new RepositorioArtistas(artistasDiscografica, artistasExternos);
     }
     
-    private Recital cargarRecital(JsonObject jsonObject, RolCatalogoMemory rolCatalogo) {
+    private Recital cargarRecital(JsonObject jsonObject, RepositorioRoles rolCatalogo) {
         HashSet<Cancion> canciones = new HashSet<>();
         
         if (jsonObject.has("recital")) {
@@ -244,8 +244,8 @@ public class JsonLoaderEstadoPrevio {
     
     private ServicioContratacion cargarContratos(JsonObject jsonObject, 
                                                  Recital recital,
-                                                 RepositorioArtistasMemory repositorio,
-                                                 RolCatalogoMemory rolCatalogo) {
+                                                 RepositorioArtistas repositorio,
+                                                 RepositorioRoles rolCatalogo) {
         ServicioContratacion servicio = new ServicioContratacion();
         
         if (jsonObject.has("contratos")) {
@@ -282,7 +282,7 @@ public class JsonLoaderEstadoPrevio {
         return null;
     }
     
-    private Artista buscarArtistaPorNombre(RepositorioArtistasMemory repositorio, String nombre) {
+    private Artista buscarArtistaPorNombre(RepositorioArtistas repositorio, String nombre) {
         for (ArtistaDiscografica artista : repositorio.getArtistasDiscografica()) {
             if (artista.getNombre().equals(nombre)) {
                 return artista;

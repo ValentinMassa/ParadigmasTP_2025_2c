@@ -10,9 +10,9 @@ import Menu.ComandoRolesFaltantesPorCancion;
 import Menu.ComandoRolesTodasLasCanciones;
 import Menu.MenuPrincipal;
 import Recital.Recital;
-import Repositorios.BandaCatalogoMemory;
-import Repositorios.RepositorioArtistasMemory;
-import Repositorios.RolCatalogoMemory;
+import Repositorios.RepositorioBandas;
+import Repositorios.RepositorioArtistas;
+import Repositorios.RepositorioRoles;
 import Servicios.ServicioConsulta;
 import Servicios.ServicioContratacion;
 import Servicios.ServicioEntrenamiento;
@@ -83,9 +83,9 @@ public class App {
             System.out.println("\n[*] Cargando datos del recital...");
             
             Recital recital = fabrica.crearRecital();
-            RepositorioArtistasMemory repositorio = fabrica.crearRepositorioArtistas();
-            RolCatalogoMemory rolCatalogo = fabrica.construirRoles();
-            BandaCatalogoMemory bandaCatalogo = fabrica.construirBandas();
+            RepositorioArtistas repositorio = fabrica.crearRepositorioArtistas();
+            RepositorioRoles rolCatalogo = fabrica.construirRoles();
+            RepositorioBandas bandaCatalogo = fabrica.construirBandas();
             
             System.out.println("\n[OK] Recital cargado exitosamente!");
             System.out.println("\n" + "-".repeat(60));

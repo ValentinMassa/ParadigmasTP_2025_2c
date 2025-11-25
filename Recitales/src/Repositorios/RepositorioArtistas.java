@@ -4,17 +4,17 @@ import java.util.HashSet;
 import Artista.*;
 import Recital.Rol;
 
-public class RepositorioArtistasMemory{
+public class RepositorioArtistas{
 
     private HashSet<ArtistaDiscografica> artistaBase;
     private HashSet<ArtistaExterno> artistaExternos;
 
-    public RepositorioArtistasMemory() {
+    public RepositorioArtistas() {
         this.artistaBase = new HashSet<>();
         this.artistaExternos = new HashSet<>();
     }
 
-    public RepositorioArtistasMemory(HashSet<ArtistaDiscografica> artistaBase, HashSet<ArtistaExterno> artistaExternos) {
+    public RepositorioArtistas(HashSet<ArtistaDiscografica> artistaBase, HashSet<ArtistaExterno> artistaExternos) {
         this.artistaBase = new HashSet<>(artistaBase);
         this.artistaExternos = new HashSet<>(artistaExternos);
     }
