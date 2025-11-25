@@ -50,7 +50,8 @@ public class ServicioContratacion {
                 double menorCosto = Double.MAX_VALUE;
 
                 for (ArtistaExterno externo : repo.getArtistasExternos()) {
-                    if (!tieneContratoConCancion(externo, cancion) && externo.puedeTocarRol(rol)) {
+                    if (!tieneContratoConCancion(externo, cancion) && externo.puedeTocarRol(rol) 
+                        && externo.getCantCancionesAsignadas() < externo.getMaxCanciones()) {
                         double costo = obtenerCostoExterno(externo, cancion);
                         if (costo < menorCosto) {
                             menorCosto = costo;
@@ -64,6 +65,8 @@ public class ServicioContratacion {
                     contratos.add(contrato);
                     // actualizar roles faltantes
                     rolesFaltantes.put(rol, rolesFaltantes.get(rol) - 1);
+                    // actualizar contador de canciones del artista externo
+                    mejorExterno.setCantCancionesAsignado(mejorExterno.getCantCancionesAsignadas() + 1);
                 } else {
                     // No hay artistas externos disponibles para este rol
                     break;
