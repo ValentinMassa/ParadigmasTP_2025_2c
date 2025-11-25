@@ -4,7 +4,6 @@ import Servicios.ServicioConsulta;
 import Servicios.ServicioContratacion;
 import Servicios.ServicioEntrenamiento;
 import Menu.Auxiliares.EntrenadorMasivo;
-import Recital.Cancion;
 import Recital.Rol;
 import java.util.HashMap;
 import java.util.Scanner;
@@ -72,13 +71,18 @@ public class ComandoContratarArtistas implements Comando{
         java.util.List<EntrenadorMasivo.EntrenamientoRealizado> entrenamientosRealizados = 
             EntrenadorMasivo.entrenarRolesFaltantes(rolesFaltantes, servC, servContr, servEntrenamiento, scanner);
         
-        System.out.println("[*] Reintentando contratación masiva tras entrenamientos...\n");
-        rolesFaltantes = servContr.contratarParaTodoConPrioridad(servC, entrenamientosRealizados);
-        
-        if (rolesFaltantes == null) {
-            mostrarContratacionCompletadaTrasEntrenamientos();
+        if (!entrenamientosRealizados.isEmpty()) {
+            System.out.println("[*] Reintentando contratación masiva con prioridad tras entrenamientos...\n");
+            rolesFaltantes = servContr.contratarParaTodoConPrioridad(servC, entrenamientosRealizados);
+            
+            if (rolesFaltantes == null) {
+                mostrarContratacionCompletadaTrasEntrenamientos();
+            } else {
+                mostrarMensajeAunFaltanRoles();
+            }
         } else {
-            mostrarMensajeAunFaltanRoles();
+            System.out.println("\n[!] No se realizaron entrenamientos. Contratación parcial completada.");
+            mostrarEstadisticasContratacion();
         }
     }
     

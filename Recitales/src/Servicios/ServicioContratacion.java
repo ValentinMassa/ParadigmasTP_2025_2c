@@ -215,7 +215,22 @@ public class ServicioContratacion {
     }
 
     public void eliminarContratosDeArtista(Artista artista){
+        // Contar cuántos contratos se van a eliminar
+        int contratosEliminados = 0;
+        for (Contrato contrato : contratos) {
+            if (contrato.getArtista().equals(artista)) {
+                contratosEliminados++;
+            }
+        }
+        
+        // Eliminar los contratos
         contratos.removeIf(contrato -> contrato.getArtista().equals(artista));
+        
+        // Actualizar el contador del artista
+        if (contratosEliminados > 0) {
+            int cancionesActuales = artista.getCantCancionesAsignadas();
+            artista.setCantCancionesAsignado(Math.max(0, cancionesActuales - contratosEliminados));
+        }
     }
 
     /**
@@ -314,11 +329,19 @@ public class ServicioContratacion {
                 candidatosPorRol.put(rol, mapaCandidatos);
             }
             
+            // ✨ OPTIMIZACIÓN: Ordenar roles por cantidad de candidatos (menos candidatos = más crítico)
+            List<Rol> rolesOrdenadosPorEscasez = new ArrayList<>(rolesCancion.keySet());
+            rolesOrdenadosPorEscasez.sort((rol1, rol2) -> {
+                int candidatos1 = candidatosPorRol.getOrDefault(rol1, new HashMap<>()).size();
+                int candidatos2 = candidatosPorRol.getOrDefault(rol2, new HashMap<>()).size();
+                return Integer.compare(candidatos1, candidatos2); // Ascendente: menos candidatos primero
+            });
+            
             // ASIGNAR ARTISTAS
             // Mantener registro de artistas ya usados en esta canción (restricción: un artista = un rol por canción)
             HashSet<Artista> artistasYaUsadosEnCancion = new HashSet<>();
             
-            for (Rol rol : rolesCancion.keySet()) {
+            for (Rol rol : rolesOrdenadosPorEscasez) { // CAMBIO: usar lista ordenada en lugar de rolesCancion.keySet()
                 int cantidadRequerida = rolesCancion.getOrDefault(rol, 0);
                 
                 for (int i = 0; i < cantidadRequerida; i++) {
@@ -408,8 +431,7 @@ public class ServicioContratacion {
 
     /**
      * Contrata artistas priorizando los que fueron recién entrenados para roles específicos.
-     * Este método se usa después de entrenar artistas para asegurar que sean asignados
-     * a los roles para los que fueron entrenados.
+     * Combina la priorización de entrenamientos con la optimización de escasez de candidatos.
      * 
      * @param sc El servicio de consulta
      * @param entrenamientosRealizados Lista de entrenamientos que se deben priorizar
@@ -419,7 +441,7 @@ public class ServicioContratacion {
             ServicioConsulta sc, 
             List<Menu.Auxiliares.EntrenadorMasivo.EntrenamientoRealizado> entrenamientosRealizados) {
         
-        // Primero, intentar asignar contratos específicos para los artistas entrenados
+        // PASO 0: Priorizar artistas entrenados
         HashMap<Cancion, HashMap<Rol, Integer>> rolesFaltantes = sc.calcularRolesFaltantes(this);
         
         for (Menu.Auxiliares.EntrenadorMasivo.EntrenamientoRealizado entrenamiento : entrenamientosRealizados) {
@@ -458,7 +480,7 @@ public class ServicioContratacion {
             }
         }
         
-        // Ahora ejecutar contratación normal para el resto
+        // PASO 1: Ejecutar contratación normal con optimización de escasez
         return contratarParaTodo(sc);
     }
 
@@ -494,95 +516,6 @@ public class ServicioContratacion {
         for (HashMap<Artista, Double> mapaCandidatos : candidatosPorRol.values()) {
             mapaCandidatos.remove(artista);
         }
-    }
-    
-    /**
-     * Busca el artista externo MAS BARATO que pueda ser entrenado para el rol faltante.
-     * Considera TODOS los artistas externos sin importar contratos actuales.
-     * Solo considera artistas externos que:
-     * - Puedan ser entrenados (sean entrenables)
-     * - NO tengan ya ese rol
-     * - Tengan capacidad disponible para una nueva canción
-     * 
-     * @param rol El rol para el cual se busca un artista entrenable
-     * @param cancion La canción para la cual se necesita el artista
-     * @param repo El repositorio de artistas
-     * @param nuevosContratos Lista de contratos en proceso
-     * @return El mejor artista entrenable (menor costo después del entrenamiento) o null si no hay
-     */
-    private ArtistaExterno buscarArtistaEntrenable(
-            Rol rol,
-            Cancion cancion,
-            RepositorioArtistasMemory repo,
-            List<Contrato> nuevosContratos) {
-        
-        ArtistaExterno mejorEntrenable = null;
-        double menorCostoConEntrenamiento = Double.MAX_VALUE;
-        
-        for (ArtistaExterno externo : repo.getArtistasExternos()) {
-            // Verificar que pueda ser entrenado
-            if (!externo.puedeSerEntrenado()) {
-                continue;
-            }
-            
-            // No debe tener el rol ya
-            if (externo.puedeTocarRol(rol)) {
-                continue;
-            }
-            
-            // Debe tener capacidad disponible (considerando contratos existentes y nuevos)
-            int cancionesContratadas = contarCancionesContratadas(externo, nuevosContratos);
-            if (cancionesContratadas >= externo.getMaxCanciones()) {
-                continue;
-            }
-            
-            // Calcular costo después del entrenamiento (costo actual * 1.5)
-            // y aplicar descuento contextual si corresponde
-            double costoActual = externo.getCosto();
-            double costoConEntrenamiento = costoActual * 1.5; // 50% aumento por entrenamiento
-            
-            // Simular contratos existentes + nuevos para calcular descuento correcto
-            List<Contrato> contratosSimulados = new ArrayList<>(this.contratos);
-            contratosSimulados.addAll(nuevosContratos);
-            
-            // Obtener el costo con descuento usando el método existente (simula el descuento)
-            double costoBaseConDescuento = obtenerCostoExterno(externo, cancion, contratosSimulados);
-            // Si obtenerCostoExterno aplicó descuento, también lo aplicamos al costo con entrenamiento
-            // Prevenir división por cero
-            double factorDescuento = (costoActual == 0) ? 1.0 : (costoBaseConDescuento / costoActual);
-            double costoFinal = costoConEntrenamiento * factorDescuento;
-            
-            if (costoFinal < menorCostoConEntrenamiento) {
-                menorCostoConEntrenamiento = costoFinal;
-                mejorEntrenable = externo;
-            }
-        }
-        
-        return mejorEntrenable;
-    }
-    
-    /**
-     * Cuenta cuántas canciones diferentes tiene contratadas un artista
-     * (incluyendo contratos existentes y nuevos contratos en proceso).
-     */
-    private int contarCancionesContratadas(Artista artista, List<Contrato> nuevosContratos) {
-        HashSet<Cancion> cancionesUnicas = new HashSet<>();
-        
-        // Contratos existentes
-        for (Contrato contrato : this.contratos) {
-            if (contrato.getArtista().equals(artista)) {
-                cancionesUnicas.add(contrato.getCancion());
-            }
-        }
-        
-        // Nuevos contratos en proceso
-        for (Contrato contrato : nuevosContratos) {
-            if (contrato.getArtista().equals(artista)) {
-                cancionesUnicas.add(contrato.getCancion());
-            }
-        }
-        
-        return cancionesUnicas.size();
     }
     
     /**

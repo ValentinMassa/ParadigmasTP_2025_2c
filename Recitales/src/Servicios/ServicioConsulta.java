@@ -208,13 +208,22 @@ public class ServicioConsulta {
     * @return Un conjunto de artistas que tienen contratos vigentes.
     */
     public HashSet<Artista> getArtistasContratados(ServicioContratacion sc){
-        HashSet<Artista> artistasContratados = new HashSet<>(this.getArtistasExternos());
-
-        for(ArtistaExterno a : this.getArtistasExternos()){
-            if(!sc.tieneAlgunContrato(a)){
-                artistasContratados.remove(a);
+        HashSet<Artista> artistasContratados = new HashSet<>();
+        
+        // Agregar artistas de discográfica que tienen contratos
+        for(ArtistaDiscografica a : this.getArtistasDiscografica()){
+            if(sc.tieneAlgunContrato(a)){
+                artistasContratados.add(a);
             }
         }
+        
+        // Agregar artistas externos que tienen contratos
+        for(ArtistaExterno a : this.getArtistasExternos()){
+            if(sc.tieneAlgunContrato(a)){
+                artistasContratados.add(a);
+            }
+        }
+        
         return artistasContratados;
     }
 
