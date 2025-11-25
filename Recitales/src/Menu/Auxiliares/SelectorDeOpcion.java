@@ -9,11 +9,16 @@ public class SelectorDeOpcion {
         String opcion;
         int opcionNum;
         
-        // Leer y repetir hasta obtener una entrada válida no vacía
-        do {
-            System.out.print(mensajePrompt);
+        System.out.print(mensajePrompt);
+        
+        // Consumir líneas vacías silenciosamente
+        while (true) {
             opcion = scanner.nextLine().trim();
-        } while (opcion.isEmpty());
+            if (!opcion.isEmpty()) {
+                break;
+            }
+            // No mostrar el prompt de nuevo, solo consumir la línea vacía
+        }
         
         if (opcion.equalsIgnoreCase("S")) {
             System.out.println("\n[<<] Volviendo al menu principal...\n");
