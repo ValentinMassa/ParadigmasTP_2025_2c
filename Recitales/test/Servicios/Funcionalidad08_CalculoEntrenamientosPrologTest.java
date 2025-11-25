@@ -9,9 +9,20 @@ import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Map;
 
-import Recital.*;
-import Repositorios.*;
-import Artista.*;
+import Recital.Recital;
+import Recital.Cancion;
+import Recital.Rol;
+import Recital.Banda;
+import Recital.Contrato;
+import Repositorios.RepositorioArtistasMemory;
+import Repositorios.RolCatalogoMemory;
+import Repositorios.BandaCatalogoMemory;
+import Artista.Artista;
+import Artista.ArtistaDiscografica;
+import Artista.ArtistaExterno;
+import Servicios.ServicioProlog;
+import Servicios.ServicioConsulta;
+import Servicios.ServicioContratacion;
 import Servicios.ServicioProlog.ResultadoEntrenamiento;
 
 @DisplayName("Tests Funcionalidad 8: Calculo de Entrenamientos Minimos con Prolog")

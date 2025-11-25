@@ -9,9 +9,20 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 
-import Recital.*;
-import Repositorios.*;
-import Artista.*;
+import Recital.Recital;
+import Recital.Cancion;
+import Recital.Rol;
+import Recital.Banda;
+import Recital.Contrato;
+import Repositorios.RepositorioArtistasMemory;
+import Repositorios.RolCatalogoMemory;
+import Repositorios.BandaCatalogoMemory;
+import Artista.Artista;
+import Artista.ArtistaDiscografica;
+import Artista.ArtistaExterno;
+import Servicios.ServicioContratacion;
+import Servicios.ServicioConsulta;
+import Servicios.ServicioEntrenamiento;
 
 @DisplayName("Tests Funcionalidad 3: Contratar Artistas para Cancion Especifica")
 public class Funcionalidad03_ContratarCancionEspecificaTest {

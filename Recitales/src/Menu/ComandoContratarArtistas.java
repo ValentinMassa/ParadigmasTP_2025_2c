@@ -5,6 +5,7 @@ import Servicios.ServicioContratacion;
 import Servicios.ServicioEntrenamiento;
 import Menu.Auxiliares.EntrenadorMasivo;
 import Recital.Rol;
+import Recital.Contrato;
 import java.util.HashMap;
 import java.util.Scanner;
 
@@ -56,7 +57,7 @@ public class ComandoContratarArtistas implements Comando{
         System.out.println("\n[*] Total de contratos activos: " + servContr.getContratos().size());
         
         double costoTotal = 0;
-        for (var contrato : servContr.getContratos()) {
+        for (Contrato contrato : servContr.getContratos()) {
             costoTotal += contrato.obtenerCostoContrato();
         }
         System.out.println("[*] Costo total acumulado: $" + String.format("%.2f", costoTotal));
