@@ -53,8 +53,8 @@ function Compile-Project {
     }
     New-Item -ItemType Directory -Force -Path bin | Out-Null
     
-    # Compilar
-    $javaFiles = Get-ChildItem -Recurse -Filter "*.java" -Path src | Select-Object -ExpandProperty FullName
+    # Compilar código principal (sin incluir tests)
+    $javaFiles = Get-ChildItem -Recurse -Filter "*.java" -Path src -Exclude "test" | Where-Object { $_.FullName -notmatch '\\test\\' } | Select-Object -ExpandProperty FullName
     javac -cp "src/libs/gson-2.13.1.jar;$global:JPL_JAR" -d bin -encoding UTF-8 $javaFiles
     
     if ($LASTEXITCODE -eq 0) {

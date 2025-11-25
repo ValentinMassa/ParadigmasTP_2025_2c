@@ -54,6 +54,7 @@ public class ServicioProlog {
         JPL.init();
     }
 
+    @SuppressWarnings("unchecked")
     public ResultadoEntrenamiento calcularEntrenamientosConParametros(double costoBase) {
         // Paso 1: Calcular roles requeridos totales
         Map<Rol, Integer> rolesRequeridos = new HashMap<>();

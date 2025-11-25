@@ -1,3 +1,4 @@
+package test.java.Servicios;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.DisplayName;
@@ -5,7 +6,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
 
 import Recital.Recital;
 import Recital.Cancion;
@@ -15,12 +15,10 @@ import Recital.Contrato;
 import Repositorios.RepositorioArtistas;
 import Repositorios.RepositorioRoles;
 import Repositorios.RepositorioBandas;
-import Artista.Artista;
 import Artista.ArtistaDiscografica;
 import Artista.ArtistaExterno;
 import Servicios.ServicioContratacion;
 import Servicios.ServicioConsulta;
-import Servicios.ServicioEntrenamiento;
 
 @DisplayName("Tests Funcionalidad 3: Contratar Artistas para Cancion Especifica")
 public class Funcionalidad03_ContratarCancionEspecificaTest {

@@ -1,11 +1,9 @@
-
-
+package test.java.Servicios;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.DisplayName;
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Map;
 
@@ -15,9 +13,8 @@ import Recital.Rol;
 import Recital.Banda;
 import Recital.Contrato;
 import Repositorios.RepositorioArtistas;
-import Repositorios.RepositorioRoles;
 import Repositorios.RepositorioBandas;
-import Artista.Artista;
+import Repositorios.RepositorioRoles;
 import Artista.ArtistaDiscografica;
 import Artista.ArtistaExterno;
 import Servicios.ServicioProlog;
