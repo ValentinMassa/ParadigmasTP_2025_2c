@@ -10,7 +10,11 @@ public class SelectorDeOpcion {
         int opcionNum;
         
         System.out.print(mensajePrompt);
-        opcion = scanner.nextLine();
+        opcion = scanner.nextLine().trim();
+        
+        if (opcion.isEmpty()) {
+            throw new IllegalArgumentException("Opción inválida. No puede estar vacía.");
+        }
         
         if (opcion.equalsIgnoreCase("S")) {
             System.out.println("\n[<<] Volviendo al menu principal...\n");
