@@ -1,40 +1,118 @@
 [
   {
-    "titulo": "Bohemian Rhapsody",
+    "titulo": "Under Pressure",
     "rolesRequeridos": {
-      "Voz": 2,
-      "Piano": 1,
-      "Guitarra": 2,
-      "Bajo": 1,
-      "Bateria": 1
+      "voz principal": 1,
+      "bajo": 1,
+      "bateria": 1,
+      "teclados": 1
     }
   },
   {
-    "titulo": "We Will Rock You",
+    "titulo": "When Doves Cry",
     "rolesRequeridos": {
-      "Voz": 1,
-      "Guitarra": 1,
-      "Bajo": 1,
-      "Bateria": 1
+      "voz principal": 1,
+      "guitarra electrica": 1,
+      "teclados": 1,
+      "percusion": 1
     }
   },
   {
-    "titulo": "Another One Bites the Dust",
+    "titulo": "Billie Jean",
     "rolesRequeridos": {
-      "Voz": 1,
-      "Bajo": 2,
-      "Guitarra": 1,
-      "Bateria": 1
+      "voz principal": 2,
+      "bateria": 1,
+      "bajo": 1,
+      "teclados": 1
     }
   },
   {
-    "titulo": "I Want to Break Free",
+    "titulo": "Smells Like Teen Spirit",
     "rolesRequeridos": {
-      "Voz": 1,
-      "Piano": 1,
-      "Guitarra": 1,
-      "Bajo": 1,
-      "Bateria": 1
+      "voz principal": 1,
+      "guitarra electrica": 2,
+      "bajo": 1,
+      "bateria": 1
     }
+  },
+  {
+    "titulo": "Welcome to the Jungle",
+    "rolesRequeridos": {
+      "voz principal": 1,
+      "guitarra electrica": 2,
+      "bajo": 1,
+      "bateria": 2,
+      "teclados": 1
+    }
+  },
+  {
+    "titulo": "Creep",
+    "rolesRequeridos": {
+      "voz principal": 1,
+      "guitarra electrica": 1,
+      "bajo": 1,
+      "bateria": 1
+    }
+  },
+  {
+    "titulo": "Wonderwall",
+    "rolesRequeridos": {
+      "voz principal": 2,
+      "guitarra electrica": 1,
+      "bajo": 1,
+      "bateria": 1,
+      "percusion": 1
+    }
+  },
+  {
+    "titulo": "Let's Dance",
+    "rolesRequeridos": {
+      "voz principal": 1,
+      "guitarra electrica": 2,
+      "teclados": 1,
+      "bajo": 1,
+      "bateria": 1
+    }
+  },
+  {
+    "titulo": "Don't Speak",
+    "rolesRequeridos": {
+      "voz principal": 1,
+      "guitarra electrica": 1,
+      "bajo": 1,
+      "bateria": 1,
+      "teclados": 1
+    }
+  },
+  {
+    "titulo": "Hella Good",
+    "rolesRequeridos": {
+        "voz principal": 1,
+        "guitarra electrica": 1,
+        "bajo": 1,
+        "bateria": 1,
+        "teclados": 1
+    }
+  },
+  {
+    "titulo": "...Baby One More Time",
+    "rolesRequeridos": {
+      "voz principal": 1,
+      "coros": 2,
+      "guitarra electrica": 1,
+      "bajo": 1,
+      "bateria": 1,
+      "teclados": 1
+    }
+  },
+  {
+    "titulo": "Criminal",
+    "rolesRequeridos": {
+        "voz principal": 1,
+        "guitarra acustica": 1,
+        "bajo": 1,
+        "bateria": 1,
+        "teclados": 1
   }
+ }
 ]

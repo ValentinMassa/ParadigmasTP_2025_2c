@@ -1,6 +1,8 @@
 package Menu;
 import Servicios.*;
 import Artista.*;
+import Menu.Auxiliares.SelectorDeOpcion;
+
 import java.util.*;
 
 public class ComandoArrepentimiento implements Comando {

@@ -3,7 +3,9 @@ package Menu;
 import Recital.Cancion;
 import Servicios.ServicioConsulta;
 import Servicios.ServicioContratacion;
-import java.util.*; 
+import java.util.*;
+
+import Menu.Auxiliares.SelectorDeOpcion;
 import Recital.Rol;
 
 

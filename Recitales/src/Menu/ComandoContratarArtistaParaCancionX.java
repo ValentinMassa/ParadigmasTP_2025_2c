@@ -4,22 +4,27 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
 
+import Menu.Auxiliares.SelectorDeOpcion;
+import Menu.Auxiliares.EntrenadorMasivo;
 import Recital.Cancion;
 import Recital.Contrato;
 import Recital.Rol;
 import Servicios.ServicioConsulta;
 import Servicios.ServicioContratacion;
+import Servicios.ServicioEntrenamiento;
 
 public class ComandoContratarArtistaParaCancionX implements Comando{
     private ServicioConsulta servC;
     private ServicioContratacion servContr;
+    private ServicioEntrenamiento servEntrenamiento;
     
-    public ComandoContratarArtistaParaCancionX(ServicioConsulta sc, ServicioContratacion scontr){
-        if(sc == null || scontr == null){
+    public ComandoContratarArtistaParaCancionX(ServicioConsulta sc, ServicioContratacion scontr, ServicioEntrenamiento servEntrenamiento){
+        if(sc == null || scontr == null || servEntrenamiento == null){
             throw new IllegalArgumentException("Ningun parametro puede ser nulo");
         }
         this.servC = sc;
         this.servContr = scontr;
+        this.servEntrenamiento = servEntrenamiento;
     } 
 
     private Cancion seleccionarCancion(Scanner scanner){
@@ -73,7 +78,9 @@ public class ComandoContratarArtistaParaCancionX implements Comando{
         }
 
         System.out.println("\n[*] Procesando contratacion de artistas...");
-        servContr.contratarArtistasParaCancion(cancion, servC.getRepositorioArtistas());
+        HashMap<Rol, Integer> rolesQueRequierenEntrenamiento = 
+            servContr.contratarArtistasParaCancion(cancion, servC.getRepositorioArtistas());
+        
         List<Contrato> contratos = servContr.getContratosPorCancion(cancion);
         
         System.out.println("\n" + "=".repeat(60));
@@ -88,6 +95,54 @@ public class ComandoContratarArtistaParaCancionX implements Comando{
                 System.out.println(contratos.get(i).toString());
             }
         }
+        
+        // Verificar si hay roles que requieren entrenamiento
+        if (rolesQueRequierenEntrenamiento != null && !rolesQueRequierenEntrenamiento.isEmpty()) {
+            System.out.println("\n" + "-".repeat(60));
+            System.out.println("           ROLES QUE REQUIEREN ENTRENAMIENTO");
+            System.out.println("-".repeat(60));
+            
+            for (Rol rol : rolesQueRequierenEntrenamiento.keySet()) {
+                int cantidad = rolesQueRequierenEntrenamiento.get(rol);
+                System.out.println(String.format("   [!] %s: %d artista(s) necesario(s)", rol.getNombre(), cantidad));
+            }
+            
+            System.out.println("\n   >> Debe entrenar artistas para estos roles antes de");
+            System.out.println("      poder completar la contratacion para esta cancion.");
+            
+            // Ofrecer entrenamiento
+            EntrenadorMasivo.entrenarRolesFaltantesParaCancion(rolesQueRequierenEntrenamiento, servC, servContr, servEntrenamiento, scanner);
+            
+            // Reintentar contratación después del entrenamiento
+            System.out.println("\n[*] Reintentando contratación para la canción tras entrenamientos...\n");
+            rolesQueRequierenEntrenamiento = servContr.contratarArtistasParaCancion(cancion, servC.getRepositorioArtistas());
+            
+            // Mostrar contratos actualizados
+            contratos = servContr.getContratosPorCancion(cancion);
+            System.out.println("\n" + "=".repeat(60));
+            System.out.println(String.format("        CONTRATOS ACTUALIZADOS PARA: %s", cancion.getTitulo()));
+            System.out.println("=".repeat(60));
+            
+            if (contratos.isEmpty()) {
+                System.out.println("   [!] No se realizaron contratos para esta canción.");
+            } else {
+                for (int i = 0; i < contratos.size(); i++) {
+                    System.out.println(String.format("\n   [Contrato #%d]", (i + 1)));
+                    System.out.println(contratos.get(i).toString());
+                }
+            }
+            
+            // Verificar si aún faltan roles
+            if (rolesQueRequierenEntrenamiento != null && !rolesQueRequierenEntrenamiento.isEmpty()) {
+                System.out.println("\n[!] Aún faltan roles por entrenar para completar la canción.");
+                System.out.println("   Regrese al menú para intentarlo nuevamente.");
+            } else if (rolesQueRequierenEntrenamiento == null) {
+                System.out.println("\n[OK] Todos los roles han sido cubiertos exitosamente tras el entrenamiento!");
+            }
+        } else if (rolesQueRequierenEntrenamiento == null) {
+            System.out.println("\n   [OK] Todos los roles han sido cubiertos exitosamente!");
+        }
+        
         System.out.println("\n" + "=".repeat(60));
     }
 

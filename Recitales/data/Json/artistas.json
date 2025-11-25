@@ -1,45 +1,135 @@
 [
   {
     "nombre": "Freddie Mercury",
-    "maxCanciones": 3,
-    "costo": 5000.0,
-    "roles": ["Voz", "Piano"],
-    "bandas": ["Queen"]
+    "roles": ["voz principal"],
+    "bandas": ["Queen"],
+    "costo": 0,
+    "maxCanciones": 100
   },
-  
   {
     "nombre": "Brian May",
-    "maxCanciones": 3,
-    "costo": 4500.0,
-    "roles": ["Guitarra", "Voz"],
-    "bandas": ["Queen"]
-  },
-  {
-    "nombre": "John Deacon",
-    "maxCanciones": 3,
-    "costo": 4000.0,
-    "roles": ["Bajo"],
-    "bandas": ["Queen"]
+    "roles": ["guitarra electrica"],
+    "bandas": ["Queen"],
+    "costo": 0,
+    "maxCanciones": 100
   },
   {
     "nombre": "Roger Taylor",
-    "maxCanciones": 3,
-    "costo": 4200.0,
-    "roles": ["Bateria", "Voz"],
-    "bandas": ["Queen"]
+    "roles": ["bateria"],
+    "bandas": ["Queen"],
+    "costo": 0,
+    "maxCanciones": 100
   },
   {
-    "nombre": "Jimi Hendrix",
-    "maxCanciones": 2,
-    "costo": 6000.0,
-    "roles": ["Guitarra", "Voz"],
-    "bandas": ["The Jimi Hendrix Experience"]
+    "nombre": "John Deacon",
+    "roles": ["bajo"],
+    "bandas": ["Queen"],
+    "costo": 0,
+    "maxCanciones": 100
   },
   {
-    "nombre": "Paul McCartney",
-    "maxCanciones": 4,
-    "costo": 5500.0,
-    "roles": ["Bajo", "Voz", "Piano"],
-    "bandas": ["The Beatles", "Wings"]
+    "nombre": "David Bowie",
+    "roles": ["voz principal", "guitarra electrica"],
+    "bandas": ["The Spiders from Mars"],
+    "costo": 1500,
+    "maxCanciones": 2
+  },
+  {
+    "nombre": "Prince",
+    "roles": ["voz principal", "guitarra electrica", "teclados"],
+    "bandas": ["The Revolution"],
+    "costo": 1600,
+    "maxCanciones": 2
+  },
+  {
+    "nombre": "Michael Jackson",
+    "roles": ["voz principal", "percusion"],
+    "bandas": ["The Jackson 5"],
+    "costo": 1800,
+    "maxCanciones": 1
+  },
+  {
+    "nombre": "Kurt Cobain",
+    "roles": ["voz principal", "guitarra electrica"],
+    "bandas": ["Nirvana"],
+    "costo": 800,
+    "maxCanciones": 3
+  },
+  {
+    "nombre": "Thom Yorke",
+    "roles": ["voz principal", "teclados"],
+    "bandas": ["Radiohead"],
+    "costo": 1150,
+    "maxCanciones": 2
+  },
+  {
+    "nombre": "Liam Gallagher",
+    "roles": ["voz principal"],
+    "bandas": ["Oasis"],
+    "costo": 950,
+    "maxCanciones": 3
+  },
+  {
+    "nombre": "Gwen Stefani",
+    "roles": ["voz principal"],
+    "bandas": ["No Doubt"],
+    "costo": 1100,
+    "maxCanciones": 3
+  },
+  {
+    "nombre": "Tom Dumont",
+    "roles": ["guitarra electrica"],
+    "bandas": ["No Doubt"],
+    "costo": 900,
+    "maxCanciones": 3
+  },
+  {
+    "nombre": "Tony Kanal",
+    "roles": ["bajo"],
+    "bandas": ["No Doubt"],
+    "costo": 950,
+    "maxCanciones": 3
+  },
+  {
+    "nombre": "Adrian Young",
+    "roles": ["bateria"],
+    "bandas": ["No Doubt"],
+    "costo": 880,
+    "maxCanciones": 3
+  },
+  {
+    "nombre": "Britney Spears",
+    "roles": ["voz principal", "coros"],
+    "bandas": [],
+    "costo": 2000,
+    "maxCanciones": 1
+  },
+  {
+    "nombre": "Fiona Apple",
+    "roles": ["voz principal", "teclados"],
+    "bandas": [],
+    "costo": 1800,
+    "maxCanciones": 2
+  },
+  {
+    "nombre": "Jean-Michel Jarre",
+    "roles": ["sintetizador", "teclados"],
+    "bandas": [],
+    "costo": 1400,
+    "maxCanciones": 3
+  },
+  {
+    "nombre": "Paul Rodgers",
+    "roles": ["voz principal"],
+    "bandas": ["Queen"],
+    "costo": 1500,
+    "maxCanciones": 2
+  },
+  {
+    "nombre": "Adam Lambert",
+    "roles": ["voz principal"],
+    "bandas": ["Queen"],
+    "costo": 1200,
+    "maxCanciones": 2
   }
 ]

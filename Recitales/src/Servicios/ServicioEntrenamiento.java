@@ -28,7 +28,7 @@ public class ServicioEntrenamiento {
         if(a.puedeTocarRol(rol.getNombre())){
             return "El artista ya posee el rol: " + rol.getNombre();
         }
-       artistaExterno.agregarRolEntrenado(rol, FACTOR_AUMENTO_HABILIDAD);
+        artistaExterno.agregarRolEntrenado(rol, FACTOR_AUMENTO_HABILIDAD);
 
          return "El artista " + a.getNombre() + " ha sido entrenado exitosamente en el rol: " + rol.getNombre();
     }

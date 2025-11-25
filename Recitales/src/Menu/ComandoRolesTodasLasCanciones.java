@@ -45,7 +45,7 @@ public class ComandoRolesTodasLasCanciones implements Comando {
 
     public void ejecutar() {
         HashMap<Cancion, HashMap<Rol,Integer>> todasLasCancionesRoles;
-        todasLasCancionesRoles = servC.calcularRolesFaltantesTodasLasCanciones(servContr);
+        todasLasCancionesRoles = servC.rolesFaltantesIncluyendoArtistasDisc(servContr);
         imprimirRolesFaltantes(todasLasCancionesRoles);
     }
 

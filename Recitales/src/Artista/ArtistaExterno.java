@@ -41,6 +41,22 @@ public class ArtistaExterno extends Artista {
         return false; 
     }
 
+    @Override
+    public Boolean puedeTocarRol(Rol rolBuscado){
+        Boolean puedeTocarRolHistorico = super.puedeTocarRol(rolBuscado);
+        
+        if(puedeTocarRolHistorico){
+            return true;
+        }
+        // Verificar en roles entrenados
+        for(Rol r: rolesEntrenados){
+            if(r.equals(rolBuscado)){
+                return true;
+            }
+        }
+        return false; 
+    }
+
     public synchronized boolean agregarRolEntrenado(Rol rol, double multiplicadorDeCosto){
 
         if(rol == null){
@@ -71,10 +87,7 @@ public class ArtistaExterno extends Artista {
     }
 
     public Boolean fueEntrenado(){
-        if(rolesEntrenados.isEmpty()){
-            return true;
-        }
-        return false; 
+        return !rolesEntrenados.isEmpty(); // Retorna true si tiene roles entrenados
     }
 
     public HashSet<Rol> getRolesEntrenados() {

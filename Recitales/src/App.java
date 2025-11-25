@@ -107,8 +107,8 @@ public class App {
 
             comandos.add(new ComandoRolesFaltantesPorCancion(servicioConsulta, servicioContratacion));
             comandos.add(new ComandoRolesTodasLasCanciones(servicioConsulta, servicioContratacion));
-            comandos.add(new ComandoContratarArtistaParaCancionX(servicioConsulta, servicioContratacion));
-            comandos.add(new ComandoContratarArtistas(servicioConsulta, servicioContratacion));
+            comandos.add(new ComandoContratarArtistaParaCancionX(servicioConsulta, servicioContratacion, servicioEntrenamiento));
+            comandos.add(new ComandoContratarArtistas(servicioConsulta, servicioContratacion, servicioEntrenamiento));
             comandos.add(new ComandoEntrenarArtista(servicioConsulta, servicioContratacion, servicioEntrenamiento));
             comandos.add(new ComandoListarArtistasContratados(servicioConsulta, servicioContratacion));
             comandos.add(new ComandoListarEstadoCancion(servicioConsulta, servicioContratacion));

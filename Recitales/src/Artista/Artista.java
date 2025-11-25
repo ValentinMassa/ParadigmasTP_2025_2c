@@ -103,7 +103,7 @@ public abstract class Artista {
     public void setCosto(double nuevoCosto){
         this.costo = nuevoCosto;
     }
-    public void set_CantCancionesAsignado(int nuevaCantidad){
+    public void setCantCancionesAsignado(int nuevaCantidad){
         this.cantCancionesAsignado = nuevaCantidad;
     }
 }

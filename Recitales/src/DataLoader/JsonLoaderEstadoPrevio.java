@@ -165,7 +165,7 @@ public class JsonLoaderEstadoPrevio {
                 
                 if (tipo.equals("DISCOGRAFICA")) {
                     ArtistaDiscografica artista = new ArtistaDiscografica(nombre, maxCanciones, costo);
-                    artista.set_CantCancionesAsignado(cancionesAsignadas);
+                    artista.setCantCancionesAsignado(cancionesAsignadas);
                     for (Rol rol : rolesHistoricos) {
                         artista.agregarRolHistorico(rol);
                     }
@@ -176,7 +176,7 @@ public class JsonLoaderEstadoPrevio {
                     
                 } else if (tipo.equals("EXTERNO")) {
                     ArtistaExterno artista = new ArtistaExterno(nombre, maxCanciones, costo);
-                    artista.set_CantCancionesAsignado(cancionesAsignadas);
+                    artista.setCantCancionesAsignado(cancionesAsignadas);
                     for (Rol rol : rolesHistoricos) {
                         artista.agregarRolHistorico(rol);
                     }

@@ -58,7 +58,7 @@ public class ServicioProlog {
     public ResultadoEntrenamiento calcularEntrenamientosConParametros(double costoBase) {
         // Paso 1: Calcular roles requeridos totales
         Map<Rol, Integer> rolesRequeridos = new HashMap<>();
-        Map<Cancion, Map<Rol, Integer>> rolesFaltantesPorCancion = (Map<Cancion, Map<Rol, Integer>>) (Map) servicioConsulta.calcularRolesFaltantesTodasLasCanciones(servC);
+        Map<Cancion, Map<Rol, Integer>> rolesFaltantesPorCancion = (Map<Cancion, Map<Rol, Integer>>) (Map) servicioConsulta.rolesFaltantesIncluyendoArtistasDisc(servC);
 
         int totalRolesRequeridos = 0;
         for(Map<Rol, Integer> rolesCancion : rolesFaltantesPorCancion.values()){

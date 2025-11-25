@@ -6,6 +6,7 @@ import java.util.Scanner;
 import java.io.IOException;
 
 import DataLoader.JsonLoaderEstadoPrevio;
+import Menu.Auxiliares.SelectorDeOpcion;
 import Servicios.ServicioConsulta;
 import Servicios.ServicioContratacion;
 

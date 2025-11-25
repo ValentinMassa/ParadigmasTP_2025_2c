@@ -1,4 +1,4 @@
-package Menu;
+package Menu.Auxiliares;
 
 import java.util.HashMap;
 import java.util.Scanner;

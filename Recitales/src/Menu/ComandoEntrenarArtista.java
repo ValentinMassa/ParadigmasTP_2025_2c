@@ -8,6 +8,8 @@ import Servicios.ServicioConsulta;
 import Servicios.ServicioContratacion;
 import Servicios.ServicioEntrenamiento;
 import Artista.Artista;
+import Menu.Auxiliares.SelectorArtistaEntrenable;
+import Menu.Auxiliares.SelectorDeOpcion;
 
 
 public class ComandoEntrenarArtista implements Comando {
@@ -24,23 +26,7 @@ public class ComandoEntrenarArtista implements Comando {
         this.servEntrenamiento = servEntrenamiento;
     } 
 
-    private Artista seleccionarArtista(Scanner scanner){
-        int cont = 1;
-        HashMap<Integer, Artista> mapaIndicesArtistas = new HashMap<>();
 
-        System.out.println("\n" + "-".repeat(60));
-        System.out.println("         ARTISTAS DISPONIBLES PARA ENTRENAR");
-        System.out.println("-".repeat(60));
-        for(Artista a : servC.getArtistasEntrenables()){
-            mapaIndicesArtistas.put(cont, a);
-            System.out.println(String.format("   [%d] %s", cont, a.getNombre()));
-            cont++;
-        }
-        System.out.println("-".repeat(60));
-
-        return SelectorDeOpcion.seleccionarDeLista(mapaIndicesArtistas, 
-            "\n>> Ingrese el numero del artista que desea entrenar o 'S' para salir: ", scanner);
-    }
 
     private Rol seleccionarRolAEntrenar(Artista artista, Scanner scanner){
         int cont = 1;
@@ -66,7 +52,7 @@ public class ComandoEntrenarArtista implements Comando {
 
     public void ejecutar() {
         Scanner scanner = new Scanner(System.in);
-        Artista a = seleccionarArtista(scanner);
+        Artista a = SelectorArtistaEntrenable.seleccionar(servC, servContr, scanner);
         if (a == null) return;
         
         Rol r = seleccionarRolAEntrenar(a, scanner);
