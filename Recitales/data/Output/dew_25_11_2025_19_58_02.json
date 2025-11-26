@@ -1,0 +1,121 @@
+{
+  "fechaExportacion": "Tue Nov 25 19:58:02 ART 2025",
+  "canciones": [
+    {
+      "nombre": "Criminal",
+      "contratos": [],
+      "rolesRequeridos": 5,
+      "rolesContratados": 0,
+      "rolesRestantes": 5,
+      "estadoCompleto": false,
+      "costoTotal": 0.0
+    },
+    {
+      "nombre": "Don\u0027t Speak",
+      "contratos": [],
+      "rolesRequeridos": 5,
+      "rolesContratados": 0,
+      "rolesRestantes": 5,
+      "estadoCompleto": false,
+      "costoTotal": 0.0
+    },
+    {
+      "nombre": "Billie Jean",
+      "contratos": [],
+      "rolesRequeridos": 4,
+      "rolesContratados": 0,
+      "rolesRestantes": 4,
+      "estadoCompleto": false,
+      "costoTotal": 0.0
+    },
+    {
+      "nombre": "Creep",
+      "contratos": [],
+      "rolesRequeridos": 4,
+      "rolesContratados": 0,
+      "rolesRestantes": 4,
+      "estadoCompleto": false,
+      "costoTotal": 0.0
+    },
+    {
+      "nombre": "Welcome to the Jungle",
+      "contratos": [],
+      "rolesRequeridos": 5,
+      "rolesContratados": 0,
+      "rolesRestantes": 5,
+      "estadoCompleto": false,
+      "costoTotal": 0.0
+    },
+    {
+      "nombre": "Under Pressure",
+      "contratos": [],
+      "rolesRequeridos": 4,
+      "rolesContratados": 0,
+      "rolesRestantes": 4,
+      "estadoCompleto": false,
+      "costoTotal": 0.0
+    },
+    {
+      "nombre": "Let\u0027s Dance",
+      "contratos": [],
+      "rolesRequeridos": 5,
+      "rolesContratados": 0,
+      "rolesRestantes": 5,
+      "estadoCompleto": false,
+      "costoTotal": 0.0
+    },
+    {
+      "nombre": "Hella Good",
+      "contratos": [],
+      "rolesRequeridos": 5,
+      "rolesContratados": 0,
+      "rolesRestantes": 5,
+      "estadoCompleto": false,
+      "costoTotal": 0.0
+    },
+    {
+      "nombre": "Smells Like Teen Spirit",
+      "contratos": [],
+      "rolesRequeridos": 4,
+      "rolesContratados": 0,
+      "rolesRestantes": 4,
+      "estadoCompleto": false,
+      "costoTotal": 0.0
+    },
+    {
+      "nombre": "Wonderwall",
+      "contratos": [],
+      "rolesRequeridos": 5,
+      "rolesContratados": 0,
+      "rolesRestantes": 5,
+      "estadoCompleto": false,
+      "costoTotal": 0.0
+    },
+    {
+      "nombre": "When Doves Cry",
+      "contratos": [],
+      "rolesRequeridos": 4,
+      "rolesContratados": 0,
+      "rolesRestantes": 4,
+      "estadoCompleto": false,
+      "costoTotal": 0.0
+    },
+    {
+      "nombre": "...Baby One More Time",
+      "contratos": [],
+      "rolesRequeridos": 6,
+      "rolesContratados": 0,
+      "rolesRestantes": 6,
+      "estadoCompleto": false,
+      "costoTotal": 0.0
+    }
+  ],
+  "totalizadores": {
+    "totalCanciones": 12,
+    "cancionesCompletas": 0,
+    "cancionesIncompletas": 12,
+    "porcentajeCompletitud": 0.0,
+    "totalContratos": 0,
+    "costoTotalRecital": 0.0
+  }
+}

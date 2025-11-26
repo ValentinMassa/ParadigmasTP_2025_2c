@@ -33,13 +33,40 @@ public class ServicioContratacion {
             return null; // Todos los roles están cubiertos
         }
 
-        for(ArtistaDiscografica artista : repo.getArtistasDiscografica()) {
-            Contrato contrato = posibleContrato(artista, cancion, rolesFaltantes);
-            if (contrato != null) {
+        // Contratar artistas de discográfica de forma determinista y priorizando roles con menos candidatos
+        HashMap<Rol, ArrayList<ArtistaDiscografica>> candidatosBasePorRol = new HashMap<>();
+        for (Rol rol : rolesFaltantes.keySet()) {
+            candidatosBasePorRol.put(rol, new ArrayList<ArtistaDiscografica>());
+        }
+        for (ArtistaDiscografica artista : repo.getArtistasDiscografica()) {
+            // verificar capacidad del artista
+            if (artista.getCantCancionesAsignadas() >= artista.getMaxCanciones()) continue;
+            for (Rol rol : rolesFaltantes.keySet()) {
+                if (rolesFaltantes.get(rol) > 0 && artista.puedeTocarRol(rol)) {
+                    candidatosBasePorRol.get(rol).add(artista);
+                }
+            }
+        }
+        // Ordenar roles por escasez de candidatos (menos candidatos primero)
+        List<Rol> rolesOrdenados = new ArrayList<>(rolesFaltantes.keySet());
+        rolesOrdenados.sort((r1, r2) -> Integer.compare(candidatosBasePorRol.get(r1).size(), candidatosBasePorRol.get(r2).size()));
+
+        HashSet<ArtistaDiscografica> artistasUsados = new HashSet<>();
+        for (Rol rol : rolesOrdenados) {
+            while (rolesFaltantes.get(rol) > 0) {
+                ArtistaDiscografica elegido = null;
+                for (ArtistaDiscografica candidato : candidatosBasePorRol.get(rol)) {
+                    if (artistasUsados.contains(candidato)) continue;
+                    if (candidato.getCantCancionesAsignadas() >= candidato.getMaxCanciones()) continue;
+                    elegido = candidato;
+                    break;
+                }
+                if (elegido == null) break;
+                Contrato contrato = new Contrato(cancion, rol, elegido, elegido.getCosto());
                 contratos.add(contrato);
-                Rol rolTomado = contrato.getRol();
-                rolesFaltantes.put(rolTomado, rolesFaltantes.get(rolTomado) - 1);
-                artista.setCantCancionesAsignado(artista.getCantCancionesAsignadas() + 1);
+                rolesFaltantes.put(rol, rolesFaltantes.get(rol) - 1);
+                elegido.setCantCancionesAsignado(elegido.getCantCancionesAsignadas() + 1);
+                artistasUsados.add(elegido);
             }
         }
         // Contratación para roles faltantes con artistas externos

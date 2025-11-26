@@ -372,17 +372,18 @@ Asegurarse de que existan los archivos en `data/Json/`:
 
 ### Ejecución del Programa
 
-#### Opción 1: Script PowerShell (Recomendado para Windows)
+#### Opción Recomendada: Launcher Unificado (PowerShell)
 ```powershell
-.\run.ps1
+# Desde el directorio Recitales/
+.\scripts\launcher.ps1
 ```
 
-#### Opción 2: Script Batch (Alternativo para Windows)
-```batch
-run.bat
-```
+El launcher unificado ofrece un menú interactivo para elegir entre:
+- **Ejecutar programa**: Compila y ejecuta la aplicación completa
+- **Ejecutar pruebas**: Compila fuentes y tests, luego ejecuta las pruebas con JUnit
 
-#### Opción 3: Ejecución Manual
+#### Opción Manual (Solo para desarrollo avanzado)
+
 ```bash
 # Compilar
 javac -cp "src/libs/gson-2.13.1.jar;src/libs/jpl.jar" -d bin -encoding UTF-8 src\*.java src\Artista\*.java src\DataExport\*.java src\DataLoader\*.java src\Menu\*.java src\Recital\*.java src\Repositorios\*.java src\Servicios\*.java
@@ -520,6 +521,12 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
 - **Nuevo Formatos**: Agregar adapters para YAML, CSV, etc.
 - **Nuevos Roles**: Extensibles sin modificar código existente
 - **Integraciones**: Posible agregar otras tecnologías de razonamiento
+
+### Simplificación del Proyecto (2025)
+- **Launcher Unificado**: Desde noviembre 2025, se recomienda usar únicamente `scripts/launcher.ps1` para todas las operaciones
+- **Scripts Obsoletos Completamente Eliminados**: Todos los scripts anteriores (`run.ps1`, `ejecutar-tests-completo.ps1`, `run-with-prolog.ps1`, `EjecutarMain.bat`, `config.ps1`, etc.) han sido eliminados del proyecto para mantenerlo limpio y simple
+- **Rutas Portables**: El launcher usa rutas relativas para máxima portabilidad
+- **Configuración Centralizada**: Toda la configuración está integrada en el launcher
 
 ## 🧪 Pruebas y Validación
 
