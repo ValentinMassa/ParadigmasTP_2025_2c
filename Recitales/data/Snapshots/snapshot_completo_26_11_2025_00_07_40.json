@@ -1,0 +1,452 @@
+{
+  "fechaExportacion": "26/11/2025 00:07:40",
+  "timestampExportacion": "1764126460889",
+  "recital": {
+    "canciones": [
+      {
+        "titulo": "Criminal",
+        "rolesRequeridos": {
+          "bateria": 1,
+          "voz principal": 1,
+          "bajo": 1,
+          "teclados": 1,
+          "guitarra acustica": 1
+        }
+      },
+      {
+        "titulo": "Don\u0027t Speak",
+        "rolesRequeridos": {
+          "bateria": 1,
+          "guitarra electrica": 1,
+          "voz principal": 1,
+          "bajo": 1,
+          "teclados": 1
+        }
+      },
+      {
+        "titulo": "Billie Jean",
+        "rolesRequeridos": {
+          "bateria": 1,
+          "voz principal": 2,
+          "bajo": 1,
+          "teclados": 1
+        }
+      },
+      {
+        "titulo": "Creep",
+        "rolesRequeridos": {
+          "bateria": 1,
+          "guitarra electrica": 1,
+          "voz principal": 1,
+          "bajo": 1
+        }
+      },
+      {
+        "titulo": "Welcome to the Jungle",
+        "rolesRequeridos": {
+          "bateria": 2,
+          "guitarra electrica": 2,
+          "voz principal": 1,
+          "bajo": 1,
+          "teclados": 1
+        }
+      },
+      {
+        "titulo": "Under Pressure",
+        "rolesRequeridos": {
+          "bateria": 1,
+          "voz principal": 1,
+          "bajo": 1,
+          "teclados": 1
+        }
+      },
+      {
+        "titulo": "Let\u0027s Dance",
+        "rolesRequeridos": {
+          "bateria": 1,
+          "guitarra electrica": 2,
+          "voz principal": 1,
+          "bajo": 1,
+          "teclados": 1
+        }
+      },
+      {
+        "titulo": "Hella Good",
+        "rolesRequeridos": {
+          "bateria": 1,
+          "guitarra electrica": 1,
+          "voz principal": 1,
+          "bajo": 1,
+          "teclados": 1
+        }
+      },
+      {
+        "titulo": "Smells Like Teen Spirit",
+        "rolesRequeridos": {
+          "bateria": 1,
+          "guitarra electrica": 2,
+          "voz principal": 1,
+          "bajo": 1
+        }
+      },
+      {
+        "titulo": "Wonderwall",
+        "rolesRequeridos": {
+          "percusion": 1,
+          "bateria": 1,
+          "guitarra electrica": 1,
+          "voz principal": 2,
+          "bajo": 1
+        }
+      },
+      {
+        "titulo": "When Doves Cry",
+        "rolesRequeridos": {
+          "percusion": 1,
+          "guitarra electrica": 1,
+          "voz principal": 1,
+          "teclados": 1
+        }
+      },
+      {
+        "titulo": "...Baby One More Time",
+        "rolesRequeridos": {
+          "bateria": 1,
+          "guitarra electrica": 1,
+          "voz principal": 1,
+          "bajo": 1,
+          "teclados": 1,
+          "coros": 2
+        }
+      }
+    ],
+    "totalCanciones": 12
+  },
+  "artistas": [
+    {
+      "nombre": "Brian May",
+      "tipo": "DISCOGRAFICA",
+      "costo": 0.0,
+      "maxCanciones": 100,
+      "cancionesAsignadas": 0,
+      "rolesHistoricos": [
+        "guitarra electrica"
+      ],
+      "rolesEntrenados": [],
+      "bandasHistoricas": [
+        "Queen"
+      ]
+    },
+    {
+      "nombre": "John Deacon",
+      "tipo": "DISCOGRAFICA",
+      "costo": 0.0,
+      "maxCanciones": 100,
+      "cancionesAsignadas": 0,
+      "rolesHistoricos": [
+        "bajo"
+      ],
+      "rolesEntrenados": [],
+      "bandasHistoricas": [
+        "Queen"
+      ]
+    },
+    {
+      "nombre": "Roger Taylor",
+      "tipo": "DISCOGRAFICA",
+      "costo": 0.0,
+      "maxCanciones": 100,
+      "cancionesAsignadas": 0,
+      "rolesHistoricos": [
+        "bateria"
+      ],
+      "rolesEntrenados": [],
+      "bandasHistoricas": [
+        "Queen"
+      ]
+    },
+    {
+      "nombre": "Freddie Mercury",
+      "tipo": "DISCOGRAFICA",
+      "costo": 0.0,
+      "maxCanciones": 100,
+      "cancionesAsignadas": 0,
+      "rolesHistoricos": [
+        "voz principal"
+      ],
+      "rolesEntrenados": [],
+      "bandasHistoricas": [
+        "Queen"
+      ]
+    },
+    {
+      "nombre": "Liam Gallagher",
+      "tipo": "EXTERNO",
+      "costo": 950.0,
+      "maxCanciones": 3,
+      "cancionesAsignadas": 0,
+      "rolesHistoricos": [
+        "voz principal"
+      ],
+      "rolesEntrenados": [],
+      "bandasHistoricas": [
+        "Oasis"
+      ]
+    },
+    {
+      "nombre": "Tom Dumont",
+      "tipo": "EXTERNO",
+      "costo": 900.0,
+      "maxCanciones": 3,
+      "cancionesAsignadas": 0,
+      "rolesHistoricos": [
+        "guitarra electrica"
+      ],
+      "rolesEntrenados": [],
+      "bandasHistoricas": [
+        "No Doubt"
+      ]
+    },
+    {
+      "nombre": "David Bowie",
+      "tipo": "EXTERNO",
+      "costo": 1500.0,
+      "maxCanciones": 2,
+      "cancionesAsignadas": 0,
+      "rolesHistoricos": [
+        "guitarra electrica",
+        "voz principal"
+      ],
+      "rolesEntrenados": [],
+      "bandasHistoricas": [
+        "The Spiders from Mars"
+      ]
+    },
+    {
+      "nombre": "Britney Spears",
+      "tipo": "EXTERNO",
+      "costo": 2000.0,
+      "maxCanciones": 1,
+      "cancionesAsignadas": 0,
+      "rolesHistoricos": [
+        "voz principal",
+        "coros"
+      ],
+      "rolesEntrenados": [],
+      "bandasHistoricas": []
+    },
+    {
+      "nombre": "Kurt Cobain",
+      "tipo": "EXTERNO",
+      "costo": 800.0,
+      "maxCanciones": 3,
+      "cancionesAsignadas": 0,
+      "rolesHistoricos": [
+        "guitarra electrica",
+        "voz principal"
+      ],
+      "rolesEntrenados": [],
+      "bandasHistoricas": [
+        "Nirvana"
+      ]
+    },
+    {
+      "nombre": "Jean-Michel Jarre",
+      "tipo": "EXTERNO",
+      "costo": 1400.0,
+      "maxCanciones": 3,
+      "cancionesAsignadas": 0,
+      "rolesHistoricos": [
+        "sintetizador",
+        "teclados"
+      ],
+      "rolesEntrenados": [],
+      "bandasHistoricas": []
+    },
+    {
+      "nombre": "Fiona Apple",
+      "tipo": "EXTERNO",
+      "costo": 1800.0,
+      "maxCanciones": 2,
+      "cancionesAsignadas": 0,
+      "rolesHistoricos": [
+        "voz principal",
+        "teclados"
+      ],
+      "rolesEntrenados": [],
+      "bandasHistoricas": []
+    },
+    {
+      "nombre": "Paul Rodgers",
+      "tipo": "EXTERNO",
+      "costo": 1500.0,
+      "maxCanciones": 2,
+      "cancionesAsignadas": 0,
+      "rolesHistoricos": [
+        "voz principal"
+      ],
+      "rolesEntrenados": [],
+      "bandasHistoricas": [
+        "Queen"
+      ]
+    },
+    {
+      "nombre": "Michael Jackson",
+      "tipo": "EXTERNO",
+      "costo": 1800.0,
+      "maxCanciones": 1,
+      "cancionesAsignadas": 0,
+      "rolesHistoricos": [
+        "percusion",
+        "voz principal"
+      ],
+      "rolesEntrenados": [],
+      "bandasHistoricas": [
+        "The Jackson 5"
+      ]
+    },
+    {
+      "nombre": "Tony Kanal",
+      "tipo": "EXTERNO",
+      "costo": 950.0,
+      "maxCanciones": 3,
+      "cancionesAsignadas": 0,
+      "rolesHistoricos": [
+        "bajo"
+      ],
+      "rolesEntrenados": [],
+      "bandasHistoricas": [
+        "No Doubt"
+      ]
+    },
+    {
+      "nombre": "Adam Lambert",
+      "tipo": "EXTERNO",
+      "costo": 1200.0,
+      "maxCanciones": 2,
+      "cancionesAsignadas": 0,
+      "rolesHistoricos": [
+        "voz principal"
+      ],
+      "rolesEntrenados": [],
+      "bandasHistoricas": [
+        "Queen"
+      ]
+    },
+    {
+      "nombre": "Adrian Young",
+      "tipo": "EXTERNO",
+      "costo": 880.0,
+      "maxCanciones": 3,
+      "cancionesAsignadas": 0,
+      "rolesHistoricos": [
+        "bateria"
+      ],
+      "rolesEntrenados": [],
+      "bandasHistoricas": [
+        "No Doubt"
+      ]
+    },
+    {
+      "nombre": "Thom Yorke",
+      "tipo": "EXTERNO",
+      "costo": 1150.0,
+      "maxCanciones": 2,
+      "cancionesAsignadas": 0,
+      "rolesHistoricos": [
+        "voz principal",
+        "teclados"
+      ],
+      "rolesEntrenados": [],
+      "bandasHistoricas": [
+        "Radiohead"
+      ]
+    },
+    {
+      "nombre": "Gwen Stefani",
+      "tipo": "EXTERNO",
+      "costo": 1100.0,
+      "maxCanciones": 3,
+      "cancionesAsignadas": 0,
+      "rolesHistoricos": [
+        "voz principal"
+      ],
+      "rolesEntrenados": [],
+      "bandasHistoricas": [
+        "No Doubt"
+      ]
+    },
+    {
+      "nombre": "Prince",
+      "tipo": "EXTERNO",
+      "costo": 1600.0,
+      "maxCanciones": 2,
+      "cancionesAsignadas": 0,
+      "rolesHistoricos": [
+        "guitarra electrica",
+        "voz principal",
+        "teclados"
+      ],
+      "rolesEntrenados": [],
+      "bandasHistoricas": [
+        "The Revolution"
+      ]
+    }
+  ],
+  "bandas": [
+    {
+      "nombre": "No Doubt"
+    },
+    {
+      "nombre": "Nirvana"
+    },
+    {
+      "nombre": "Queen"
+    },
+    {
+      "nombre": "The Revolution"
+    },
+    {
+      "nombre": "Oasis"
+    },
+    {
+      "nombre": "The Spiders from Mars"
+    },
+    {
+      "nombre": "The Jackson 5"
+    },
+    {
+      "nombre": "Radiohead"
+    }
+  ],
+  "roles": [
+    {
+      "nombre": "percusion"
+    },
+    {
+      "nombre": "bateria"
+    },
+    {
+      "nombre": "sintetizador"
+    },
+    {
+      "nombre": "guitarra electrica"
+    },
+    {
+      "nombre": "voz principal"
+    },
+    {
+      "nombre": "bajo"
+    },
+    {
+      "nombre": "teclados"
+    },
+    {
+      "nombre": "coros"
+    },
+    {
+      "nombre": "guitarra acustica"
+    }
+  ],
+  "contratos": []
+}
