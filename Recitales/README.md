@@ -11,9 +11,23 @@ Proyecto de gestión y optimización de contratación de artistas para recitales
 
 ---
 
-## Resumen
+## Funcionalidades destacadas
 
-Este proyecto propone un sistema para planificar y optimizar la contratación de artistas externos para un recital, respetando roles musicales, límites de participación, colaboraciones históricas y restricciones presupuestarias. Integra Java (POO) con SWI‑Prolog (JPL) para delegar tareas de inferencia declarativa.
+### Gestión de Snapshots y Carga de Estado Previo
+
+El sistema incluye funcionalidades avanzadas para guardar y restaurar el estado completo del recital, permitiendo una experiencia de usuario fluida y segura.
+
+- **Hacer Snapshot Completo**: Permite guardar el estado actual del recital (artistas contratados, contratos activos, estadísticas, etc.) en un archivo JSON. Los snapshots se almacenan automáticamente en la carpeta `data/Snapshots/` con un nombre que incluye fecha y hora (ej: `snapshot_completo_25_11_2025_14_30_15.json`). Esta funcionalidad es útil para:
+  - Crear puntos de respaldo antes de realizar cambios masivos.
+  - Compartir estados entre sesiones de desarrollo.
+  - Recuperarse de errores o experimentos fallidos.
+
+- **Cargar Estado Previo**: Permite seleccionar y cargar un snapshot guardado previamente desde `data/Snapshots/`. Al cargar un snapshot, el sistema restaura completamente el estado del recital, incluyendo repositorios de artistas, contratos y estadísticas. Esto es ideal para:
+  - Continuar trabajando desde un estado específico.
+  - Probar escenarios alternativos sin perder progreso.
+  - Recuperar datos después de un cierre inesperado.
+
+**Nota**: Los archivos de salida del sistema (como exportaciones finales del recital) se guardan en `data/Output/`. Asegúrate de que estas carpetas existan o sean creadas automáticamente por el sistema.
 
 ---
 
@@ -143,6 +157,52 @@ scripts\EjecutarMain.bat
 - Ajustar nivel de compilador si corresponde: `Project → Properties → Java Compiler → Compiler compliance level = 21` (o la versión que uses).
 
 Notas: si Eclipse no encuentra `jpl.dll` / `libswipl.dll`, verificar que la carpeta `bin` de SWI esté en `PATH` y que `-Djava.library.path` apunte a esa carpeta.
+
+---
+
+## Guía paso a paso para ejecutar el programa
+
+Sigue estos pasos para ejecutar el sistema de gestión de recitales desde cero. Asegúrate de tener JDK instalado y, opcionalmente, SWI-Prolog para funcionalidades avanzadas.
+
+### Paso 1: Preparar el entorno
+1. Abre una terminal (PowerShell o CMD) en Windows.
+2. Navega al directorio del proyecto:
+   ```bash
+   cd C:\Users\[TuUsuario]\Desktop\TODO_VALEN\REPOSITORIO_GITHUB\ParadigmasTP_2025_2c\Recitales
+   ```
+   (Reemplaza `[TuUsuario]` con tu nombre de usuario real).
+
+### Paso 2: Ejecutar el programa
+1. Una vez en el directorio `Recitales`, ejecuta el script de lanzamiento:
+   - **Opción recomendada (con Prolog)**: 
+     ```powershell
+     .\scripts\launcher.ps1
+     ```
+     Esto compila el proyecto, configura SWI-Prolog si está disponible, y ejecuta la aplicación.
+   
+   - **Opción alternativa (sin Prolog)**:
+     ```batch
+     scripts\EjecutarMain.bat
+     ```
+     Compila y ejecuta sin configuración adicional de Prolog.
+
+2. Si es la primera ejecución, el script descargará dependencias automáticamente si es necesario.
+
+### Paso 3: Interactuar con el programa
+1. El programa mostrará un menú principal con opciones numeradas.
+2. Selecciona la opción deseada escribiendo el número correspondiente y presionando Enter.
+3. Para funcionalidades como "Hacer Snapshot" o "Cargar Estado Previo", los archivos se guardarán/cargarán automáticamente desde `data/Snapshots/` y `data/Output/`.
+4. Para salir, selecciona la opción de salida en el menú (generalmente la última opción).
+
+### Paso 4: Verificar resultados
+- Los snapshots se guardan en `data/Snapshots/` (archivos JSON con timestamp).
+- Las salidas finales se guardan en `data/Output/` (archivos JSON de exportación).
+- Si usas Prolog, asegúrate de que SWI-Prolog esté instalado para cálculos de entrenamientos.
+
+### Notas importantes
+- Si encuentras errores de "ruta no encontrada", verifica que estés ejecutando desde el directorio `Recitales`.
+- Para SWI-Prolog, instala desde https://www.swi-prolog.org/download/stable y reinicia la terminal.
+- Los tests se pueden ejecutar con `.\scripts\launcher.ps1` seleccionando la opción 2.
 
 ---
 

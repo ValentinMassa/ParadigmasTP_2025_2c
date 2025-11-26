@@ -12,13 +12,15 @@ import Recital.Rol;
 public class ComandoProlog implements Comando{
     private ServicioConsulta servC;
     private ServicioContratacion servicioContratacion;
+    private String baseDir;
 
-    public ComandoProlog(ServicioConsulta sc, ServicioContratacion servicioContratacion){
-        if(sc == null || servicioContratacion == null){
+    public ComandoProlog(ServicioConsulta sc, ServicioContratacion servicioContratacion, String baseDir){
+        if(sc == null || servicioContratacion == null || baseDir == null){
             throw new IllegalArgumentException("Ningun parametro puede ser nulo");
         }
         this.servC = sc;
         this.servicioContratacion = servicioContratacion;
+        this.baseDir = baseDir;
     }
 
     private double solicitarCostoBase(Scanner scanner) {
@@ -89,7 +91,7 @@ public class ComandoProlog implements Comando{
         System.out.println("\n[*] Calculando entrenamientos con Prolog...");
         
         try {
-            ServicioProlog servicioProlog = new ServicioProlog(servC, servicioContratacion);
+            ServicioProlog servicioProlog = new ServicioProlog(servC, servicioContratacion, baseDir);
             ResultadoEntrenamiento resultado = servicioProlog.calcularEntrenamientosConParametros(costoBase);
             
             imprimirResultados(resultado);

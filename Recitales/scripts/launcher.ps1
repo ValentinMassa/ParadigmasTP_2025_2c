@@ -128,7 +128,7 @@ function Run-Tests {
          -jar "$PSScriptRoot\..\src\libs\junit-platform-console-standalone-1.10.1.jar" `
          --class-path "$PSScriptRoot\..\bin;$PSScriptRoot\..\src\libs\gson-2.13.1.jar;$global:JPL_JAR" `
          --scan-class-path `
-         --details=summary
+         --details=verbose
 }
 
 # Menú principal

@@ -8,18 +8,20 @@ public class ComandoHacerSnapshot implements Comando {
      
     private ServicioConsulta servC;
     private ServicioContratacion servContr;
-    private static final String RUTA_CARPETA_OUTPUT = "data/Snapshots";
+    private String baseDir;
     
     public ComandoHacerSnapshot(
             ServicioConsulta servC,
-            ServicioContratacion servContr) {
+            ServicioContratacion servContr,
+            String baseDir) {
         
-        if(servC == null || servContr == null) {
+        if(servC == null || servContr == null || baseDir == null) {
             throw new IllegalArgumentException("Ningun parametro puede ser nulo");
         }
         
         this.servC = servC;
         this.servContr = servContr;
+        this.baseDir = baseDir;
     } 
 
     public void ejecutar() {
@@ -29,7 +31,7 @@ public class ComandoHacerSnapshot implements Comando {
         System.out.println("\n[*] Generando snapshot completo del estado actual...\n");
         
         try {
-            String rutaArchivo = ExportadorSnapshotCompleto.generarRutaConTimestamp(RUTA_CARPETA_OUTPUT);
+            String rutaArchivo = ExportadorSnapshotCompleto.generarRutaConTimestamp(baseDir + "/data/Snapshots");
             
             // Crear exportador y generar snapshot
             ExportadorSnapshotCompleto exportador = new ExportadorSnapshotCompleto();

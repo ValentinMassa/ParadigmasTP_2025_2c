@@ -20,6 +20,8 @@ import Servicios.ServicioEntrenamiento;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.io.File;
+import java.net.URISyntaxException;
 
 import DataExport.ExportadorRecital;
 import Menu.ComandoHacerSnapshot;
@@ -66,9 +68,16 @@ public class App {
 
     public static void main(String[] args) {
         try (Scanner scanner = new Scanner(System.in)) {
-            String baseDir = System.getProperty("user.dir");
-            if (!baseDir.endsWith("Recitales")) {
-                baseDir = baseDir + "/Recitales";
+            String baseDir;
+            try {
+                File jarFile = new File(App.class.getProtectionDomain().getCodeSource().getLocation().toURI());
+                File binDir = jarFile.isDirectory() ? jarFile : jarFile.getParentFile();
+                baseDir = binDir.getParent();
+            } catch (URISyntaxException e) {
+                baseDir = System.getProperty("user.dir");
+                if (!baseDir.endsWith("Recitales")) {
+                    baseDir = baseDir + "/Recitales";
+                }
             }
             
             ICargarRecital adapter = seleccionarAdaptador(baseDir, scanner);
@@ -111,11 +120,11 @@ public class App {
             comandos.add(new ComandoEntrenarArtista(servicioConsulta, servicioContratacion, servicioEntrenamiento));
             comandos.add(new ComandoListarArtistasContratados(servicioConsulta, servicioContratacion));
             comandos.add(new ComandoListarEstadoCancion(servicioConsulta, servicioContratacion));
-            comandos.add(new ComandoProlog(servicioConsulta, servicioContratacion));
+            comandos.add(new ComandoProlog(servicioConsulta, servicioContratacion, baseDir));
             
             comandos.add(new ComandoArrepentimiento(servicioConsulta, servicioContratacion));
-            comandos.add(new ComandoHacerSnapshot(servicioConsulta,servicioContratacion));
-            comandos.add(new ComandoCargarEstadoPrevio(servicioConsulta, servicioContratacion));
+            comandos.add(new ComandoHacerSnapshot(servicioConsulta,servicioContratacion, baseDir));
+            comandos.add(new ComandoCargarEstadoPrevio(servicioConsulta, servicioContratacion, baseDir));
             comandos.add(new ComandoHistorialDeColaboraciones(servicioConsulta, servicioContratacion));
             
             

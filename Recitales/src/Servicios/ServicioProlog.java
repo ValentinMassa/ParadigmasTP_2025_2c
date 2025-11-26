@@ -18,7 +18,7 @@ import org.jpl7.Term;
 public class ServicioProlog {
     private ServicioConsulta servicioConsulta;
     private ServicioContratacion servC;
-    private final String RUTA_PROLOG = System.getProperty("user.dir") + File.separator + "Prolog" + File.separator + "entrenamientos.pl";
+    private final String RUTA_PROLOG;
 
     public static class ResultadoEntrenamiento {
         private int entrenamientosMinimos;
@@ -45,12 +45,13 @@ public class ServicioProlog {
         public Map<Cancion, Map<Rol, Integer>> getRolesFaltantesPorCancion() { return rolesFaltantesPorCancion; }
     }
 
-    public ServicioProlog(ServicioConsulta servicioConsulta, ServicioContratacion servC) {
-        if(servicioConsulta == null || servC == null){
+    public ServicioProlog(ServicioConsulta servicioConsulta, ServicioContratacion servC, String baseDir) {
+        if(servicioConsulta == null || servC == null || baseDir == null){
             throw new IllegalArgumentException("Ningun parametro puede ser nulo");
         }   
         this.servicioConsulta = servicioConsulta;
         this.servC = servC;
+        this.RUTA_PROLOG = baseDir + File.separator + "Prolog" + File.separator + "entrenamientos.pl";
         JPL.init();
     }
 

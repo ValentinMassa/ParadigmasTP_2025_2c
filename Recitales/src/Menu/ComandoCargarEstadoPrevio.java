@@ -15,15 +15,16 @@ public class ComandoCargarEstadoPrevio implements Comando {
     private ServicioConsulta servicioConsulta;
     private ServicioContratacion servicioContratacion;
     private JsonLoaderEstadoPrevio.SnapshotCompleto snapshotCargado;
-    private static final String RUTA_CARPETA_SNAPSHOTS = "data/Snapshots";
+    private String baseDir;
     
-    public ComandoCargarEstadoPrevio(ServicioConsulta servicioConsulta, ServicioContratacion servicioContratacion){
-        if(servicioConsulta == null || servicioContratacion == null){
+    public ComandoCargarEstadoPrevio(ServicioConsulta servicioConsulta, ServicioContratacion servicioContratacion, String baseDir){
+        if(servicioConsulta == null || servicioContratacion == null || baseDir == null){
             throw new IllegalArgumentException("ServicioConsulta no puede ser nulo");
         }
         this.servicioConsulta = servicioConsulta;
         this.snapshotCargado = null;
         this.servicioContratacion = servicioContratacion;
+        this.baseDir = baseDir;
     } 
 
     public void ejecutar() {
@@ -35,7 +36,7 @@ public class ComandoCargarEstadoPrevio implements Comando {
         System.out.println("=".repeat(60));
         System.out.println("\nListando snapshots disponibles...\n");
         
-        List<String> archivos = JsonLoaderEstadoPrevio.listarArchivosEstadoPrevio(RUTA_CARPETA_SNAPSHOTS);
+        List<String> archivos = JsonLoaderEstadoPrevio.listarArchivosEstadoPrevio(baseDir + "/data/Snapshots");
         
         if (archivos.isEmpty()) {
             System.out.println("[!] No se encontraron archivos de snapshot en la carpeta Snapshots.");
@@ -64,7 +65,7 @@ public class ComandoCargarEstadoPrevio implements Comando {
             return;
         }
         
-        String rutaCompleta = RUTA_CARPETA_SNAPSHOTS + "/" + archivoSeleccionado;
+        String rutaCompleta = baseDir + "/data/Snapshots/" + archivoSeleccionado;
         
         // Cargar el snapshot completo
         System.out.println("\n[*] Cargando snapshot desde: " + archivoSeleccionado);
