@@ -118,7 +118,7 @@ public class ServicioProlog {
             System.err.println("Error al limpiar hechos Prolog: " + e.getMessage());
         }
 
-        // Asentar roles requeridos
+        // Poner roles requeridos
         for (Map.Entry<Rol, Integer> entry : rolesRequeridos.entrySet()) {
             String rol = entry.getKey().getNombre().toLowerCase();
             int cantidad = entry.getValue();
