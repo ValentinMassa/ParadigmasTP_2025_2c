@@ -36,7 +36,7 @@ echo [OK] JDK encontrado
 REM Detectar SWI-Prolog
 set "SWIPL_HOME="
 set "SWIPL_BIN="
-set "JPL_JAR=src/libs/jpl.jar"
+set "JPL_JAR=Recitales\src\libs\jpl.jar"
 
 for %%d in ("C:\Program Files\swipl" "C:\Program Files (x86)\swipl" "%LOCALAPPDATA%\Programs\swipl" "%~dp0swipl") do (
     if exist "%%~d\bin\jpl.dll" (
@@ -61,8 +61,8 @@ if defined SWIPL_HOME (
 )
 
 REM Verificar librerias JAR
-if not exist "src/libs/gson-2.13.1.jar" (
-    echo [ERROR] gson-2.13.1.jar no encontrado en src/libs/
+if not exist "Recitales\src\libs\gson-2.13.1.jar" (
+    echo [ERROR] gson-2.13.1.jar no encontrado en Recitales\src\libs\
     echo.
     echo Descarga gson desde: https://github.com/google/gson/releases
     echo.
@@ -76,7 +76,7 @@ if not exist "%JPL_JAR%" (
     if defined SWIPL_HOME (
         echo Buscado en: !SWIPL_HOME!\lib\jpl.jar
     ) else (
-        echo Buscado en: src/libs/jpl.jar
+        echo Buscado en: Recitales\src\libs\jpl.jar
     )
     echo.
     pause
@@ -92,21 +92,24 @@ echo ========================================
 echo.
 
 REM Limpiar compilaciones anteriores
-if exist bin rmdir /s /q bin >nul 2>&1
-mkdir bin
+if exist Recitales\bin rmdir /s /q Recitales\bin >nul 2>&1
+mkdir Recitales\bin
 
 REM Compilar recursivamente
-for /r "src" %%f in (*.java) do (
-    javac -cp "src/libs/gson-2.13.1.jar;%JPL_JAR%" -d bin -encoding UTF-8 "%%f"
-    if !errorlevel! neq 0 goto compile_error
+for /r "Recitales\src" %%f in (*.java) do (
+    echo %%f | findstr /i "\\test\\" >nul
+    if !errorlevel! neq 0 (
+        javac -cp "Recitales\src\libs\gson-2.13.1.jar;%JPL_JAR%" -d Recitales\bin -encoding UTF-8 "%%f"
+        if !errorlevel! neq 0 goto compile_error
+    )
 )
 
 echo.
 echo [OK] Compilacion exitosa
 
 REM Copiar archivos Prolog si existen
-if exist "src\ArchivosImport" (
-    xcopy "src\ArchivosImport" "bin\ArchivosImport\" /s /i /q >nul 2>&1
+if exist "Recitales\src\ArchivosImport" (
+    xcopy "Recitales\src\ArchivosImport" "Recitales\bin\ArchivosImport\" /s /i /q >nul 2>&1
 )
 
 echo.
@@ -122,7 +125,7 @@ if defined SWIPL_BIN (
 )
 
 REM Ejecutar
-java %JAVA_OPTS% --enable-native-access=ALL-UNNAMED -cp "bin;src/libs/gson-2.13.1.jar;%JPL_JAR%" App
+java %JAVA_OPTS% --enable-native-access=ALL-UNNAMED -cp "Recitales\bin;Recitales\src\libs\gson-2.13.1.jar;%JPL_JAR%" App
 
 echo.
 echo ========================================

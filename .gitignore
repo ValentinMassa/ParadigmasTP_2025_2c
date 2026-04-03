@@ -39,7 +39,8 @@ Recitales/.project
 .mtj.tmp/
 
 # Package Files #
-*.jar`n!Recitales/src/libs/*.jar
+*.jar
+!Recitales/src/libs/*.jar
 *.war
 *.nar
 *.ear
@@ -135,7 +136,8 @@ local.properties
 .mtj.tmp/
 
 # Package Files #
-*.jar`n!Recitales/src/libs/*.jar
+*.jar
+!Recitales/src/libs/*.jar
 !gson-2.13.1.jar
 !jpl.jar
 *.war
